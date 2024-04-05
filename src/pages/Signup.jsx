@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import UserMain from '../pages/UserMain';
+import UserMain from '../components/UserMain';
 import googleIcon from '../assets/icons/googleIcon.svg';
 
 function Signup(){
@@ -40,19 +40,19 @@ function Signup(){
         <UserMain>
             <form className="flex flex-col w-64 gap-4" action="">
                 <div className='w-full'>
-                    <label for="username" className='text-black font-semibold tracking-tighter opacity-70'>Username</label>
+                    <label htmlFor="username" className='text-black font-semibold tracking-tighter opacity-70'>Username</label>
                     <input id="username" className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="text"/>
                 </div>
                 <div className='w-full'>
-                    <label for="email" className='text-black font-semibold tracking-tighter opacity-70'>Email</label>
+                    <label htmlFor="email" className='text-black font-semibold tracking-tighter opacity-70'>Email</label>
                     <input id="email" className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="text"/>
                 </div>
                 <div className='w-full'>
-                    <label for="password" className='text-black font-semibold tracking-tighter opacity-70'>Password</label>
+                    <label htmlFor="password" className='text-black font-semibold tracking-tighter opacity-70'>Password</label>
                     <input id="password" className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password"/>           
                 </div>
                 <div className='w-full'>
-                    <label for="confirmPassword" className='text-black font-semibold tracking-tighter opacity-70'>Confirm password</label>
+                    <label htmlFor="confirmPassword" className='text-black font-semibold tracking-tighter opacity-70'>Confirm password</label>
                     <input id="confirmPassword" className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password"/>           
                 </div>
                 <button className="p-2 mt-2 bg-secondary bg-opacity-70 rounded-lg text-white font-bold" type="submit">Sign up</button>              

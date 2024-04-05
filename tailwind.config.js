@@ -16,7 +16,6 @@ export default {
         'secondary': '#FF8B20',
         '555': '#555555',
         'black': '#222222',
-        'gradient': 'linear-gradient(180deg, #C99DF4 0%, #FF8B20 100%)',
       },
     },
   },

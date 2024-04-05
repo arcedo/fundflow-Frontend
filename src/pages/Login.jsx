@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import UserMain from '../pages/UserMain';
+import UserMain from '../components/UserMain';
 import googleIcon from '../assets/icons/googleIcon.svg';
 
 function Login() {
@@ -40,11 +40,11 @@ function Login() {
         <UserMain>
             <form className="flex flex-col w-64 gap-4" action="">
                 <div className='w-full'>
-                    <label for="email" className='text-black font-semibold tracking-tighter opacity-70'>Username or email</label>
+                    <label htmlFor="email" className='text-black font-semibold tracking-tighter opacity-70'>Username or email</label>
                     <input id="email" className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="text"/>
                 </div>
                 <div className='w-full'>
-                    <label for="password" className='text-black font-semibold tracking-tighter opacity-70'>Password</label>
+                    <label htmlFor="password" className='text-black font-semibold tracking-tighter opacity-70'>Password</label>
                     <input id='password' className="p-2 mb-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password"/>
                     <a href="/recover" className='text-primary font-normal tracking-tight w-40 transition-all duration-200 hover:text-purple-500'>Forgot your password?</a>              
                 </div>
@@ -57,7 +57,7 @@ function Login() {
             </div>
             {profile ? (
                 <div className='text-black flex flex-col'>
-                    <img src={profile.picture} alt="user image" />
+                    <img src={profile.picture} alt="user image"/>
                     <p>{profile.name}</p>
                     <p>{profile.email}</p>
                     <button className='text-white' onClick={logOut}>Log out</button>
