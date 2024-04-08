@@ -1,13 +1,14 @@
 import React from "react";
 import Header from "../components/Header";
+import Slider from "../components/Slider";
+import Footer from "../components/Footer";
 
 function Home(){
     return (
         <div className="flex flex-col w-screen h-screen bg-white">
             <Header />
-            <div className="flex justify-center items-center w-full h-full">
-                <h1 className="text-4xl font-bold text-black">Welcome to fundflow.</h1>
-            </div>
+            <Slider />
+            <Footer />
         </div>
     )
 }

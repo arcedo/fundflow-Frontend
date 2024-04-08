@@ -4,11 +4,11 @@ import plus from "../assets/icons/plus.svg"
 
 function Header() {
     return (
-        <div className="flex flex-col justify-center items-center w-full bg-white shadow-md">
+        <div className="flex flex-col justify-center items-center w-full bg-white shadow-md fixed z-50">
             <div className="flex justify-between items-center w-11/12 h-20">
-                <a href="/home" className="flex justify-center items-center gap-4">
+                <a href="/home" className="group flex justify-center items-center gap-4">
                     <img className="w-10 rounded-md" src={fundLogo} alt="" />
-                    <h1 className='font-dmsans text-black hover:bg-gradient-to-r from-primary to-secondary inline-block hover:text-transparent bg-clip-text text-3xl font-bold transition-colors duration-200' >fundflow.</h1>
+                    <h1 className='font-dmsans text-black group-hover:bg-gradient-to-r from-primary to-secondary inline-block group-hover:text-transparent bg-clip-text text-3xl font-bold transition-colors duration-200' >fundflow.</h1>
                 </a>
                 <div className="flex gap-16">
                     <a href="/login" className="text-black font-dmsans font-semibold">who we are</a>
