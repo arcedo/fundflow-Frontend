@@ -48,7 +48,7 @@ function Login() {
                     <input id='password' className="p-2 mb-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password"/>
                     <a href="/recover" className='text-primary font-normal tracking-tight w-40 transition-all duration-200 hover:text-purple-500'>Forgot your password?</a>              
                 </div>
-                <button className="p-2 mt-2 bg-secondary bg-opacity-70 rounded-lg text-white font-bold" type="submit">Login</button>              
+                <button className="p-2 mt-2 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold" type="submit">Login</button>              
             </form>
             <div className='flex flex-row items-center justify-between w-11/12 my-2'>
                 <hr className='w-24 border-1 border-gray-500 border-opacity-30'/>

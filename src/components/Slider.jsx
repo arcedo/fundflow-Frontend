@@ -36,7 +36,7 @@ function Item(props){
 
 function Slider(props){
     return (
-        <section className='mt-30'>
+        <section className='mt-30 mb-12'>
             <Carousel 
             navButtonsProps={{
                 style: {

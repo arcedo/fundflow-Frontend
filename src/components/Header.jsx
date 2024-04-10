@@ -22,7 +22,7 @@ function Header() {
                     </div>                    
                     <button className="hidden sm:flex justify-center items-center gap-1 h-11 font-semibold text-lg rounded-full bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
                     <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></button>
-                    <a href="/login" className="h-11 w-11 rounded-full bg-black"></a>
+                    <a href="/login" className="h-11 w-11 rounded-full bg-black hover:bg-555"></a>
                 </div>
             </div>
             <div className="hidden sm:flex justify-center items-center h-9 w-full bg-gray-300 gap-24 bg-opacity-50 backdrop-blur-lg">

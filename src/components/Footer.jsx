@@ -1,4 +1,8 @@
 import React from "react";
+import facebook from "../assets/icons/facebook.svg";
+import twitter from "../assets/icons/twitter.svg";
+import youtube from "../assets/icons/youtube.svg";
+import instagram from "../assets/icons/instagram.svg";
 
 function Footer(){
     return (
@@ -19,10 +23,10 @@ function Footer(){
                 <div className="flex gap-4">
                     <div className="flex flex-col sm:gap-3">
                         <div className="flex gap-3 py-8 sm:py-0 justify-center sm:justify-end">
-                            <a href="/facebook" className="w-12 h-12 bg-gray-200 rounded-full"></a>
-                            <a href="/twitter" className="w-12 h-12 bg-gray-200 rounded-full"></a>
-                            <a href="/youtube" className="w-12 h-12 bg-gray-200 rounded-full"></a>
-                            <a href="/instagram" className="w-12 h-12 bg-gray-200 rounded-full"></a>
+                            <a href="/facebook" className="w-8 h-8rounded-full"><img className="w-full" src={facebook}></img></a>
+                            <a href="/twitter" className="w-8 h-8 rounded-full"><img className="w-full" src={twitter}></img></a>
+                            <a href="/youtube" className="w-8 h-8 rounded-full"><img className="w-full" src={youtube}></img></a>
+                            <a href="/instagram" className="w-8 h-8 rounded-full"><img className="w-full" src={instagram}></img></a>
                         </div>
                         <div className="text-center sm:text-right">
                             <h3 className="font-dmsans text-2xl font-bold text-black">fundflow.</h3>
