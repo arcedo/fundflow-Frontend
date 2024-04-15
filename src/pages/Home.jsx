@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Slider from "../components/Slider";
 import Footer from "../components/Footer";
 import CategorySlider from "../components/CategorySlider";
+import RandomSection from "../components/RandomSection";
 import image1 from "../assets/pictures/main1.webp";
 import image2 from "../assets/pictures/main2.webp";
 import image3 from "../assets/pictures/main3.webp";
@@ -81,12 +82,14 @@ const projects2 = [
 
 function Home(){
     return (
-        <div className="w-full bg-white min-h-screen">
+        <div className="w-full bg-white min-h-screen h-fit flex flex-col gap-16">
             <Header />
             <Slider />
             <ProjectSection sectionTitle={"New this month"} projectsFound={projects1}/>
             <ProjectSection sectionTitle={"Based on your interests"} projectsFound={projects2}/>
-            <CategorySlider />            
+            <CategorySlider />
+            <ProjectSection sectionTitle={"Popular"} projectsFound={projects1}/>
+            <RandomSection />    
             <Footer />
         </div>
     )

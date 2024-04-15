@@ -5,7 +5,7 @@ function ProjectSection({ sectionTitle, projectsFound }) {
     return (
         <div>
             <section className="flex justify-center items-center">
-                <div className="w-11/12 py-5">
+                <div className="w-11/12">
                     <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4">{sectionTitle}</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                         {projectsFound.map((project, index) => (

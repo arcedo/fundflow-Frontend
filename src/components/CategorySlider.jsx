@@ -7,8 +7,8 @@ import games from "../assets/pictures/games.webp";
 import innove from "../assets/pictures/innove.webp";
 import music from "../assets/pictures/music.webp";
 
-const artPercentage = 18;
-const booksPercentage = 25;
+const artPercentage = 10;
+const booksPercentage = 33;
 const devPercentage = 7;
 const gamesPercentage = 14;
 const innovePercentage = 21;
@@ -18,8 +18,8 @@ function CategorySlider() {
     return (
         <div>
             <section className="flex justify-center items-center">
-                <div className="w-11/12 py-5">
-                    <div className="grid lg:grid-rows-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 w-full" style={{ height: "400px" }}>
+                <div className="w-11/12">
+                    <div className="grid lg:grid-rows-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 w-full" style={{ height: "500px" }}>
                         <HomeCategory categoryImage={art} categoryName="art" categoryCols={3} categoryRows={3} />
                         <HomeCategory categoryImage={books} categoryName="books" categoryCols={1} categoryRows={1} />
                         <HomeCategory categoryImage={dev} categoryName="dev" categoryCols={2} categoryRows={2} />
