@@ -5,7 +5,7 @@ import search from "../assets/icons/search.svg"
 
 function Header() {
     return (
-        <div className="flex flex-col justify-center w-full items-center shadow-md fixed z-50">
+        <div className="flex flex-col justify-center w-screen sm:w-full items-center shadow-md fixed z-50">
             <div className="flex justify-center items-center w-full bg-white">
                 <div className="flex justify-between items-center w-11/12 h-20 bg-white">
                     <a href="/home" className="group flex justify-center items-center gap-4">
@@ -20,7 +20,7 @@ function Header() {
                         <input type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-full font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
                         <button className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                     </div>
-                    <button className="hidden sm:flex justify-center items-center gap-1 h-11 font-semibold text-lg rounded-full bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
+                    <button className="hidden sm:flex justify-center items-center gap-1 h-11 w-1/12 font-semibold text-lg text-white rounded-full bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
                     <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                     <a href="/login" className="h-11 w-11 rounded-full bg-black hover:bg-555"></a>
                 </div>

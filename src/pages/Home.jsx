@@ -82,10 +82,10 @@ const projects2 = [
 
 function Home() {
     return (
-        <div className="w-full bg-white min-h-screen h-fit flex flex-col gap-16">
+        <div className=" w-full bg-white min-h-screen h-fit flex flex-col gap-16">
             <Header />
             <Slider />
-            <div className="w-11/12 mx-auto flex flex-col gap-16">
+            <div className="w-10/12 sm:w-11/12 mx-auto flex flex-col gap-16">
                 <ProjectSection sectionTitle={"New this month"} projectsFound={projects1} />
                 <ProjectSection sectionTitle={"Based on your interests"} projectsFound={projects2} />
                 <CategorySlider />

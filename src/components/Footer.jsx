@@ -8,25 +8,25 @@ function Footer(){
     return (
         <div className="flex flex-col justify-center items-center w-full py-5 bg-gray-300 text-black">
             <div className="flex flex-col sm:flex-row w-8/12 py-8 justify-between items-center">
-                <div className="flex justify-between gap-14 sm:justify-normal sm:gap-52">
-                    <div className="flex flex-col gap-3">
+                <div className="grid grid-cols-2 sm:w-1/2 w-full">
+                    <div className="flex flex-col gap-3 sm:w-1/2">
                         <h3 className="font-dmsans text-2xl font-bold">about</h3>
-                        <a className="text-black text-opacity-75 font-normal" href="/about">about us</a>
-                        <a className="text-black text-opacity-75 font-normal" href="/about">our mission</a>
+                        <a className="text-black text-opacity-75 font-normal hover:font-semibold transition-all duration-200 w-fit" href="/about">about us</a>
+                        <a className="text-black text-opacity-75 font-normal hover:font-semibold transition-all duration-200 w-fit" href="/about">our mission</a>
                     </div>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 sm:w-1/2">
                         <h3 className="font-dmsans text-2xl font-bold">support</h3>
-                        <a className="text-black text-opacity-75 font-normal" href="/help">contact us</a>
-                        <a className="text-black text-opacity-75 font-normal" href="/help">cookies policy</a>
+                        <a className="text-black text-opacity-75 font-normal hover:font-semibold transition-all duration-200 w-fit" href="/help">contact us</a>
+                        <a className="text-black text-opacity-75 font-normal hover:font-semibold transition-all duration-200 w-fit" href="/help">cookies policy</a>
                     </div>
                 </div>
                 <div className="flex gap-4">
                     <div className="flex flex-col sm:gap-3">
                         <div className="flex gap-3 py-8 sm:py-0 justify-center sm:justify-end">
-                            <a href="/facebook" className="w-8 h-8rounded-full"><img className="w-full" src={facebook}></img></a>
-                            <a href="/twitter" className="w-8 h-8 rounded-full"><img className="w-full" src={twitter}></img></a>
-                            <a href="/youtube" className="w-8 h-8 rounded-full"><img className="w-full" src={youtube}></img></a>
-                            <a href="/instagram" className="w-8 h-8 rounded-full"><img className="w-full" src={instagram}></img></a>
+                            <a href="/facebook" className="w-8 h-8rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={facebook}></img></a>
+                            <a href="/twitter" className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={twitter}></img></a>
+                            <a href="/youtube" className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={youtube}></img></a>
+                            <a href="/instagram" className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={instagram}></img></a>
                         </div>
                         <div className="text-center sm:text-right">
                             <h3 className="font-dmsans text-2xl font-bold text-black">fundflow.</h3>
