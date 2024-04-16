@@ -17,11 +17,11 @@ function Header() {
                         <a href="/help" className="text-black font-dmsans font-semibold">help</a>
                     </div>
                     <div className="flex gap-2 w-6/12">
-                        <input type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-full font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?"/>
-                        <button className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></button>
-                    </div>                    
+                        <input type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-full font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
+                        <button className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
+                    </div>
                     <button className="hidden sm:flex justify-center items-center gap-1 h-11 font-semibold text-lg rounded-full bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
-                    <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat`}}></button>
+                    <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                     <a href="/login" className="h-11 w-11 rounded-full bg-black hover:bg-555"></a>
                 </div>
             </div>
@@ -32,7 +32,7 @@ function Header() {
                 <a className=" text-black opacity-75" href="/music">music</a>
                 <a className=" text-black opacity-75" href="/books">books</a>
                 <a className=" text-black opacity-75" href="/innove">innove</a>
-            </div>    
+            </div>
         </div>
     );
 }

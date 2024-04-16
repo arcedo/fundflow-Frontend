@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 24 24" ><path d="M18 7.05a1 1 0 0 0-1-1L9 6a1 1 0 0 0 0 2h5.56l-8.27 8.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0L16 9.42V15a1 1 0 0 0 1 1a1 1 0 0 0 1-1Z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="69" height="69" viewBox="0 0 24 24">
+    <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FF8B20" />
+            <stop offset="100%" stop-color="#C99DF4" />
+        </linearGradient>
+    </defs>
+    <path fill="url(#gradient)"
+        d="M18 7.05a1 1 0 0 0-1-1L9 6a1 1 0 0 0 0 2h5.56l-8.27 8.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0L16 9.42V15a1 1 0 0 0 1 1a1 1 0 0 0 1-1Z" />
+</svg>

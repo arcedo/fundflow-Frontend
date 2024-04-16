@@ -1,10 +1,10 @@
 import React from "react";
 import like from "../assets/icons/like.svg";
 
-function ProjectThumb({projectName, projectCreator, projectCategory, projectImage, likes, fundedPercentage}) {
+function ProjectThumb({ projectName, projectCreator, projectCategory, projectImage, likes, fundedPercentage }) {
     return (
         <div className="flex flex-col group/project">
-            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-52 w-full rounded-md">
+            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-60 w-full rounded-md">
                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200">{projectCategory}</p>
                 <a href="#" className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 filter brightness-75 group-hover/project:brightness-100">
                     <img className="h-full w-full rounded-md" src={projectImage} alt="" />
