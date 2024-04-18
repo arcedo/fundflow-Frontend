@@ -8,6 +8,7 @@ export default {
     fontFamily: {
       'dmsans': ['DM Sans', 'sans-serif'],
       'montserrat': ['Montserrat', 'sans-serif'],
+      'josefin': ['Josefin Sans', 'sans-serif'],
     },
     extend: {
       colors: {

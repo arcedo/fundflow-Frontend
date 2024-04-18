@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import UserMain from '../components/UserMain';
 
 function Recover(){
@@ -15,7 +16,7 @@ function Recover(){
                 </div>
                 <button className="p-2 mt-2 mb-4 bg-secondary bg-opacity-70 rounded-lg text-white font-bold" type="submit">Send email</button>              
             </form>
-            <a href="/login" className='text-primary font-normal tracking-tight w-full transition-all duration-200 hover:text-purple-500'>Go back to login</a>
+            <Link to={"/login"} className='text-primary font-normal tracking-tight w-full transition-all duration-200 hover:text-purple-500'>Go back to login</Link>
         </UserMain>
     )
 }

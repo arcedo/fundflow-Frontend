@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ProjectSection from "../components/ProjectSection";
 import Header from "../components/Header";
 import Slider from "../components/Slider";
@@ -82,7 +83,7 @@ const projects2 = [
 
 function Home() {
     return (
-        <div className=" w-full bg-white min-h-screen h-fit flex flex-col gap-16">
+        <div className=" w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header />
             <Slider />
             <div className="w-10/12 sm:w-11/12 mx-auto flex flex-col gap-16">
