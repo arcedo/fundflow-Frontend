@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MdlCreateProject from "./MdlCreateProject";
-import fundLogo from "../assets/icons/1.png";
+import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
 import search from "../assets/icons/search.svg";
 

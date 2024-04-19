@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Background from '../assets/animate.svg';
-import logo from '../assets/icons/1.png';
+import logo from '../assets/icons/logoLight.png';
 
 function UserMain({ children }) {
   return (
