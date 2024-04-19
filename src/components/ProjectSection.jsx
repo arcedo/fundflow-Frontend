@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProjectThumb from "./ProjectThumb";
 
-function ProjectSection({ sectionTitle, projectsFound }) {
+function ProjectSection({ sectionTitle, projectsFound, seeMore }) {
     return (
         <section className="flex justify-center items-center">
             <div className="w-full">
@@ -32,11 +32,13 @@ function ProjectSection({ sectionTitle, projectsFound }) {
                         />
                     )))}
                 </div>
+                {seeMore && (
                 <div className="flex justify-center items-center mt-6 gap-3">
                     <hr className="w-6/12 border-black border-opacity-25" />
                     <Link to={"/projects"} className="font-dmsans w-6/12 sm:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">see more</Link>
                     <hr className="w-6/12 border-black border-opacity-25" />
                 </div>
+                )}
             </div>
         </section>
     );
