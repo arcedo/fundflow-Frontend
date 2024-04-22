@@ -11,6 +11,8 @@ import image2 from "../assets/pictures/main2.webp";
 import image3 from "../assets/pictures/main3.webp";
 import image4 from "../assets/pictures/venom.jpg";
 
+const belongingUser = "User1";
+
 const projects1 = [
     {
         projectName: "Project One",
@@ -38,7 +40,7 @@ const projects1 = [
     },
     {
         projectName: "Project Four",
-        projectCreator: "User4",
+        projectCreator: "User1",
         projectCategory: "books",
         projectImage: image4,
         likes: 1,
@@ -87,10 +89,10 @@ function Home() {
             <Header />
             <Slider />
             <div className="w-10/12 sm:w-11/12 mx-auto flex flex-col gap-16">
-                <ProjectSection sectionTitle={"New this month"} projectsFound={projects1} seeMore={true}/>
-                <ProjectSection sectionTitle={"Based on your interests"} projectsFound={projects2} seeMore={true}/>
+                <ProjectSection sectionTitle={"New this month"} projectsFound={projects1} seeMore={true} belongingUser={belongingUser}/>
+                <ProjectSection sectionTitle={"Based on your interests"} projectsFound={projects2} seeMore={true} belongingUser={belongingUser}/>
                 <CategorySlider />
-                <ProjectSection sectionTitle={"Popular"} projectsFound={projects1} seeMore={true}/>
+                <ProjectSection sectionTitle={"Popular"} projectsFound={projects1} seeMore={true} belongingUser={belongingUser}/>
                 <RandomSection />
             </div>
             <Footer />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RandomProject from "./RandomProject";
-import logo from "../assets/icons/1.png";
+import logo from "../assets/icons/logoLight.png";
 
 function RandomSection() {
     const projects = [

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import UserMain from '../components/UserMain';
 import googleIcon from '../assets/icons/googleIcon.svg';
+import alertIcon from '../assets/icons/alert.svg'
 
 function Signup(){
     const [profile, setProfile] = useState(null);
@@ -55,6 +56,10 @@ function Signup(){
                 <div className='w-full'>
                     <label htmlFor="confirmPassword" className='text-black font-semibold tracking-tighter opacity-70'>Confirm password</label>
                     <input id="confirmPassword" className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password"/>           
+                </div>
+                <div className='flex flex-row items-center gap-2 p-3 border rounded-lg bg-yellow-300 bg-opacity-40'>
+                    <img className='w-14 opacity-70' src={alertIcon} alt="" />
+                    <p className='text-xs text-black text-opacity-70'>By registering, you accept our <Link to={"/help"} className='underline text-black text-opacity-100' >terms and conditions</Link>.</p>
                 </div>
                 <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold" type="submit">Sign up</button>              
             </form>

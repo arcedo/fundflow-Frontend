@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProjectThumb from "./ProjectThumb";
 
-function ProjectSection({ sectionTitle, projectsFound, seeMore }) {
+function ProjectSection({ sectionTitle, projectsFound, seeMore, belongingUser }) {
     return (
         <section className="flex justify-center items-center">
             <div className="w-full">
@@ -29,6 +29,7 @@ function ProjectSection({ sectionTitle, projectsFound, seeMore }) {
                             projectImage={project.projectImage}
                             likes={project.likes}
                             fundedPercentage={project.fundedPercentage}
+                            belongingUser={belongingUser}
                         />
                     )))}
                 </div>

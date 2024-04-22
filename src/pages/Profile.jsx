@@ -4,6 +4,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
 
+const belongingUser = true;
+
 const projects1 = [
     {
         projectName: "Project One",
@@ -17,7 +19,7 @@ const projects1 = [
 
 function Profile() {
     return (
-        <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-16">
+        <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header />
             <div className="flex flex-col items-center justify-center gap-10 mt-30">
                 <div className="flex justify-center items-start w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '58vh'}` }}>
@@ -29,8 +31,8 @@ function Profile() {
                     <div className="flex justify-between items-start gap-20">
                         <div className="w-2/12">                            
                         </div>
-                        <div className="flex flex-col gap-3 w-8/12">
-                            <h2 className="text-6xl font-dmsans font-extrabold text-black">User1</h2>
+                        <div className="flex flex-col gap-4 w-8/12">
+                            <h2 className="text-6xl font-montserrat font-extrabold text-black">User1</h2>
                             <div className="flex gap-5">
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">87.6%</span> positive rating</p>
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">9</span> followers</p>
@@ -38,13 +40,14 @@ function Profile() {
                             <p className="font-dmsans text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
                         <div className="w-2/12">
-                            <button className="w-36 h-12 bg-gray-300 rounded-full text-black font-semibold font-dmsans shadow">follow</button>
-                            {/* <button className="w-36 h-12 bg-gray-300 rounded-full text-black font-semibold font-dmsans shadow">edit profile</button> */}
+                            {belongingUser ? (
+                                <button className="w-36 h-12 bg-gray-300 rounded-full text-black font-semibold font-dmsans shadow">edit profile</button>
+                            ) : <button className="w-36 h-12 bg-gray-300 rounded-full text-black font-semibold font-dmsans shadow">follow</button>}
                         </div>
                     </div>
                 </div>
             </div>
-            <ProfileSection projects={projects1} />
+            <ProfileSection projects={projects1} belongingUser={belongingUser}/>
             <Footer />
         </div>
     );

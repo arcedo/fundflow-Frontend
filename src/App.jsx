@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import ScrollToTop from "./components/ScrollToTop";
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Recover from './pages/Recover';
@@ -11,7 +12,9 @@ import Profile from "./pages/Profile";
 
 export default function App() {
   return (
+    <>
     <Router>
+    <ScrollToTop />
       <Routes>
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
@@ -24,5 +27,6 @@ export default function App() {
         <Route path="/" element={<Navigate to="/home" />} />
       </Routes>
     </Router>
+    </>
   );
 }
