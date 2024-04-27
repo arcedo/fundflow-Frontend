@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import ScrollToTop from "./components/ScrollToTop";
+import Error404 from './pages/404';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Recover from './pages/Recover';
@@ -27,7 +28,8 @@ export default function App() {
         <Route path="/projects/:projectUrl" element={<Project/>} />
         {/* <Route path="/verify/:userId" element={<Verify/>} /> */}
         <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="*" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to="/404" />} />
+        <Route path="/404" element={<Error404/>} />
       </Routes>
     </Router>
     </>

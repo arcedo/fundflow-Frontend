@@ -8,8 +8,11 @@ const belongingUser = true;
 
 const projects1 = [
     {
+        projectId: 1,
         projectName: "Project One",
+        projectUrl: "project_one",
         projectCreator: "User1",
+        creatorUrl: "user1",
         projectCategory: "art",
         projectImage: 'https://images.unsplash.com/photo-1707046369773-8c781712d079?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         likes: 200,
@@ -20,9 +23,9 @@ const projects1 = [
 function Profile() {
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
-            <Header />
+            <Header categoriesDisabled={true}/>
             <div className="flex flex-col items-center justify-center gap-10">
-                <div className="flex justify-center items-start w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '58vh'}` }}>
+                <div className="flex justify-center items-start w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center">

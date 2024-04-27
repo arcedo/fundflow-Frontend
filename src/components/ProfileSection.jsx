@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ProjectSection from "./ProjectSection";
+import GridProjectSection from "./GridProjectSection";
 // import FeedbackSection from "./FeedbackSection";
 import image1 from "../assets/pictures/main1.webp";
 import image2 from "../assets/pictures/main2.webp";
@@ -12,7 +12,9 @@ const belongingUser = "User1";
 const projects2 = [
     {
         projectName: "Project Five",
+        projectUrl: "project_five",
         projectCreator: "User5",
+        creatorUrl: "user5",
         projectCategory: "innove",
         projectImage: image3,
         likes: 200,
@@ -20,7 +22,9 @@ const projects2 = [
     },
     {
         projectName: "Project Six",
+        projectUrl: "project_six",
         projectCreator: "User6",
+        creatorUrl: "user6",
         projectCategory: "art",
         projectImage: image4,
         likes: 42,
@@ -28,7 +32,9 @@ const projects2 = [
     },
     {
         projectName: "Project Seven",
+        projectUrl: "project_seven",
         projectCreator: "User7",
+        creatorUrl: "user7",
         projectCategory: "music",
         projectImage: image2,
         likes: 1976,
@@ -36,7 +42,9 @@ const projects2 = [
     },
     {
         projectName: "Project Eight",
+        projectUrl: "project_eight",
         projectCreator: "User8",
+        creatorUrl: "user8",
         projectCategory: "dev",
         projectImage: image1,
         likes: 1,
@@ -50,17 +58,17 @@ function ProfileSection({ projects }) {
     const renderSection = () => {
         switch (activeTab) {
             case "projects":
-                return <ProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
             case "collaborating":
-                return <ProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
             case "feedback":
                 return (<p>wawa</p>);
             case "liked":
-                return <ProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
             case "disliked":
-                return <ProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
             default:
-                return <ProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
         }
     };
 
@@ -103,7 +111,7 @@ function ProfileSection({ projects }) {
                 )}
             </div>
             <div className="flex justify-center items-center bg-white w-full">
-                <div className="flex items-center py-5 w-11/12">
+                <div className="flex justify items py-5 w-11/12">
                     {renderSection()}
                 </div>
             </div>

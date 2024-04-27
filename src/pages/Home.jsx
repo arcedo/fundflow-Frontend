@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ProjectSection from "../components/ProjectSection";
+import GridProjectSection from "../components/GridProjectSection";
 import Header from "../components/Header";
 import Slider from "../components/Slider";
 import Footer from "../components/Footer";
@@ -113,10 +113,10 @@ function Home() {
             <Header />
             <Slider />
             <div className="w-10/12 sm:w-11/12 mx-auto flex flex-col gap-16">
-                <ProjectSection sectionTitle={"New this month"} projectsFound={projects1} seeMore={true} belongingUser={belongingUser}/>
-                <ProjectSection sectionTitle={"Based on your interests"} projectsFound={projects2} seeMore={true} belongingUser={belongingUser}/>
+                <GridProjectSection sectionTitle={"New this month"} projectsFound={projects1} seeMore={true} belongingUser={belongingUser}/>
+                <GridProjectSection sectionTitle={"Based on your interests"} projectsFound={projects2} seeMore={true} belongingUser={belongingUser}/>
                 <CategorySlider />
-                <ProjectSection sectionTitle={"Popular"} projectsFound={projects1} seeMore={true} belongingUser={belongingUser}/>
+                <GridProjectSection sectionTitle={"Popular"} projectsFound={projects1} seeMore={true} belongingUser={belongingUser}/>
                 <RandomSection />
             </div>
             <Footer />

@@ -37,15 +37,15 @@ function Project() {
 
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
-            <Header />
-            <div className="flex flex-col items-center justify-center gap-10 mt-28">
+            <Header categoriesDisabled={true}/>
+            <div className="flex flex-col items-center justify-center gap-10 mt-20">
                 <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
                     <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(https://images.unsplash.com/photo-1712673535607-d3586895d914?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)` }}>
                         <div className="w-10/12 grid grid-cols-2 gap-20">
                             <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4">
                                <div className="flex gap-2 items-end">
                                     <h2 className="font-dmsans font-bold text-5xl">{project.projectName}</h2>
-                                    <Link to={`/profile/${project.projectCreatorId}`} className="font-dmsans text-black text-opacity-70">by {project.projectCreator}</Link>
+                                    <Link to={`/profile/${project.creatorUrl}`} className="font-dmsans text-black text-opacity-70">by {project.projectCreator}</Link>
                                </div>
                                <p className="font-dmsans">{project.shortDescription}</p>
                                <div className="flex flex-col gap-3">

@@ -5,27 +5,45 @@ import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
 import search from "../assets/icons/search.svg";
 
-function Header() {
+function Header({ categoriesDisabled }) {
     const [prevScrollPos, setPrevScrollPos] = useState(0);
-    const [visible, setVisible] = useState(true);
+    const [visible, setVisible] = useState(!categoriesDisabled);
     const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
 
     useEffect(() => {
-        function handleScroll() {
-            const currentScrollPos = window.pageYOffset;
-            setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 200);
-            setPrevScrollPos(currentScrollPos);
-        }
+        setVisible(!categoriesDisabled);
+    }, [categoriesDisabled]);
 
-        window.addEventListener('scroll', handleScroll);
+    if (!categoriesDisabled) {
+        useEffect(() => {
+            function handleScroll() {
+                const currentScrollPos = window.pageYOffset;
+                setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 200);
+                setPrevScrollPos(currentScrollPos);
+            }
 
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [prevScrollPos, visible]);
+            window.addEventListener('scroll', handleScroll);
+
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }, [prevScrollPos]);
+    }
 
     const handleMouseEnter = () => {
         setVisible(true);
+    };
+
+    const handleMouseLeave = () => {
+        const currentScrollPos = window.pageYOffset;
+        if (!categoriesDisabled) {
+            if (currentScrollPos > 200) {
+                setVisible(false);
+            }
+        }
+        else {
+            setVisible(false);
+        }
     };
 
     const openCreateProjectModal = () => {
@@ -37,7 +55,7 @@ function Header() {
     };
 
     return (
-        <div className="flex flex-col justify-center w-screen sm:w-full items-center fixed z-40">
+        <div className="flex flex-col justify-center w-screen sm:w-full items-center fixed z-40" onMouseLeave={handleMouseLeave}>
             {showCreateProjectModal && <MdlCreateProject onClose={closeCreateProjectModal} />}
             <div className="flex w-full shadow-md z-30" onMouseEnter={handleMouseEnter}>
                 <div className="flex justify-center items-center w-full bg-white">
