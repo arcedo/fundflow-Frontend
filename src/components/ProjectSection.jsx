@@ -23,8 +23,11 @@ function ProjectSection({ sectionTitle, projectsFound, seeMore, belongingUser })
                     (window.innerWidth < 640 && index >= 2) ? null : (
                         <ProjectThumb
                             key={index}
+                            projectId={project.projectId}
                             projectName={project.projectName}
+                            projectUrl={project.projectUrl}
                             projectCreator={project.projectCreator}
+                            creatorUrl={project.creatorUrl}
                             projectCategory={project.projectCategory}
                             projectImage={project.projectImage}
                             likes={project.likes}

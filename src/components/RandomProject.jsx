@@ -10,7 +10,6 @@ function RandomProject({ project }) {
     const [hoveredImage, setHoveredImage] = useState({ src: project.projectImage[0], index: 0 });
 
     useEffect(() => {
-        // Update the hovered image when a new project is rendered
         setHoveredImage({ src: project.projectImage[0], index: 0 });
     }, [project]);
 
@@ -47,11 +46,11 @@ function RandomProject({ project }) {
         <div className="w-full h-full flex col-span-2 flex-col justify-between">
             <div className="flex flex-col gap-3.5">
                 <div className="w-full flex flex-col sm:flex-row sm:items-end gap-2">
-                    <Link to={"/project"} className="font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.projectName}</Link>
-                    <Link to={"/profile"} className="font-dmsans text-lg text-black group">by <span className="text-black  text-opacity-75 group-hover:text-primary transition-all duration-300font-semibold">{project.projectCreator}</span></Link>
+                    <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.projectName}</Link>
+                    <Link to={`/profile/${project.creatorUrl}`} className="font-dmsans text-lg text-black group">by <span className="text-black  text-opacity-75 group-hover:text-primary transition-all duration-300font-semibold">{project.projectCreator}</span></Link>
                 </div>
                 <p className="w-full font-dmsans text-black text-normal font-medium opacity-75 select-none">{project.projectDescription}</p>
-                <Link to={"/project"} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
+                <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
                 <div className="flex justify-center sm:justify-normal py-3 sm:py-0 items-center gap-6">
                     <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" /></button>
                     <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group hover:bg-black transition-colors duration-300 hover:bg-opacity-75"><img className="w-7/12 transition-all duration-300 grayscale -rotate-180" src={likeInteract} alt="" /></button>

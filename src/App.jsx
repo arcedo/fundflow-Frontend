@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Help from './pages/Help';
 import Profile from "./pages/Profile";
+import Project from "./pages/Project";
 
 export default function App() {
   return (
@@ -22,9 +23,11 @@ export default function App() {
         <Route path="/home" element={<Home/>} />
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/help" element={<Help/>} />
-        <Route path="/profile" element={<Profile/>} />
-        <Route path="/verify/:userId" element={<Verify/>} />
+        <Route path="/profile/:userUrl" element={<Profile/>} />
+        <Route path="/projects/:projectUrl" element={<Project/>} />
+        {/* <Route path="/verify/:userId" element={<Verify/>} /> */}
         <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </Router>
     </>

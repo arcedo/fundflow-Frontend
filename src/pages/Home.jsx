@@ -15,32 +15,44 @@ const belongingUser = "User1";
 
 const projects1 = [
     {
+        projectId: 1,
         projectName: "Project One",
+        projectUrl: "project_one",
         projectCreator: "User1",
+        creatorUrl: "user1",
         projectCategory: "art",
         projectImage: 'https://images.unsplash.com/photo-1707046369773-8c781712d079?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         likes: 200,
         fundedPercentage: 30
     },
     {
+        projectId: 2,
         projectName: "Project Two",
+        projectUrl: "project_two",
         projectCreator: "User2",
+        creatorUrl: "user2",
         projectCategory: "games",
         projectImage: image2,
         likes: 42,
         fundedPercentage: 65
     },
     {
+        projectId: 3,
         projectName: "Project Three",
+        projectUrl: "project_three",
         projectCreator: "User3",
+        creatorUrl: "user3",
         projectCategory: "dev",
         projectImage: image3,
         likes: 1976,
         fundedPercentage: 43
     },
     {
+        projectId: 4,
         projectName: "Project Four",
+        projectUrl: "project_four",
         projectCreator: "User1",
+        creatorUrl: "user1",
         projectCategory: "books",
         projectImage: image4,
         likes: 1,
@@ -50,32 +62,44 @@ const projects1 = [
 
 const projects2 = [
     {
+        projectId: 5,
         projectName: "Project Five",
+        projectUrl: "project_five",
         projectCreator: "User5",
+        creatorUrl: "user5",
         projectCategory: "innove",
         projectImage: image3,
         likes: 200,
         fundedPercentage: 30
     },
     {
+        projectId: 6,
         projectName: "Project Six",
+        projectUrl: "project_six",
         projectCreator: "User6",
+        creatorUrl: "user6",
         projectCategory: "art",
         projectImage: image4,
         likes: 42,
         fundedPercentage: 65
     },
     {
+        projectId: 7,
         projectName: "Project Seven",
+        projectUrl: "project_seven",
         projectCreator: "User7",
+        creatorUrl: "user7",
         projectCategory: "music",
         projectImage: image2,
         likes: 1976,
         fundedPercentage: 43
     },
     {
+        projectId: 8,
         projectName: "Project Eight",
+        projectUrl: "project_eight",
         projectCreator: "User8",
+        creatorUrl: "user8",
         projectCategory: "dev",
         projectImage: image1,
         likes: 1,

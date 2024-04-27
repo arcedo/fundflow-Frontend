@@ -21,7 +21,7 @@ function Profile() {
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header />
-            <div className="flex flex-col items-center justify-center gap-10 mt-30">
+            <div className="flex flex-col items-center justify-center gap-10">
                 <div className="flex justify-center items-start w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '58vh'}` }}>
                 </div>
             </div>
