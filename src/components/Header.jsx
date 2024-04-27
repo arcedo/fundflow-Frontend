@@ -47,6 +47,7 @@ function Header({ categoriesDisabled }) {
     };
 
     const openCreateProjectModal = () => {
+        handleMouseLeave();
         setShowCreateProjectModal(true);
     };
 
