@@ -9,6 +9,7 @@ import Verify from "./pages/Verify";
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Help from './pages/Help';
+import Search from "./pages/Search";
 import Profile from "./pages/Profile";
 import Project from "./pages/Project";
 
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/home" element={<Home/>} />
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/help" element={<Help/>} />
+        <Route path="/search" element={<Search/>} />
         <Route path="/profile/:userUrl" element={<Profile/>} />
         <Route path="/projects/:projectUrl" element={<Project/>} />
         {/* <Route path="/verify/:userId" element={<Verify/>} /> */}

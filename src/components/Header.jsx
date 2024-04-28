@@ -4,6 +4,7 @@ import MdlCreateProject from "./MdlCreateProject";
 import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
 import search from "../assets/icons/search.svg";
+import { Navigate } from "react-router-dom";
 
 function Header({ categoriesDisabled }) {
     const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -55,6 +56,19 @@ function Header({ categoriesDisabled }) {
         setShowCreateProjectModal(false);
     };
 
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && document.activeElement.id === "searchBar") {
+            searchButton();
+        }
+    });
+
+    function searchButton() {
+        const searchQuery = document.getElementById("searchBar").value;
+        if (searchQuery !== "") {
+            window.location.href = `/search?${searchQuery}`;
+        }     
+    }
+
     return (
         <div className="flex flex-col justify-center w-screen sm:w-full items-center fixed z-40" onMouseLeave={handleMouseLeave}>
             {showCreateProjectModal && <MdlCreateProject onClose={closeCreateProjectModal} />}
@@ -70,8 +84,8 @@ function Header({ categoriesDisabled }) {
                             <Link to={"/help"} className="text-black font-montserrat font-semibold text-sm hover:text-secondary transition-colors duration-300">help</Link>
                         </div>
                         <div className="flex gap-2 w-6/12">
-                            <input type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-full font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
-                            <button className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
+                            <input id="searchBar" type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-full font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
+                            <button onClick={searchButton} className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         </div>
                         <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-full bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
                         <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
