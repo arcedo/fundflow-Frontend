@@ -9,7 +9,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUse
                 <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4">{sectionTitle}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                     {projectsFound.map((project, index) => {
-                        const delay = index * 0.1;
+                        const delay = index * 0.05;
                         return (
                             (window.innerWidth < 640 && index >= 2) ? null : (
                             <div key={project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
