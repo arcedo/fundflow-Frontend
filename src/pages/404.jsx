@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 
 function Error404() {
     return (
-        <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
+        <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header />
             <div className="flex flex-col items-center justify-center gap-10 mt-28" style={{ height: `${window.innerWidth < 640 ? '35vh' : '60vh'}` }}>
                 {/* <h1 className="font-dmsans font-bold text-7xl text-black">://404</h1> */}
