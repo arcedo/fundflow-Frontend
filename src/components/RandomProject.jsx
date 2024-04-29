@@ -53,7 +53,7 @@ function RandomProject({ project }) {
                 <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
                 <div className="flex justify-center sm:justify-normal py-3 sm:py-0 items-center gap-6">
                     <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" /></button>
-                    <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group hover:bg-black transition-colors duration-300 hover:bg-opacity-75"><img className="w-7/12 transition-all duration-300 grayscale -rotate-180" src={likeInteract} alt="" /></button>
+                    <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 opacity-40 -rotate-180 group-hover:opacity-100" src={like} alt="" /></button>
                 </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-between w-full">

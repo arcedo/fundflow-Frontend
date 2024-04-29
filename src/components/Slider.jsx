@@ -24,7 +24,7 @@ const items = [
 function Item(props) {
     return (
         <Paper>
-            <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '40vh' : '70vh'}` }}>
+            <div className="relative w-full fade-in" style={{ height: `${window.innerWidth < 640 ? '40vh' : '70vh'}` }}>
                 <div className="absolute inset-0 w-full h-full bg-cover bg-center filter brightness-50" style={{ backgroundImage: `url(${props.item.image})` }} />
                 <div className="absolute inset-0 flex flex-col justify-center items-center pt-24">
                     {props.item.name}

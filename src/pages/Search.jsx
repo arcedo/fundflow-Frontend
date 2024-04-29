@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 function Search() {
     
     const location = useLocation();
-    const search = decodeURIComponent(location.search.split('?')[1]);
+    const search = decodeURIComponent(location.search.split('?query=')[1]);
 
     return (
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">

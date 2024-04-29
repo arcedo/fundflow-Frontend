@@ -65,7 +65,7 @@ function Header({ categoriesDisabled }) {
     function searchButton() {
         const searchQuery = document.getElementById("searchBar").value;
         if (searchQuery !== "") {
-            window.location.href = `/search?${searchQuery}`;
+            window.location.href = `/search?query=${searchQuery}`;
         }     
     }
 
@@ -84,22 +84,22 @@ function Header({ categoriesDisabled }) {
                             <Link to={"/help"} className="text-black font-montserrat font-semibold text-sm hover:text-secondary transition-colors duration-300">help</Link>
                         </div>
                         <div className="flex gap-2 w-6/12">
-                            <input id="searchBar" type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-full font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
+                            <input id="searchBar" type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
                             <button onClick={searchButton} className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         </div>
-                        <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-full bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
+                        <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
                         <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         <Link to={"/login"} className="h-11 w-11 rounded-full bg-black hover:bg-555"></Link>
                     </div>
                 </div>
             </div>
             <div className={`hidden sm:flex shadow-md font-montserrat font-semibold justify-center items-center h-9 w-full gap-24 bg-gradient-to-r from-primary to-secondary ${visible ? '' : 'headerCategories'} transition-all duration-200 z-20 delay-100`}>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?art"}>art</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?dev"}>dev</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?games"}>games</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?music"}>music</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?books"}>books</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?innove"}>innove</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=art"}>art</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=dev"}>dev</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=games"}>games</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=music"}>music</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=books"}>books</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=innove"}>innove</Link>
             </div>
         </div>
     );

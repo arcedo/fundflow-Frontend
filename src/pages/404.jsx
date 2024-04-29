@@ -12,7 +12,6 @@ function Error404() {
                 <h1 className="font-dmsans font-bold text-7xl text-black bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">://404</h1>
                 <h2 className="font-dmsans font-bold text-3xl text-black">Page not found</h2>
                 <p className="font-dmsans text-black text-opacity-70">The page you are looking for does not exist or has been moved.</p>
-                <Link to="/home" className="h-12 w-48 bg-gradient-to-r from-primary to-secondary text-white font-dmsans font-bold text-xl rounded-lg flex justify-center items-center">Back to home</Link>
             </div>
             <Footer />
         </div>

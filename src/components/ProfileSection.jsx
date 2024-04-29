@@ -73,7 +73,7 @@ function ProfileSection({ projects }) {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center w-full gap-5 mt-7">
+        <div className="flex flex-col justify-center items-center w-full gap-5 mt-7 fade-in">
             <div className="flex justify-start items-end gap-8 w-10/12">
                 <button
                     onClick={() => setActiveTab("projects")}
