@@ -3,16 +3,20 @@ import { Link } from "react-router-dom";
 import ProjectThumb from "./ProjectThumb";
 
 function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUser }) {
+    const numberOfColumns = 4;
+
+    const placeholdersCount = projectsFound.length % numberOfColumns;
+    const placeholdersNeeded = placeholdersCount > 0 ? numberOfColumns - placeholdersCount : 0;
+
     return (
         <section className="flex justify-center items-center">
             <div className="w-full">
-                <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4">{sectionTitle}</h3>
+                <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4 fade-in">{sectionTitle}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                     {projectsFound.map((project, index) => {
                         const delay = index * 0.05;
                         return (
-                            (window.innerWidth < 640 && index >= 2) ? null : (
-                            <div key={project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
+                            <div key={project.projectId + '-' + project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
                                 <ProjectThumb
                                     projectId={project.projectId}
                                     projectName={project.projectName}
@@ -26,7 +30,27 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUse
                                     belongingUser={belongingUser}
                                 />
                             </div>
-                        ));
+                        );
+                    })}
+                    {Array.from({ length: placeholdersNeeded }).map((_, index) => {
+                        const delay = (projectsFound.length + index) * 0.05;
+                        return (
+                            <div key={`placeholder-${projectsFound.length + index}`} style={{ animationDelay: `${delay}s` }} className="fade-in flex flex-col w-full rounded-lg">
+                                <div className="h-44 sm:h-60 w-full rounded-md bg-gray-200"></div>
+                                <div className="flex items-center justify-between gap-3 pt-3">
+                                    <div className="flex items-center justify-between gap-3">
+                                        <div className="h-12 w-12 rounded-full bg-gray-200"></div>
+                                        <div className="flex flex-col gap-2">
+                                            <div className="h-6 w-56 bg-gray-200 rounded-md"></div>
+                                            <div className="h-4 w-40 bg-gray-200 rounded-md"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            // <div key={`placeholder-${projectsFound.length + index}`} style={{ animationDelay: `${delay}s` }} className="fade-in w-full rounded-lg">
+                            //     <div className="h-44 sm:h-60 w-full rounded-md border-2 border-gray-300"></div>
+                            // </div>
+                        );
                     })}
                 </div>
                 {seeMore && (
@@ -40,6 +64,5 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUse
         </section>
     );
 }
-
 
 export default GridProjectSection;

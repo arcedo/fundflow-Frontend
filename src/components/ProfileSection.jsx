@@ -7,7 +7,20 @@ import image2 from "../assets/pictures/main2.webp";
 import image3 from "../assets/pictures/main3.webp";
 import image4 from "../assets/pictures/venom.jpg";
 
-const belongingUser = "User1";
+const belongingUser = "User6";
+
+const projects1 = [
+    {
+        projectName: "Project One",
+        projectUrl: "project_one",
+        projectCreator: "User1",
+        creatorUrl: "user1",
+        projectCategory: "art",
+        projectImage: image3,
+        likes: 200,
+        fundedPercentage: 30
+    }
+];
 
 const projects2 = [
     {
@@ -26,7 +39,7 @@ const projects2 = [
         projectCreator: "User6",
         creatorUrl: "user6",
         projectCategory: "art",
-        projectImage: image4,
+        projectImage: image2,
         likes: 42,
         fundedPercentage: 65
     },
@@ -49,6 +62,16 @@ const projects2 = [
         projectImage: image1,
         likes: 1,
         fundedPercentage: 0
+    },
+    {
+        projectName: "Project Nine",
+        projectUrl: "project_nine",
+        projectCreator: "User9",
+        creatorUrl: "user9",
+        projectCategory: "dev",
+        projectImage: image1,
+        likes: 1,
+        fundedPercentage: 0
     }
 ];
 
@@ -58,13 +81,13 @@ function ProfileSection({ projects }) {
     const renderSection = () => {
         switch (activeTab) {
             case "projects":
-                return <GridProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects1} belongingUser={belongingUser}/>;
             case "collaborating":
                 return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
             case "feedback":
-                return (<p>wawa</p>);
+                return (<p className="fade-in">wawa</p>);
             case "liked":
-                return <GridProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects1} belongingUser={belongingUser}/>;
             case "disliked":
                 return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
             default:
@@ -73,7 +96,7 @@ function ProfileSection({ projects }) {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center w-full gap-5 mt-7 fade-in">
+        <div className="flex flex-col justify-center items-center w-full gap-5 mt-7 fade-in" style={{ animationDelay: `0.15s` }}>
             <div className="flex justify-start items-end gap-8 w-10/12">
                 <button
                     onClick={() => setActiveTab("projects")}
@@ -111,7 +134,7 @@ function ProfileSection({ projects }) {
                 )}
             </div>
             <div className="flex justify-center items-center bg-white w-full">
-                <div className="flex justify items py-5 w-11/12">
+                <div className="flex justify-between items-center py-5">
                     {renderSection()}
                 </div>
             </div>

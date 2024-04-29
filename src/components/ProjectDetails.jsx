@@ -10,10 +10,10 @@ function ProjectDetails({ project }) {
     const formattedGoalFunding = project.goalFunding.toLocaleString('de-DE');
 
     return (
-        <div className="relative w-full fade-in" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
+        <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${project.projectCover})` }}>
                 <div className="w-10/12 grid grid-cols-2 gap-20">
-                    <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4">
+                    <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
                         <div className="flex gap-2 items-end">
                             <h2 className="font-dmsans font-bold text-5xl">{project.projectName}</h2>
                             <Link to={`/profile/${project.creatorUrl}`} className="font-dmsans text-black text-opacity-70">by {project.projectCreator}</Link>

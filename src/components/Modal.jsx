@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactDOM from 'react-dom';
 
 function Modal({ children, onClose }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -7,7 +8,6 @@ function Modal({ children, onClose }) {
         const timeout = setTimeout(() => {
             setModalOpen(true);
         }, 50);
-
         return () => clearTimeout(timeout);
     }, []);
 
@@ -19,9 +19,7 @@ function Modal({ children, onClose }) {
         }
 
         document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [onClose]);
 
     const handleCloseModal = () => {
@@ -31,7 +29,7 @@ function Modal({ children, onClose }) {
         }, 300);
     };
 
-    return (
+    const modalContent = (
         <div className={`fixed inset-0 flex justify-center items-center bg-black z-50 bg-opacity-50 transition-opacity ${modalOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             <div className="modal-content flex flex-col p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md transition-transform transform scale-100">
                 {children}
@@ -42,6 +40,11 @@ function Modal({ children, onClose }) {
                 </button>
             </div>
         </div>
+    );
+
+    return ReactDOM.createPortal(
+        modalContent,
+        document.body
     );
 }
 

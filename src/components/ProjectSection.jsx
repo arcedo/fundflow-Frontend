@@ -2,7 +2,8 @@ import React from "react";
 import { useState } from "react";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
-
+import ProjectAbout from "./ProjectAbout";
+import ProjectTiers from "./ProjectTiers";
 
 function ProjectSection({ project, belongingUser }) {
     const [activeTab, setActiveTab] = useState("about");
@@ -10,9 +11,9 @@ function ProjectSection({ project, belongingUser }) {
     const renderSection = () => {
         switch (activeTab) {
             case "about":
-                return (<p className="fade-in">about</p>);
+                return <ProjectAbout project={project} />;
             case "tiers":
-                return (<p className="fade-in">tiers</p>);
+                return <ProjectTiers project={project} />;
             case "blog":
                 return (<p className="fade-in">blog</p>);
             case "feedback":
@@ -68,7 +69,7 @@ function ProjectSection({ project, belongingUser }) {
                 </div>
             </div>
             <div className="flex justify-center items-center bg-white w-full">
-                <div className="flex justify items py-5 w-10/12 fade-in">
+                <div className="flex justify-center items-center py-5 w-10/12 fade-in">
                     {renderSection()}
                 </div>
             </div>

@@ -18,7 +18,7 @@ function ProjectGallery({ project }) {
     }
 
     return (
-        <div className="w-10/12 flex flex-col gap-3 mt-5 fade-in">
+        <div className="w-10/12 flex flex-col gap-3 mt-5 fade-in" style={{ animationDelay: `0.1s` }}>
             <h3 className="font-dmsans font-bold text-3xl text-black text-opacity-70">Gallery</h3>
             <div className="w-full flex flex-col gap-3 sm:flex-row col-span-3 sm:h-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '55vh'}` }}>
                 <div className="flex-1 relative sm:overflow-hidden rounded-md">
