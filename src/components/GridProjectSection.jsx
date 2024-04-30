@@ -46,9 +46,6 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId
                                     </div>
                                 </div>
                             </div>
-                            // <div key={`placeholder-${projectsFound.length + index}`} style={{ animationDelay: `${delay}s` }} className="fade-in w-full rounded-lg">
-                            //     <div className="h-44 sm:h-60 w-full rounded-md border-2 border-gray-300"></div>
-                            // </div>
                         );
                     })}
                 </div>
