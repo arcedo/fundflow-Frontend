@@ -11,14 +11,16 @@ const belongingUser = "User6";
 
 const projects1 = [
     {
-        projectName: "Project One",
-        projectUrl: "project_one",
-        projectCreator: "User1",
-        creatorUrl: "user1",
-        projectCategory: "art",
-        projectImage: image3,
-        likes: 200,
-        fundedPercentage: 30
+        id: 1,
+        title: "Project One",
+        projectUrl: "project-one",
+        creator: "arcedo",
+        userUrl: "arcedo",
+        category: "art",
+        stats: {
+            likes: 200 ,
+            fundedPercentage: 30
+        }
     }
 ];
 
@@ -30,8 +32,10 @@ const projects2 = [
         creatorUrl: "user5",
         projectCategory: "innove",
         projectImage: image3,
-        likes: 200,
-        fundedPercentage: 30
+        stats: {
+            likes: 1029 ,
+            fundedPercentage: 26
+        }
     },
     {
         projectName: "Project Six",
@@ -40,8 +44,10 @@ const projects2 = [
         creatorUrl: "user6",
         projectCategory: "art",
         projectImage: image2,
-        likes: 42,
-        fundedPercentage: 65
+        stats: {
+            likes: 243 ,
+            fundedPercentage: 45
+        }
     },
     {
         projectName: "Project Seven",
@@ -50,8 +56,10 @@ const projects2 = [
         creatorUrl: "user7",
         projectCategory: "music",
         projectImage: image2,
-        likes: 1976,
-        fundedPercentage: 43
+        stats: {
+            likes: 1976 ,
+            fundedPercentage: 3
+        }
     },
     {
         projectName: "Project Eight",
@@ -60,8 +68,10 @@ const projects2 = [
         creatorUrl: "user8",
         projectCategory: "dev",
         projectImage: image1,
-        likes: 1,
-        fundedPercentage: 0
+        stats: {
+            likes: 1 ,
+            fundedPercentage: 0
+        }
     },
     {
         projectName: "Project Nine",
@@ -70,8 +80,10 @@ const projects2 = [
         creatorUrl: "user9",
         projectCategory: "dev",
         projectImage: image1,
-        likes: 1,
-        fundedPercentage: 0
+        stats: {
+            likes: 0 ,
+            fundedPercentage: 0
+        }
     }
 ];
 
