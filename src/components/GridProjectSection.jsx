@@ -2,12 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ProjectThumb from "./ProjectThumb";
 
-function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUser }) {
+function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId }) {
     const numberOfColumns = 4;
 
     const placeholdersCount = projectsFound.length % numberOfColumns;
+    // console.log(placeholdersCount);
     const placeholdersNeeded = placeholdersCount > 0 ? numberOfColumns - placeholdersCount : 0;
-
     return (
         <section className="flex justify-center items-center">
             <div className="w-full">
@@ -16,18 +16,17 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUse
                     {projectsFound.map((project, index) => {
                         const delay = index * 0.05;
                         return (
-                            <div key={project.projectId + '-' + project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
+                            <div key={project.id + '-' + project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
                                 <ProjectThumb
-                                    projectId={project.projectId}
-                                    projectName={project.projectName}
+                                    projectId={project.id}
+                                    projectName={project.title}
                                     projectUrl={project.projectUrl}
-                                    projectCreator={project.projectCreator}
-                                    creatorUrl={project.creatorUrl}
-                                    projectCategory={project.projectCategory}
-                                    projectImage={project.projectImage}
-                                    likes={project.likes}
-                                    fundedPercentage={project.fundedPercentage}
-                                    belongingUser={belongingUser}
+                                    projectCreator={project.creator}
+                                    creatorUrl={project.userUrl}
+                                    projectCategory={project.category}
+                                    likes={project.stats.likes ?? '--'}
+                                    fundedPercentage={project.fundedPercentage ?? 0}
+                                    belongingUser={loggedUserId === project.creator ? project.creator : null}
                                 />
                             </div>
                         );
@@ -54,11 +53,11 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, belongingUse
                     })}
                 </div>
                 {seeMore && (
-                <div className="flex justify-center items-center mt-6 gap-3">
-                    <hr className="w-6/12 border-black border-opacity-25" />
-                    <Link to={"/projects"} className="font-dmsans w-6/12 sm:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">see more</Link>
-                    <hr className="w-6/12 border-black border-opacity-25" />
-                </div>
+                    <div className="flex justify-center items-center mt-6 gap-3">
+                        <hr className="w-6/12 border-black border-opacity-25" />
+                        <Link to={"/projects"} className="font-dmsans w-6/12 sm:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">see more</Link>
+                        <hr className="w-6/12 border-black border-opacity-25" />
+                    </div>
                 )}
             </div>
         </section>
