@@ -13,7 +13,6 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
     const toggleOptions = () => setShowOptionsMenu(prev => !prev);
 
     const handleOptionClick = (action) => {
-        console.log(action);
         setShowOptionsMenu(false);
     };
 
@@ -43,7 +42,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
         <div className="flex flex-col group/project" ref={optionsRef}>
             {showDeleteProjectModal && <MdlDeleteProject onClose={closeDeleteProjectModal} projectName={projectName} />}
             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
-                <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200">{projectCategory}</p>
+                <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory}</p>
                 {belongingUser && (
                     <div>
                         <div className="absolute flex items-center justify-center font-dmsans top-3 left-3 z-30 p-1 bg-white rounded-full cursor-pointer group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200">
