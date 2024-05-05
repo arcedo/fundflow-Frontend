@@ -192,7 +192,7 @@ button:focus-visible {
   animation-fill-mode: both;
 }
 
-.mask{
-  -webkit-mask-image: linear-gradient(black, transparent);
-  mask-image: linear-gradient(black, transparent);
+.blogMask{
+  -webkit-mask-image: linear-gradient(black 60%, transparent);
+  mask-image: linear-gradient(black 60%, transparent);
 }

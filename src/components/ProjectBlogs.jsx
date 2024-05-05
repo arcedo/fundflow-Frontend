@@ -30,7 +30,7 @@ function BlogEntry({ blog, index }) {
     }, []);
 
     const delay = index * 0.05;
-    const contentClass = isOverflowing ? "mask text-black font-dmsans font-normal text-opacity-70 overflow-hidden" : "text-black font-dmsans font-normal text-opacity-70 overflow-hidden";
+    const contentClass = isOverflowing ? "blogMask text-black font-dmsans font-normal text-opacity-70 overflow-hidden" : "text-black font-dmsans font-normal text-opacity-70 overflow-hidden";
 
     return (
         <div style={{ animationDelay: `${delay}s` }} className="fade-in w-8/12 cursor-pointer p-6 flex flex-col gap-4 rounded-lg shadow-md border-2 border-gray-300 border-opacity-20 hover:bg-gray-200 hover:bg-opacity-40 transition-all duration-200">
