@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import facebook from "../assets/icons/facebook.svg";
 import twitter from "../assets/icons/twitter.svg";
 import youtube from "../assets/icons/youtube.svg";
 import instagram from "../assets/icons/instagram.svg";
+import Background from '../assets/animateFooter.svg';
 
-function Footer() {
+function Footer() {  
     return (
-        <div className="flex flex-col justify-center items-center w-full py-5 bg-gray-300 text-black shadow-2xl border-black border-t border-opacity-5">
+        <div className="flex flex-col justify-center items-center w-full py-5 text-black" style={{ backgroundImage: `url(${Background})`, backgroundSize: 'cover' }}>
             <div className="flex flex-col sm:flex-row w-10/12 py-8 justify-between items-center">
                 <div className="grid grid-cols-2 sm:w-1/2 w-full">
                     <div className="flex flex-col gap-3 sm:w-1/2">

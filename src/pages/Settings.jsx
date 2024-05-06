@@ -60,7 +60,7 @@ function Settings() {
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             {showDeleteUserModal && <MdlDeleteUser onClose={closeDeleteUserModal} email={"armengol@gmail.com"} />}
             <Header categoriesDisabled={true}/>
-            <div className="flex flex-col items-center justify-center pt-32">
+            <div className="flex flex-col items-center justify-center pt-32 fade-in">
                 <div className="w-10/12 items-center justify-start">
                     <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black">profile settings</h2>
                     <hr className="w-full h-0.5 mb-4 bg-555 bg-opacity-50 rounded-full"/>
