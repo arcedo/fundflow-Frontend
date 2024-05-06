@@ -138,7 +138,7 @@ function Signup() {
                 </div>
                 <div className='flex flex-row items-center gap-2 p-3 border rounded-lg bg-yellow-300 bg-opacity-40'>
                     <img className='w-14 opacity-70' src={alertIcon} alt="" />
-                    <p className='text-xs text-black text-opacity-70'>By registering, you accept our <Link to={"/help"} className='underline text-black text-opacity-100' >terms and conditions</Link>.</p>
+                    <p className='text-xs text-black text-opacity-70'>By registering, you accept our <Link to={"/help#cookiesPolicy"} className='underline text-black text-opacity-100' >terms and conditions</Link>.</p>
                 </div>
                 <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold" type="submit">Sign up</button>
                 <p className='text-red-400 text-center'>{message ? message : ''}</p>

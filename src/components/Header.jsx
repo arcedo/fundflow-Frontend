@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MdlCreateProject from "./MdlCreateProject";
 import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
@@ -7,6 +7,7 @@ import search from "../assets/icons/search.svg";
 import account from "../assets/icons/account.svg";
 
 function Header({ categoriesDisabled }) {
+    let navigate = useNavigate();
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(!categoriesDisabled);
     const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
@@ -48,8 +49,12 @@ function Header({ categoriesDisabled }) {
     };
 
     const openCreateProjectModal = () => {
-        handleMouseLeave();
-        setShowCreateProjectModal(true);
+        if (!localStorage.getItem('userData')) {
+            navigate('/login');
+        } else {
+            handleMouseLeave();
+            setShowCreateProjectModal(true);
+        }
     };
 
     const closeCreateProjectModal = () => {
@@ -88,7 +93,10 @@ function Header({ categoriesDisabled }) {
                             <input id="searchBar" type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
                             <button onClick={searchButton} className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         </div>
-                        <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
+                        <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary border-none">
+                            <img src={plus} alt="" />
+                            new
+                        </button>
                         <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black'} h-11 w-11 overflow-hidden shadow-md group rounded-full`}>
                             {userData ? <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="" className="w-full h-full rounded-full group-hover:scale-100 scale-110 transition-all duration-300" />
