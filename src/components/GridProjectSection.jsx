@@ -30,7 +30,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId
                                 />
                             </div>
                         );
-                    }) : <div className="col-span-4 flex flex-col gap-2.5 justify-center items-center">
+                    }) : <div className="col-span-4 flex flex-col gap-2.5 justify-center items-center fade-in">
                         {imageEmptyVisible ? <img src={noDataFound} alt="No projects found" className="w-72" /> : null}
                         <p className="text-black text-opacity-75 font-dmsans font-semibold text-xl">{onEmptyMessage ?? 'No projects found'}</p>
                     </div>
