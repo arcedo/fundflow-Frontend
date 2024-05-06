@@ -12,10 +12,10 @@ async function fetchDataGet(url) {
     }
 };
 
-async function fetchDataPost(url, data) {
+async function fetchDataWithBody(method, url, data) {
     try {
         return await fetch(url, {
-            method: 'POST',
+            method: method,
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,9 +45,18 @@ export async function getProjectsByCategory(idCategory, skip, limit) {
 
 // Auth
 export async function login(username, password) {
-    return await fetchDataPost(`${server}auth/login`, { username, password });
+    return await fetchDataWithBody('POST', `${server}auth/login`, { username, password });
 }
 
 export async function register(username, email, password, confirmationPassword) {
-    return await fetchDataPost(`${server}auth/register`, { username, email, password, confirmationPassword });
+    return await fetchDataWithBody('POST', `${server}auth/register`, { username, email, password, confirmationPassword });
+}
+
+export async function loginGoogle(token) {
+    return await fetchDataWithBody('POST', `${server}auth/login/google`, { token });
+}
+
+//
+export async function putProfilePicture(token, profilePicture) {
+    return await fetchDataPost('PUT', `${server}user/picture`, { token, profilePicture });
 }

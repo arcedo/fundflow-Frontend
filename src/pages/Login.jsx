@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import UserMain from '../components/UserMain';
 import googleIcon from '../assets/icons/googleIcon.svg';
-import { login } from '../services/index';
+import { login, loginGoogle } from '../services/index';
 
 function Login() {
     let navigate = useNavigate();
@@ -14,6 +14,8 @@ function Login() {
         let seemsOk = true;
         const username = document.getElementById('email');
         const password = document.getElementById('password');
+        username.classList.remove('border-red-500');
+        password.classList.remove('border-red-500');
         if (!username.value) {
             seemsOk = false;
             username.classList.add('border-red-500');
@@ -57,7 +59,8 @@ function Login() {
                     return response.json();
                 })
                 .then(async (data) => {
-                    const userResponse = await login(data.email, data.id);
+                    const userResponse = await loginGoogle(codeResponse.access_token);
+                    console.log(userResponse);
                     if (userResponse && userResponse.token) {
                         localStorage.setItem('token', userResponse.token);
                         localStorage.setItem('userData', JSON.stringify(userResponse));
@@ -86,7 +89,7 @@ function Login() {
                 </div>
                 <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold" type="submit">Login</button>
             </form>
-            <p className='text-red-400 pt-2.5 w-full'>{user && user.message ? user.message : ''}</p>
+            <p className='text-red-400 pt-2.5'>{user && user.message ? user.message : ''}</p>
             <div className='flex flex-row items-center justify-between w-11/12 my-2'>
                 <hr className='w-24 border-1 border-gray-500 border-opacity-30' />
                 <p className='text-gray-500 font-normal tracking-tighter opacity-70 mx-2 my-auto'>or</p>
