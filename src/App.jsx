@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Help from './pages/Help';
 import Search from "./pages/Search";
+import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import Project from "./pages/Project";
 
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/help" element={<Help/>} />
         <Route path="/search" element={<Search/>} />
+        <Route path="/settings" element={<Settings/>} />
         <Route path="/profile/:userUrl" element={<Profile/>} />
         <Route path="/projects/:projectUrl" element={<Project/>} />
         {/* <Route path="/verifyEmail/:userId" element={<Verify/>} /> */}
