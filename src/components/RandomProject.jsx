@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import like from "../assets/icons/like.svg";
 import likeInteract from "../assets/icons/likeInteract.svg";
@@ -11,11 +10,8 @@ function RandomProject({ project }) {
         // Render some placeholder or loading state while waiting for data
         return <div>Loading...</div>;
     }
-    const [hoveredImage, setHoveredImage] = useState({ src: project.imgs[0]._id, index: 0 });
 
-    useEffect(() => {
-        setHoveredImage({ src: project.imgs[0]._id, index: 0 });
-    }, [project]);
+    const [hoveredImage, setHoveredImage] = useState({ src: project?.imgs?.[0]?._id ?? '', index: 0 });
 
     function imageDisplayed(image, index) {
         document.getElementById('projectImage' + hoveredImage.index).classList.toggle('brightness-75');
@@ -24,12 +20,13 @@ function RandomProject({ project }) {
         document.getElementById('projectImage' + index).classList.toggle('brightness-90');
         setHoveredImage({ src: image._id, index: index });
     }
-
     return (
         <>
             <div className="w-full flex gap-3 flex-col sm:flex-row col-span-3 sm:h-full">
                 <div className="flex-1 relative sm:overflow-hidden rounded-md">
-                    <div className="sm:absolute inset-0"><img src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}`} alt="" className="w-full h-60 rounded-md sm:h-full object-cover" /></div>
+                    <div className="sm:absolute inset-0">
+                        <img src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage ? hoveredImage.src : ''}`} alt="" className="w-full h-60 rounded-md sm:h-full object-cover" />
+                    </div>
                 </div>
                 <div className="sm:w-2/12 flex sm:flex-col gap-3">
                     {!project.imgs ? '' : project.imgs.map((image, index) => (

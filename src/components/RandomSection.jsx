@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RandomProject from "./RandomProject";
 import logo from "../assets/icons/logoLight.png";
-import { getRandomProjects } from "../api/apiCalls";
+import { getRandomProjects } from "../services/index";
 
 function RandomSection() {
     const [projects, setProjects] = useState([]);
-    const fetchProjects = async () => {
-        const projectsData = await getRandomProjects(0, 1);
-        console.log(projectsData);
-        setProjects(projectsData);
-    };
+    const [flipped, setFlipped] = useState(false);
+
     useEffect(() => {
         fetchProjects();
     }, []);
 
-    const [flipped, setFlipped] = useState(false);
+    const fetchProjects = async () => {
+        const projectsData = await getRandomProjects(0, 1);
+        setProjects(projectsData);
+    };
 
 
     function randomClick() {

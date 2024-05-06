@@ -4,6 +4,7 @@ import MdlCreateProject from "./MdlCreateProject";
 import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
 import search from "../assets/icons/search.svg";
+import account from "../assets/icons/account.svg";
 import { Navigate } from "react-router-dom";
 
 function Header({ categoriesDisabled }) {
@@ -66,8 +67,9 @@ function Header({ categoriesDisabled }) {
         const searchQuery = document.getElementById("searchBar").value;
         if (searchQuery !== "") {
             window.location.href = `/search?query=${searchQuery}`;
-        }     
+        }
     }
+    const userData = JSON.parse(localStorage.getItem('userData'));
 
     return (
         <div className="flex flex-col justify-center w-screen sm:w-full items-center fixed z-40" onMouseLeave={handleMouseLeave}>
@@ -89,7 +91,11 @@ function Header({ categoriesDisabled }) {
                         </div>
                         <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary border-none"><img src={plus} alt="" />new</button>
                         <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
-                        <Link to={"/login"} className="h-11 w-11 rounded-full bg-black hover:bg-555"></Link>
+                        <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black'} h-11 w-11 overflow-hidden shadow-md group rounded-full`}>
+                            {userData ? <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="" className="w-full h-full rounded-full group-hover:scale-100 scale-110 grayscale transition-all duration-300" />
+                                : <img src={account} alt="" className="group-hover:grayscale-0 scale-75 grayscale transition-all duration-300" />
+                            }
+                        </Link>
                     </div>
                 </div>
             </div>

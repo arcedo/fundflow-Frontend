@@ -6,7 +6,7 @@ import Slider from "../components/Slider";
 import Footer from "../components/Footer";
 import CategorySlider from "../components/CategorySlider";
 import RandomSection from "../components/RandomSection";
-import { getLatestsProjects, getRandomProjects } from "../api/apiCalls";
+import { getLatestsProjects, getRandomProjects } from "../services/index";
 
 function Home() {
     const [latestsProjects, setLatestsProjects] = useState([]);
