@@ -24,11 +24,16 @@ function Profile() {
         const fetchUserAndProjects = async () => {
             await getUserByUrl(viewUser)
                 .then(async (data) => {
-                    setUser(data[0]);
-                    await getProjectByCreator(data[0].id, skip, limit)
-                        .then(projects => {
-                            setProjects(projects);
-                        });
+                    if (data.message) {
+                        navigate('/not-found');
+                        return;
+                    } else {
+                        setUser(data[0]);
+                        await getProjectByCreator(data[0].id, skip, limit)
+                            .then(projects => {
+                                setProjects(projects);
+                            });
+                    }
                 });
         }
         fetchUserAndProjects();
@@ -52,7 +57,7 @@ function Profile() {
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center gap-10">
-                <div className="flex justify-center items-start object-fill overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
+                <div className="flex justify-center items-start object-contain object-center overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
                     <img className="" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profileBanner` : ''} alt="" />
                 </div>
             </div>

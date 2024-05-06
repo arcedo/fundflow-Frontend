@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import noDataFound from "../assets/icons/no_data_found.svg";
 import ProjectThumb from "./ProjectThumb";
 
-function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId, onEmptyMessage, onEmptyImage }) {
+function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId, onEmptyMessage, imageEmptyVisible }) {
     const numberOfColumns = 4;
 
-    const placeholdersCount = projectsFound.length % numberOfColumns;
+    const placeholdersCount = projectsFound ? projectsFound.length % numberOfColumns : 0;
     const placeholdersNeeded = placeholdersCount > 0 ? numberOfColumns - placeholdersCount : 0;
     return (
         <section className="flex justify-center items-center">
             <div className="w-full">
                 <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4 fade-in">{sectionTitle}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                    {!projectsFound.message ? projectsFound.map((project, index) => {
+                    {projectsFound && !projectsFound.message ? projectsFound.map((project, index) => {
                         const delay = index * 0.05;
                         return (
                             <div key={project.id + '-' + project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
@@ -31,7 +31,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId
                             </div>
                         );
                     }) : <div className="col-span-4 flex flex-col gap-2.5 justify-center items-center">
-                        <img src={noDataFound} alt="No projects found" className="w-72" />
+                        {imageEmptyVisible ? <img src={noDataFound} alt="No projects found" className="w-72" /> : null}
                         <p className="text-black text-opacity-75 font-dmsans font-semibold text-xl">{onEmptyMessage ?? 'No projects found'}</p>
                     </div>
                     }

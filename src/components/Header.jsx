@@ -5,7 +5,6 @@ import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
 import search from "../assets/icons/search.svg";
 import account from "../assets/icons/account.svg";
-import { Navigate } from "react-router-dom";
 
 function Header({ categoriesDisabled }) {
     const [prevScrollPos, setPrevScrollPos] = useState(0);

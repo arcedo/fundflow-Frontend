@@ -5,9 +5,9 @@ import twitter from "../assets/icons/twitter.svg";
 import youtube from "../assets/icons/youtube.svg";
 import instagram from "../assets/icons/instagram.svg";
 
-function Footer(){
+function Footer() {
     return (
-        <div className="flex flex-col justify-center items-center w-full py-5 bg-gray-300 text-black">
+        <div className="flex flex-col justify-center items-center w-full py-5 bg-gray-300 text-black shadow-2xl border-black border-t border-opacity-5">
             <div className="flex flex-col sm:flex-row w-10/12 py-8 justify-between items-center">
                 <div className="grid grid-cols-2 sm:w-1/2 w-full">
                     <div className="flex flex-col gap-3 sm:w-1/2">
@@ -36,7 +36,7 @@ function Footer(){
                     </div>
                 </div>
             </div>
-            <hr className="w-9/12 sm:w-10/12 py-2 border-black border-opacity-25"/>
+            <hr className="w-9/12 sm:w-10/12 py-2 border-black border-opacity-25" />
             <div className="py-2 font-dmsans text-black text-opacity-60 text-xl">by <span className="font-josefin font-extrabold text-3xl">Reasonable</span>™</div>
         </div>
     )

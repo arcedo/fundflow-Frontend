@@ -1,107 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import GridProjectSection from "./GridProjectSection";
-// import FeedbackSection from "./FeedbackSection";
-import image1 from "../assets/pictures/main1.webp";
-import image2 from "../assets/pictures/main2.webp";
-import image3 from "../assets/pictures/main3.webp";
-import image4 from "../assets/pictures/venom.jpg";
 
-import { getProjectByCreator } from "../services/index";
-
-const projects1 = [
-    {
-        id: 1,
-        title: "Project One",
-        projectUrl: "project_one",
-        creator: "arcedo",
-        userUrl: "arcedo",
-        category: "art",
-        stats: {
-            likes: 200,
-            fundedPercentage: 30
-        }
-    }
-];
-
-const projects2 = [
-    {
-        id: 5,
-        title: "Project Five",
-        projectUrl: "project_five",
-        creator: "User5",
-        userUrl: "user5",
-        category: "innove",
-        stats: {
-            likes: 1029,
-            fundedPercentage: 26
-        }
-    },
-    {
-        projectName: "Project Six",
-        projectUrl: "project_six",
-        projectCreator: "User6",
-        creatorUrl: "user6",
-        projectCategory: "art",
-        projectImage: image2,
-        stats: {
-            likes: 243,
-            fundedPercentage: 45
-        }
-    },
-    {
-        projectName: "Project Seven",
-        projectUrl: "project_seven",
-        projectCreator: "User7",
-        creatorUrl: "user7",
-        projectCategory: "music",
-        projectImage: image2,
-        stats: {
-            likes: 1976,
-            fundedPercentage: 3
-        }
-    },
-    {
-        projectName: "Project Eight",
-        projectUrl: "project_eight",
-        projectCreator: "User8",
-        creatorUrl: "user8",
-        projectCategory: "dev",
-        projectImage: image1,
-        stats: {
-            likes: 1,
-            fundedPercentage: 0
-        }
-    },
-    {
-        projectName: "Project Nine",
-        projectUrl: "project_nine",
-        projectCreator: "User9",
-        creatorUrl: "user9",
-        projectCategory: "dev",
-        projectImage: image1,
-        stats: {
-            likes: 0,
-            fundedPercentage: 0
-        }
-    }
-];
-
-function ProfileSection({ belongingUser, ownerProjects }) {
+function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects }) {
     const [activeTab, setActiveTab] = useState("projects");
 
     const renderSection = () => {
         switch (activeTab) {
             case "collaborating":
-                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} />;
+                return <GridProjectSection projectsFound={collaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} />;
             case "feedback":
                 return (<p className="fade-in">wawa</p>);
             case "liked":
-                return <GridProjectSection projectsFound={projects1} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />;
+                return <GridProjectSection projectsFound={likedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />;
             case "disliked":
-                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} />;
+                return <GridProjectSection projectsFound={dislikedProjects} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} />;
             default:
-                return <GridProjectSection projectsFound={ownerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} />;
+                return <GridProjectSection projectsFound={ownerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} imageEmptyVisible={true} />;
         }
     };
 
@@ -143,7 +57,7 @@ function ProfileSection({ belongingUser, ownerProjects }) {
                     </>
                 )}
             </div>
-            <div className="flex justify-center items-center bg-white w-full">
+            <div className="flex justify-center items-center bg-white w-full min-h-64">
                 <div className="flex justify-between items-center py-5">
                     {renderSection()}
                 </div>
