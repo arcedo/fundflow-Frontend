@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
+import logout from "../assets/icons/logout.svg";
+import edit from "../assets/icons/edit.svg";
+import notFollowing from "../assets/icons/follow.svg";
+import following from "../assets/icons/check.svg";
 
-const belongingUser = true;
+const belongingUser = false;
 
 function Profile() {
+    const [isFollowing, setIsFollowing] = useState(false);
+
+    function handleFollow() {
+        setIsFollowing(true);
+    }
+    
+    function handleUnfollow() {
+        setIsFollowing(false);
+    }
+
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true}/>
@@ -30,8 +44,23 @@ function Profile() {
                         </div>
                         <div className="w-2/12 fade-in" style={{ animationDelay: `0.1s` }}>
                             {belongingUser ? (
-                                <button className="w-36 h-12 bg-gray-300 rounded-full text-black font-semibold font-dmsans shadow">edit profile</button>
-                            ) : <button className="w-36 h-12 bg-gray-300 rounded-full text-black font-semibold font-dmsans shadow">follow</button>}
+                                <div className="flex flex-col gap-3">
+                                    <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">edit<img className="w-7" src={edit} alt="edit" /></button>
+                                    <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">log out<img className="w-7" src={logout} alt="logout" /> </button>
+                                </div>
+                            ) : (
+                                <div onClick={isFollowing ? handleUnfollow : handleFollow}>
+                                    {isFollowing ? (
+                                        <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">
+                                            following<img className="w-6" src={following} alt="following" />
+                                        </button>
+                                    ) : (
+                                        <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">
+                                            follow<img className="w-6" src={notFollowing} alt="not following" />
+                                        </button>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ const projects1 = [
     {
         id: 1,
         title: "Project One",
-        projectUrl: "project-one",
+        projectUrl: "project_one",
         creator: "arcedo",
         userUrl: "arcedo",
         category: "art",
@@ -26,12 +26,12 @@ const projects1 = [
 
 const projects2 = [
     {
-        projectName: "Project Five",
+        id: 5,
+        title: "Project Five",
         projectUrl: "project_five",
-        projectCreator: "User5",
-        creatorUrl: "user5",
-        projectCategory: "innove",
-        projectImage: image3,
+        creator: "User5",
+        userUrl: "user5",
+        category: "innove",
         stats: {
             likes: 1029 ,
             fundedPercentage: 26

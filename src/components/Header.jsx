@@ -99,7 +99,7 @@ function Header({ categoriesDisabled }) {
                     </div>
                 </div>
             </div>
-            <div className={`hidden sm:flex shadow-md font-montserrat font-semibold justify-center items-center h-9 w-full gap-24 bg-gradient-to-r from-primary to-secondary ${visible ? '' : 'headerCategories'} transition-all duration-200 z-20 delay-100`}>
+            <div className={`hidden sm:flex shadow-md font-montserrat font-semibold justify-center items-center h-9 w-full gap-24 bg-gradient-to-r from-primary to-secondary ${visible ? '' : 'headerCategories'} absolute -bottom-9 transition-all duration-200 z-20 delay-100`}>
                 <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=art"}>art</Link>
                 <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=dev"}>dev</Link>
                 <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=games"}>games</Link>

@@ -1,12 +1,11 @@
 import React from "react";
 
 function ProjectTiers({ project }) {
-    // Determine if there are more than three tiers
     const hasMoreTiers = project.tiers.length > 3;
 
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 fade-in">
-            <h3 className="text-black font-dmsans font-semibold">Tiers</h3>
+            <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">Pitch your grain of sand in...</h3>
             <div className="flex gap-5 w-full justify-center items-center">
                 {project.tiers.slice(0, 3).map((tier, index) => {
                     const delay = index * 0.05;
@@ -19,7 +18,7 @@ function ProjectTiers({ project }) {
                                     {/* Tier content */}
                                     <div className="flex flex-col gap-3 w-full p-5">
                                         <div className="flex flex-col gap-1 justify-start">
-                                            <h4 className="text-black font-dmsans font-semibold">{tier.tierName}</h4>
+                                            <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier.tierName}</h4>
                                             <p className="text-black font-dmsans font-bold text-3xl">{tier.tierPrice}€</p>
                                         </div>
                                         <button className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button>
@@ -31,10 +30,9 @@ function ProjectTiers({ project }) {
                     );
                 })}
             </div>
-            {/* Conditionally render the "More Options" button */}
             {hasMoreTiers && (
-                <button className="py-2 px-5 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary rounded-lg hover:bg-opacity-90 transition-opacity duration-200">
-                    More Options
+                <button className="py-2 px-5 font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary border-2 border-transparent hover:border-opacity-30 bg-clip-text text-transparent rounded-lg hover:border-secondary transition-all duration-200">
+                    More options
                 </button>
             )}
         </div>
