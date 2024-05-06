@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" width="500" height="500"
     viewBox="0 0 797.5 834.5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>void</title>
-    <ellipse cx="308.5" cy="780" rx="308.5" ry="54.5" fill="#3f3d56" />
-    <circle cx="496" cy="301.5" r="301.5" fill="#222" />
+    <ellipse cx="308.5" cy="780" rx="308.5" ry="54.5" fill="#555" />
+    <circle cx="496" cy="301.5" r="301.5" fill="#222" opacity="0.70" />
     <circle cx="496" cy="301.5" r="248.89787" opacity="0.25" />
     <circle cx="496" cy="301.5" r="203.99362" opacity="0.25" />
-    <circle cx="496" cy="301.5" r="146.25957" opacity="0.5" />
+    <circle cx="496" cy="301.5" r="146.25957" opacity="0.25" />
+    <circle cx="496" cy="301.5" r="73,129785" opacity="0.25" />
     <path
         d="M398.42029,361.23224s-23.70394,66.72221-13.16886,90.42615,27.21564,46.52995,27.21564,46.52995S406.3216,365.62186,398.42029,361.23224Z"
         transform="translate(-201.25 -32.75)" fill="#d0cde1" />
