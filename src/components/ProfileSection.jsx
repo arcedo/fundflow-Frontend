@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import GridProjectSection from "./GridProjectSection";
 // import FeedbackSection from "./FeedbackSection";
@@ -7,7 +7,7 @@ import image2 from "../assets/pictures/main2.webp";
 import image3 from "../assets/pictures/main3.webp";
 import image4 from "../assets/pictures/venom.jpg";
 
-const belongingUser = "User6";
+import { getProjectByCreator } from "../services/index";
 
 const projects1 = [
     {
@@ -18,7 +18,7 @@ const projects1 = [
         userUrl: "arcedo",
         category: "art",
         stats: {
-            likes: 200 ,
+            likes: 200,
             fundedPercentage: 30
         }
     }
@@ -33,7 +33,7 @@ const projects2 = [
         userUrl: "user5",
         category: "innove",
         stats: {
-            likes: 1029 ,
+            likes: 1029,
             fundedPercentage: 26
         }
     },
@@ -45,7 +45,7 @@ const projects2 = [
         projectCategory: "art",
         projectImage: image2,
         stats: {
-            likes: 243 ,
+            likes: 243,
             fundedPercentage: 45
         }
     },
@@ -57,7 +57,7 @@ const projects2 = [
         projectCategory: "music",
         projectImage: image2,
         stats: {
-            likes: 1976 ,
+            likes: 1976,
             fundedPercentage: 3
         }
     },
@@ -69,7 +69,7 @@ const projects2 = [
         projectCategory: "dev",
         projectImage: image1,
         stats: {
-            likes: 1 ,
+            likes: 1,
             fundedPercentage: 0
         }
     },
@@ -81,29 +81,27 @@ const projects2 = [
         projectCategory: "dev",
         projectImage: image1,
         stats: {
-            likes: 0 ,
+            likes: 0,
             fundedPercentage: 0
         }
     }
 ];
 
-function ProfileSection({ projects }) {
+function ProfileSection({ belongingUser, ownerProjects }) {
     const [activeTab, setActiveTab] = useState("projects");
 
     const renderSection = () => {
         switch (activeTab) {
-            case "projects":
-                return <GridProjectSection projectsFound={projects1} belongingUser={belongingUser}/>;
             case "collaborating":
-                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} />;
             case "feedback":
                 return (<p className="fade-in">wawa</p>);
             case "liked":
-                return <GridProjectSection projectsFound={projects1} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects1} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />;
             case "disliked":
-                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={projects2} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} />;
             default:
-                return <GridProjectSection projectsFound={projects} belongingUser={belongingUser}/>;
+                return <GridProjectSection projectsFound={ownerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} />;
         }
     };
 

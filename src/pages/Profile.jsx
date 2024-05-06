@@ -7,14 +7,32 @@ import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
 import following from "../assets/icons/check.svg";
+import { getUserByUrl, getProjectByCreator } from "../services/index";
 
 function Profile() {
+    const skip = 0;
+    const limit = 8;
     const location = useLocation();
     let navigate = useNavigate();
     const viewUser = location.pathname.split('/profile/')[1];
-    console.log(viewUser);
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [isFollowing, setIsFollowing] = useState(false);
+    const [user, setUser] = useState(null);
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+        const fetchUserAndProjects = async () => {
+            await getUserByUrl(viewUser)
+                .then(async (data) => {
+                    setUser(data[0]);
+                    await getProjectByCreator(data[0].id, skip, limit)
+                        .then(projects => {
+                            setProjects(projects);
+                        });
+                });
+        }
+        fetchUserAndProjects();
+    }, [viewUser]);
 
     const logoutUser = () => {
         localStorage.removeItem('token');
@@ -29,7 +47,7 @@ function Profile() {
     function handleUnFollow() {
         setIsFollowing(false);
     }
-
+    console.log(projects);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
@@ -39,17 +57,17 @@ function Profile() {
             </div>
             <div className="flex flex-col justify-center items-center fade-in">
                 <div className="relative w-10/12">
-                    <img className="absolute -top-44 flex flex-col w-2/12 bg-white rounded-full shadow-xl" src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" ></img>
+                    <img className="absolute -top-44 flex flex-col w-2/12 bg-gradient-to-r from-primary to-secondary rounded-full shadow-xl" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profilePicture` : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
                     <div className="flex justify-between items-start gap-20">
                         <div className="w-2/12">
                         </div>
                         <div className="flex flex-col gap-4 w-8/12 fade-in" style={{ animationDelay: `0.05s` }}>
-                            <h2 className="text-6xl font-montserrat font-extrabold text-black">User1</h2>
+                            <h2 className="text-6xl font-montserrat font-extrabold text-black">{user ? user.username : ''}</h2>
                             <div className="flex gap-5">
-                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">87.6%</span> positive rating</p>
-                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">9</span> followers</p>
+                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.rating : '-'}</span> positive rating</p>
+                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.followers : 0}</span> followers</p>
                             </div>
-                            <p className="font-dmsans text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <p className="font-dmsans text-black">{user && user.biography ? user.biography : ''}</p>
                         </div>
                         <div className="w-2/12 fade-in" style={{ animationDelay: `0.1s` }}>
                             {userData && userData.userUrl === viewUser ? (
@@ -80,7 +98,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <ProfileSection belongingUser={userData && userData.userUrl === viewUser ? true : false} />
+            <ProfileSection belongingUser={userData && userData.userUrl === viewUser ? true : false} ownerProjects={projects} />
             <Footer />
         </div>
     );

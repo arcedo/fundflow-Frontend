@@ -60,7 +60,6 @@ function Login() {
                 })
                 .then(async (data) => {
                     const userResponse = await loginGoogle(codeResponse.access_token);
-                    console.log(userResponse);
                     if (userResponse && userResponse.token) {
                         localStorage.setItem('token', userResponse.token);
                         localStorage.setItem('userData', JSON.stringify(userResponse));
