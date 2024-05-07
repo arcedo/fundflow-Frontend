@@ -12,14 +12,16 @@ async function fetchDataGet(url) {
     }
 };
 
-async function fetchDataAuth(method, url, token) {
+async function fetchDataAuth(method, url, token, body) {
     try {
         return await fetch(url, {
             method: method,
             mode: 'cors',
             headers: {
+                'Content-Type': 'application/json',
                 'Authorization': token
-            }
+            },
+            body: JSON.stringify(body)
         })
             .then(async (res) => {
                 return await res.json();
@@ -86,6 +88,10 @@ export async function getLoggedUser(token) {
 
 export async function getUserByUrl(url) {
     return await fetchDataGet(`${server}users/${url}`);
+}
+
+export async function changeUserPassword(token, currentPassword, newPassword, confirmPassword) {
+    return await fetchDataAuth('PUT', `${server}users/changePassword`, token, { currentPassword, newPassword, confirmPassword });
 }
 
 // Images

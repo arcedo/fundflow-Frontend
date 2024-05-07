@@ -52,7 +52,6 @@ function Profile() {
     function handleUnFollow() {
         setIsFollowing(false);
     }
-    console.log(user);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
@@ -78,11 +77,11 @@ function Profile() {
                         <div className="w-2/12 fade-in" style={{ animationDelay: `0.1s` }}>
                             {userData && userData.userUrl === viewUser ? (
                                 <div className="flex flex-col gap-3">
-                                    <Link to={"/settings"} className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">
+                                    <Link to={"/settings"} className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-secondary hover:translate-x-1.5 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">
                                         edit
                                         <img className="w-7" src={edit} alt="edit" />
                                     </Link>
-                                    <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-red-600 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200" onClick={logoutUser}>
+                                    <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-red-500 hover:translate-x-1.5 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200" onClick={logoutUser}>
                                         log out
                                         <img className="w-7" src={logout} alt="logout" />
                                     </button>

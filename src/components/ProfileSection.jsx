@@ -58,7 +58,7 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
                 )}
             </div>
             <div className="flex justify-center items-center bg-white w-full min-h-64">
-                <div className="flex justify-between items-center py-5">
+                <div className="flex justify-between items-center pt-7 pb-10">
                     {renderSection()}
                 </div>
             </div>

@@ -31,11 +31,11 @@ function MdlDeleteUser({ onClose, email }) {
                         <p className="text-black font-normal font-dmsans">If this is your final decision, sorry to see you go! We hope to see you again sometime.</p>
                     </div>
                     <div className="flex flex-col gap-1">
-                        <p id="confirm" className="text-black font-normal font-dmsans opacity-70">Type "{email}" to confirm.</p>
+                        <p id="confirm" className="text-black font-normal font-dmsans opacity-70">Type "<span className="font-bold">{email}</span>" to confirm.</p>
                         <input id="deleteInput" type="text" className="w-full h-10 font-normal font-dmsans border-2 border-black border-opacity-25 p-3 rounded-lg outline-none focus:border-opacity-50 transition-all duration-200" />
                     </div>
                 </div>
-                <button onClick={deleteCheck} className="bg-red-700 text-white font-dmsans font-semibold text-lg py-3 px-6 rounded-lg hover:bg-red-800 transition-all duration-200">Delete</button>
+                <button onClick={deleteCheck} className="bg-red-600 text-white font-dmsans font-semibold text-lg py-3 px-6 rounded-lg hover:bg-red-700 transition-all duration-200">Delete</button>
             </div>
         </Modal>
     );
