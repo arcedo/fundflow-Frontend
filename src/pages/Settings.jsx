@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import MdlDeleteUser from "../components/MdlDeleteUser";
 import { useNavigate } from "react-router-dom";
 import { getLoggedUser, changeUserPassword } from "../services";
+import passAlert from "../assets/icons/passAlert.svg";
 
 function Settings() {
     let navigate = useNavigate();
@@ -158,11 +159,21 @@ function Settings() {
                         <div className="relative">                        
                             {currentUser && currentUser.googleAccount ?
                             <div className="absolute w-full h-full z-30 flex justify-center items-center">
-                                <div className="bg-white backdrop-blur-xl bg-opacity-90 rounded-lg p-5 shadow-xl">
-                                    <p>Your account is...</p>
-                                    <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
-                                        Change your password
-                                    </button>
+                                <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                    <div className="flex flex-col gap-4 items-center justify-center">
+                                        <div className="w-full flex flex-col gap-1">
+                                            <img className="w-16" src={passAlert} alt="Password alert" />
+                                            <h3 className="font-dmsans font-semibold text-2xl text-black">Password setup required</h3>
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                            <p className="font-dmsans text-black text-md text-opacity-70">Due to our privacy policy, we require that Google users <span className="font-bold text-black">set up a password</span> before they can change their user settings.</p>
+                                            <p className="font-dmsans text-black text-md text-opacity-70">You only need to do this once, and you will still be able to keep using the Google login alongside ours.</p>  
+                                            <p className="font-dmsans text-black text-md text-opacity-70">We'll send you an email with the instructions to set it up.</p>
+                                        </div>
+                                        <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                                            Send email
+                                        </button>
+                                    </div>
                                 </div>
                             </div> : ''}
                             {/* el form coge la variable del blur. everything else is the same as before */}
