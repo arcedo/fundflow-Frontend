@@ -140,17 +140,33 @@ function Settings() {
         }));
     };
     console.log(currentUser);
+
+    // esto es la variable que pilla si es user de google o no y pone el blur
+    const googleUserFormStyle = currentUser && currentUser.googleAccount ? "blur-sm pointer-events-none" : "";
+
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             {showDeleteUserModal && <MdlDeleteUser onClose={closeDeleteUserModal} email={currentUser.email} />}
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center pt-32 fade-in">
                 <div className="w-10/12 items-center justify-start">
-                    {currentUser && !currentUser.googleAccount ?
-                        <div>
-                            <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black">profile settings</h2>
-                            <hr className="w-full h-0.5 mb-4 bg-555 bg-opacity-50 rounded-full" />
-                            <form className="grid grid-cols-2 gap-x-14" onSubmit={handleSaveChanges}>
+                    <div>
+                        <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black">profile settings</h2>
+                        <hr className="w-full h-0.5 mb-4 bg-555 bg-opacity-50 rounded-full" />
+                        {/* {currentUser && !currentUser.googleAccount ? */}
+                        {/* div relativo pa que se ponga encima, hace el check de si es user de google y pone el div absolute */}
+                        <div className="relative">                        
+                            {currentUser && currentUser.googleAccount ?
+                            <div className="absolute w-full h-full z-30 flex justify-center items-center">
+                                <div className="bg-white backdrop-blur-xl bg-opacity-90 rounded-lg p-5 shadow-xl">
+                                    <p>Your account is...</p>
+                                    <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                                        Change your password
+                                    </button>
+                                </div>
+                            </div> : ''}
+                            {/* el form coge la variable del blur. everything else is the same as before */}
+                            <form className={`grid grid-cols-2 gap-x-14 ${googleUserFormStyle}`} onSubmit={handleSaveChanges}>
                                 <div className="flex flex-col gap-4">
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="flex flex-col gap-2">
@@ -238,14 +254,16 @@ function Settings() {
                                     </div>
                                     <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                                 </div>
-                            </form>
-                        </div> :
-                        ''
-                    }
+                            </form> 
+                            {/* : */}
+                            {/* '' } */}
+                        </div>
+                    </div> 
                     <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black mt-10">account security</h2>
                     <hr className="w-full h-0.5 mb-5 bg-555 bg-opacity-50 rounded-full" />
                     <div className="grid grid-cols-2 gap-x-14">
-                        {currentUser && !currentUser.googleAccount ? <form onSubmit={handleChangePassword} className="flex flex-col  gap-8">
+                        {currentUser && !currentUser.googleAccount ? 
+                        <form onSubmit={handleChangePassword} className="flex flex-col  gap-8">
                             <div className="flex flex-col gap-4">
                                 <div className="flex flex-col gap-2">
                                     <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="changeCurrentPassword">current password <span className="text-red-600">*</span></label>
@@ -267,13 +285,13 @@ function Settings() {
                                 </div>
                                 <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                             </div>
-                        </form> :
-                            <div className="flex justify-around flex-col">
-                                <p>Your account is...</p>
-                                <button className="w-5/12 self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
-                                    Change your password
-                                </button>
-                            </div>
+                        </form> : ''
+                            // <div className="flex justify-around flex-col">
+                            //     <p>Your account is...</p>
+                            //     <button className="w-5/12 self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                            //         Change your password
+                            //     </button>
+                            // </div>
                         }
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
