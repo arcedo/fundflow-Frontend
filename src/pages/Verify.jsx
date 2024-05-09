@@ -20,10 +20,10 @@ function Verify() {
                 if (response.status === 200) {
                     setStatus("Email verified!");
                 } else {
-                    setStatus(data.message || "Failed to verify email.");
+                    setStatus(data.message || "Failed to verify email");
                 }
             } catch (error) {
-                setStatus("Failed to verify email due to network error.");
+                setStatus("Failed to verify email");
             }
         }
 
@@ -41,6 +41,7 @@ function Verify() {
                 (
                 <div className='text-black flex flex-col justify-center items-center gap-2'>
                     <h2 className='text-xl font-bold'>{status}</h2>
+                    <p className='opacity-70'>Seems something failed. Want to try again?</p>
                     <button className='p-3 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold'>Resend email</button>
                 </div>
             )}
