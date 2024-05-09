@@ -6,7 +6,7 @@ import ProjectDetails from "../components/ProjectDetails";
 import ProjectGallery from "../components/ProjectGallery";
 import ProjectSection from "../components/ProjectSection";
 
-function Project() {
+function Project({ editMode }) {
 
     const belongingUser = false;
     const project = {
@@ -91,10 +91,11 @@ function Project() {
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true}/>
-            <div className="flex flex-col items-center justify-center gap-10 mt-20">
-                <ProjectDetails project={project} />
-                <ProjectGallery project={project} />
-                <ProjectSection project={project} belongingUser={belongingUser} />
+            <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
+                <ProjectDetails project={project} editMode={editMode} />
+                {editMode ? <Link to={`/projects/edit/${project.projectUrl}`} className="absolute top-0 right-0 m-5 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Edit project</Link> : null}
+                <ProjectGallery project={project} editMode={editMode} />
+                <ProjectSection project={project} editMode={editMode} belongingUser={belongingUser} />
             </div>
             <Footer />
         </div>

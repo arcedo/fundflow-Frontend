@@ -4,7 +4,7 @@ import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
 
-function ProjectDetails({ project }) {
+function ProjectDetails({ project, editMode }) {
 
     const formattedCurrentFunding = project.currentFunding.toLocaleString('de-DE');
     const formattedGoalFunding = project.goalFunding.toLocaleString('de-DE');
@@ -35,7 +35,8 @@ function ProjectDetails({ project }) {
                                 </div>
                             </div>
                         </div>
-                        <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Help this project</button>
+                        {editMode ? <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Edit details</button> 
+                        : <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Help this project</button>}
                     </div>
                 </div>
             </div>

@@ -154,7 +154,6 @@ function Settings() {
                     <div>
                         <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black">profile settings</h2>
                         <hr className="w-full h-0.5 mb-4 bg-555 bg-opacity-50 rounded-full" />
-                        {/* {currentUser && !currentUser.googleAccount ? */}
                         {/* div relativo pa que se ponga encima, hace el check de si es user de google y pone el div absolute */}
                         <div className="relative">                        
                             {currentUser && currentUser.googleAccount ?
@@ -168,7 +167,7 @@ function Settings() {
                                         <div className="flex flex-col gap-1">
                                             <p className="font-dmsans text-black text-md text-opacity-70">Due to our privacy policy, we require that Google users <span className="font-bold text-black">set up a password</span> before they can change their user settings.</p>
                                             <p className="font-dmsans text-black text-md text-opacity-70">You only need to do this once, and you will still be able to keep using the Google login alongside ours.</p>  
-                                            <p className="font-dmsans text-black text-md text-opacity-70">We'll send you an email with the instructions to set it up.</p>
+                                            <p className="font-dmsans text-black text-md text-opacity-70">We'll <span className="font-bold text-black">send you an email</span> with instructions to set it up.</p>
                                         </div>
                                         <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
                                             Send email
@@ -266,8 +265,6 @@ function Settings() {
                                     <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                                 </div>
                             </form> 
-                            {/* : */}
-                            {/* '' } */}
                         </div>
                     </div> 
                     <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black mt-10">account security</h2>
@@ -297,12 +294,6 @@ function Settings() {
                                 <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                             </div>
                         </form> : ''
-                            // <div className="flex justify-around flex-col">
-                            //     <p>Your account is...</p>
-                            //     <button className="w-5/12 self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
-                            //         Change your password
-                            //     </button>
-                            // </div>
                         }
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
