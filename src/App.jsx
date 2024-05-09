@@ -5,6 +5,7 @@ import Error404 from './pages/404';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Recover from './pages/Recover';
+import ResetPass from './pages/ResetPass';
 import Verify from "./pages/Verify";
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/recover" element={<Recover/>} />
+        <Route path="/reset" element={<ResetPass/>} />
         <Route path="/home" element={<Home/>} />
         <Route path="/about" element={<AboutUs/>} />
         <Route path="/help" element={<Help/>} />
