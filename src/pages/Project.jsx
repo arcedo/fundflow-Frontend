@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ProjectDetails from "../components/ProjectDetails";
 import ProjectGallery from "../components/ProjectGallery";
 import ProjectSection from "../components/ProjectSection";
+import edit from "../assets/icons/edit.svg";
 
 function Project({ editMode }) {
 
@@ -93,7 +94,11 @@ function Project({ editMode }) {
             <Header categoriesDisabled={true}/>
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
                 <ProjectDetails project={project} editMode={editMode} />
-                {editMode ? <Link to={`/projects/edit/${project.projectUrl}`} className="absolute top-0 right-0 m-5 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Edit project</Link> : null}
+                {!editMode ? <Link to={`/projects/edit/${project.projectUrl}`} className="fixed bottom-0 right-0 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                    <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
+                        <img className="h-8" src={edit} alt="edit button" />
+                    </div>
+                </Link> : null}
                 <ProjectGallery project={project} editMode={editMode} />
                 <ProjectSection project={project} editMode={editMode} belongingUser={belongingUser} />
             </div>

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
+import MdlVerifyUser from "../components/MdlVerifyUser";
 import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
@@ -52,12 +53,27 @@ function Profile() {
     function handleUnFollow() {
         setIsFollowing(false);
     }
+
+    const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);
+    const openVerifyUserModal = () => {
+        setShowVerifyUserModal(true);
+    };
+    const closeVerifyUserModal = () => {
+        setShowVerifyUserModal(false);
+    };
+
+    const loggedUser = localStorage.getItem("userData") ? JSON.parse(localStorage.getItem("userData")) : null;
+
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
+            {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center gap-10">
-                <div className="flex justify-center items-start object-contain object-center overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
+                <div className="relative flex justify-center items-start object-contain object-center overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
                     <img className="" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profileBanner` : ''} alt="" />
+                    {loggedUser.verifiedEmail ? null : <div className="absolute flex justify-center items-center py-1 w-full bottom-0 bg-red-500">
+                        <button onClick={openVerifyUserModal} className="font-dmsans text-white font-bold underline">Your account isn't verified yet.</button>
+                    </div>}
                 </div>
             </div>
             <div className="flex flex-col justify-center items-center fade-in">

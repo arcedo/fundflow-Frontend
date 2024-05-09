@@ -31,7 +31,7 @@ export default function App() {
         <Route path="/profile/:userUrl" element={<Profile/>} />
         <Route path="/projects/:projectUrl" element={<Project/>} />
         <Route path="/projects/edit/:projectUrl" element={<Project editMode={true} />} />
-        {/* <Route path="/verifyEmail/:userToken" element={<Verify/>} /> */}
+        <Route path="/verifyEmail/:userToken" element={<Verify/>} />
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="*" element={<Navigate to="/404" />} />
         <Route path="/404" element={<Error404/>} />
