@@ -86,7 +86,7 @@ function Login() {
                     <input id='password' className="p-2 mb-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password" />
                     <Link to={"/recover"} className='text-primary font-normal tracking-tight w-40 transition-all duration-200 hover:text-purple-500'>Forgot your password?</Link>
                 </div>
-                <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold" type="submit">Login</button>
+                <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold" type="submit">Login</button>
             </form>
             <p className='text-red-400 pt-2.5'>{user && user.message ? user.message : ''}</p>
             <div className='flex flex-row items-center justify-between w-11/12 my-2'>

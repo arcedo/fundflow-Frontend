@@ -94,7 +94,7 @@ function Project({ editMode }) {
             <Header categoriesDisabled={true}/>
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
                 <ProjectDetails project={project} editMode={editMode} />
-                {!editMode ? <Link to={`/projects/edit/${project.projectUrl}`} className="fixed bottom-0 right-0 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                {!editMode ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed bottom-0 right-0 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />
                     </div>

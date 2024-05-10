@@ -35,8 +35,8 @@ function ProjectDetails({ project, editMode }) {
                                 </div>
                             </div>
                         </div>
-                        {editMode ? <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Edit details</button> 
-                        : <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Help this project</button>}
+                        {editMode ? <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Edit details</button> 
+                        : <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Help this project</button>}
                     </div>
                 </div>
             </div>
