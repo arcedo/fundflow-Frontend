@@ -81,6 +81,14 @@ export async function loginGoogle(token) {
     return await fetchDataWithBody('POST', `${server}auth/login/google`, { token });
 }
 
+export async function verifyEmail(token) {
+    return await fetchDataAuth('POST', `${server}auth/verifyEmail`, token);
+}
+
+export async function endVerificationEmail(token) {
+    return await fetchDataGet(`${server}auth/verifyEmail/${token}`);
+}
+
 // User
 export async function getLoggedUser(token) {
     return await fetchDataAuth('GET', `${server}users/`, token);

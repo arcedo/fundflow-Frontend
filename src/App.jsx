@@ -18,27 +18,27 @@ import Project from "./pages/Project";
 export default function App() {
   return (
     <>
-    <Router>
-    <ScrollToTop />
-      <Routes>
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>} />
-        <Route path="/recover" element={<Recover/>} />
-        <Route path="/reset" element={<ResetPass/>} />
-        <Route path="/home" element={<Home/>} />
-        <Route path="/about" element={<AboutUs/>} />
-        <Route path="/help" element={<Help/>} />
-        <Route path="/search" element={<Search/>} />
-        <Route path="/settings" element={<Settings/>} />
-        <Route path="/profile/:userUrl" element={<Profile/>} />
-        <Route path="/projects/:projectUrl" element={<Project/>} />
-        <Route path="/projects/edit/:projectUrl" element={<Project editMode={true} />} />
-        <Route path="/verifyEmail/:userToken" element={<Verify/>} />
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="*" element={<Navigate to="/404" />} />
-        <Route path="/404" element={<Error404/>} />
-      </Routes>
-    </Router>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/recover" element={<Recover />} />
+          <Route path="/reset" element={<ResetPass />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile/:userUrl" element={<Profile />} />
+          <Route path="/projects/:projectUrl" element={<Project />} />
+          <Route path="/projects/edit/:projectUrl" element={<Project editMode={true} />} />
+          <Route path="/verifyEmail/:code" element={<Verify />} />
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+          <Route path="/404" element={<Error404 />} />
+        </Routes>
+      </Router>
     </>
   );
 }
