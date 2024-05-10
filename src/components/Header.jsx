@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MdlCreateProject from "./MdlCreateProject";
+import MdlLoginNeeded from "./MdlLoginNeeded";
+import MdlVerifyUser from "./MdlVerifyUser";
 import fundLogo from "../assets/icons/logoLight.png";
 import plus from "../assets/icons/plus.svg";
 import search from "../assets/icons/search.svg";
@@ -16,6 +18,8 @@ function Header({ categoriesDisabled }) {
     useEffect(() => {
         setVisible(!categoriesDisabled);
     }, [categoriesDisabled]);
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
 
     if (!categoriesDisabled) {
         useEffect(() => {
@@ -49,19 +53,6 @@ function Header({ categoriesDisabled }) {
         }
     };
 
-    const openCreateProjectModal = () => {
-        if (!localStorage.getItem('userData')) {
-            navigate('/login');
-        } else {
-            handleMouseLeave();
-            setShowCreateProjectModal(true);
-        }
-    };
-
-    const closeCreateProjectModal = () => {
-        setShowCreateProjectModal(false);
-    };
-
     document.addEventListener("keydown", (e) => {
         if (e.key === "Enter" && document.activeElement.id === "searchBar") {
             searchButton();
@@ -74,11 +65,43 @@ function Header({ categoriesDisabled }) {
             window.location.href = `/search?query=${searchQuery}`;
         }
     }
-    const userData = JSON.parse(localStorage.getItem('userData'));
+
+    const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);
+    const openVerifyUserModal = () => {
+        setShowVerifyUserModal(true);
+    };
+    const closeVerifyUserModal = () => {
+        setShowVerifyUserModal(false);
+    };
+
+    const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
+    const openLoginNeededModal = () => {
+        setShowLoginNeededModal(true);
+    };
+    const closeLoginNeededModal = () => {
+        setShowLoginNeededModal(false);
+    };
+
+    const openCreateProjectModal = () => {
+        if (!localStorage.getItem('userData')) {
+            openLoginNeededModal();
+        } else if (!JSON.parse(localStorage.getItem('userData')).verifiedEmail) {
+            openVerifyUserModal();
+        } else {
+            handleMouseLeave();
+            setShowCreateProjectModal(true);
+        }
+    };
+
+    const closeCreateProjectModal = () => {
+        setShowCreateProjectModal(false);
+    };
 
     return (
         <div className="flex flex-col justify-center w-screen sm:w-full items-center fixed z-40" onMouseLeave={handleMouseLeave}>
             {showCreateProjectModal && <MdlCreateProject onClose={closeCreateProjectModal} />}
+            {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
+            {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <div className="flex w-full shadow-md z-30" onMouseEnter={handleMouseEnter}>
                 <div className="flex justify-center items-center w-full bg-white">
                     <div className="flex justify-between items-center w-10/12 sm:w-11/12 h-20 bg-white">

@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
 import MdlVerifyUser from "../components/MdlVerifyUser";
+import MdlLoginNeeded from "../components/MdlLoginNeeded";
 import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
@@ -47,6 +48,10 @@ function Profile() {
     }
 
     function handleFollow() {
+        if (!userData) {
+            openLoginNeededModal();
+            return;
+        }
         setIsFollowing(true);
     }
 
@@ -62,9 +67,18 @@ function Profile() {
         setShowVerifyUserModal(false);
     };
 
+    const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
+    const openLoginNeededModal = () => {
+        setShowLoginNeededModal(true);
+    };
+    const closeLoginNeededModal = () => {
+        setShowLoginNeededModal(false);
+    };
+
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
+            {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center gap-10">
                 <div className="relative flex justify-center items-start object-contain object-center overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
