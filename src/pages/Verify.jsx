@@ -26,11 +26,11 @@ function Verify() {
                 }
                 setTimeout(() => {
                     navigate('/');
-                }, 3000);
+                }, 1500);
             }
         }
         verify();
-    }, [navigate, code]); 
+    }, [navigate, code]);
     return (
         <UserMain>
             {verification ? (verification.code === 200 ? (
@@ -44,11 +44,11 @@ function Verify() {
                     <p className='opacity-70'>Seems something failed. Want to try again?</p>
                     <button className='p-3 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-bold'>Resend email</button>
                 </div>
-            )): 
-            <div className='text-black flex flex-col justify-center items-center gap-2'>
-            <h2 className='text-xl font-bold'>Verifying your account...</h2>
-        </div>
-        }
+            )) :
+                <div className='text-black flex flex-col justify-center items-center gap-2'>
+                    <h2 className='text-xl font-bold'>Verifying your account...</h2>
+                </div>
+            }
         </UserMain>
     );
 }
