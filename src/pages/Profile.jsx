@@ -31,6 +31,8 @@ function Profile() {
                         return;
                     } else {
                         setUser(data[0]);
+                        userData.verifiedEmail = data[0].verifiedEmail;
+                        localStorage.setItem('userData', JSON.stringify(userData));
                         await getProjectByCreator(data[0].id, skip, limit)
                             .then(projects => {
                                 setProjects(projects);
@@ -39,8 +41,6 @@ function Profile() {
                 });
         }
         fetchUserAndProjects();
-        userData.verifiedEmail = user.verifiedEmail;
-        localStorage.setItem('userData', JSON.stringify(userData));
     }, [viewUser]);
 
     const logoutUser = () => {
@@ -76,6 +76,7 @@ function Profile() {
     const closeLoginNeededModal = () => {
         setShowLoginNeededModal(false);
     };
+    console.log(user);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}

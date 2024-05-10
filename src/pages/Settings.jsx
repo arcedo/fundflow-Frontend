@@ -18,6 +18,8 @@ function Settings() {
             await getLoggedUser(localStorage.getItem('token'))
                 .then(user => {
                     setCurrentUser(user[0]);
+                    userData.verifiedEmail = user[0].verifiedEmail;
+                    localStorage.setItem('userData', JSON.stringify(userData));
                 });
         }
         fetchUser();
@@ -143,7 +145,7 @@ function Settings() {
     console.log(currentUser);
 
     // esto es la variable que pilla si es user de google o no y pone el blur
-    const googleUserFormStyle = currentUser && currentUser.googleAccount ? "blur-sm pointer-events-none" : "";
+    const googleUserFormStyle = currentUser && currentUser.googleAccount || !currentUser.verifiedEmail ? "blur-sm pointer-events-none" : "";
 
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
@@ -168,6 +170,25 @@ function Settings() {
                                             <p className="font-dmsans text-black text-md text-opacity-70">Due to our privacy policy, we require that Google users <span className="font-bold text-black">set up a password</span> before they can change their user settings.</p>
                                             <p className="font-dmsans text-black text-md text-opacity-70">You only need to do this once, and you will still be able to keep using the Google login alongside ours.</p>  
                                             <p className="font-dmsans text-black text-md text-opacity-70">We'll <span className="font-bold text-black">send you an email</span> with instructions to set it up.</p>
+                                        </div>
+                                        <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                                            Send email
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> : ''}
+                            {currentUser && !currentUser.verifiedEmail ? 
+                            <div className="absolute w-full h-full z-30 flex justify-center items-center">
+                                <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                    <div className="flex flex-col gap-4 items-center justify-center">
+                                        <div className="w-full flex flex-col gap-1">
+                                            <img className="w-16" src={passAlert} alt="Password alert" />
+                                            <h3 className="font-dmsans font-semibold text-2xl text-black">Your account isn't verified</h3>
+                                        </div>
+                                        <div className="flex flex-col gap-1">
+                                            <p className="font-dmsans text-black text-md text-opacity-70">You need to <span className="font-bold text-black">verify your account</span> before you can change your user settings.</p>
+                                            <p className="font-dmsans text-black text-md text-opacity-70">Check your inbox for the email we sent you at signup.</p>  
+                                            <p className="font-dmsans text-black text-md text-opacity-70"><span className="font-bold text-black">Can't find it?</span> Click the button and we'll send you another.</p>
                                         </div>
                                         <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
                                             Send email

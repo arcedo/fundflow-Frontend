@@ -150,7 +150,7 @@ function Signup() {
             </div>
             <button className='flex items-center justify-center gap-3 w-full h-12 mb-4 bg-white border border-gray-500 border-opacity-40 text-gray-500 rounded-lg' onClick={googleSignUp}>
                 <img src={googleIcon} alt="" className='w-6' />
-                Sign up with Google
+                Login with Google
             </button>
             <Link to={"/login"} className='text-primary font-normal tracking-tight w-full transition-all duration-200 hover:text-purple-500'>Have an account? Log in</Link>
         </UserMain>

@@ -102,7 +102,7 @@ function Login() {
                     <button className='text-white' onClick={logOut}>Log out</button>
                 </div>
             ) : ''} */}
-            <button className='flex items-center justify-center gap-3 w-full h-12 mb-4 bg-white border border-gray-500 border-opacity-40 text-gray-500 rounded-lg' onClick={googleLogin}><img src={googleIcon} alt="" className='w-6' />Sign in with Google</button>
+            <button className='flex items-center justify-center gap-3 w-full h-12 mb-4 bg-white border border-gray-500 border-opacity-40 text-gray-500 rounded-lg' onClick={googleLogin}><img src={googleIcon} alt="" className='w-6' />Login with Google</button>
             <Link to={"/signup"} className='text-primary font-normal tracking-tight w-full transition-all duration-200 hover:text-purple-500'>Don't have an account? Sign up</Link>
         </UserMain>
     )
