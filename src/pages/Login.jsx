@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import UserMain from '../components/UserMain';
@@ -8,6 +8,12 @@ import { login, loginGoogle } from '../services/index';
 function Login() {
     let navigate = useNavigate();
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/');
+        }
+    });
 
     const verificationLogin = async (event) => {
         event.preventDefault();

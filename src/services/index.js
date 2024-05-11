@@ -89,6 +89,14 @@ export async function endVerificationEmail(token) {
     return await fetchDataGet(`${server}auth/verifyEmail/${token}`);
 }
 
+export async function recoverPassword(email) {
+    return await fetchDataWithBody('POST', `${server}auth/recoverPassword`, { email });
+}
+
+export async function resetPassword(token, password, confirmationPassword) {
+    return await fetchDataWithBody('PUT', `${server}auth/recoverPassword/${token}`, { password, confirmationPassword });
+}
+
 // User
 export async function getLoggedUser(token) {
     return await fetchDataAuth('GET', `${server}users/`, token);

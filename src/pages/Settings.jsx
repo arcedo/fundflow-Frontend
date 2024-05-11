@@ -5,7 +5,7 @@ import MdlDeleteUser from "../components/MdlDeleteUser";
 import { useNavigate } from "react-router-dom";
 import { getLoggedUser, changeUserPassword } from "../services";
 import passAlert from "../assets/icons/passAlert.svg";
-import { verifyEmail } from "../services";
+import { verifyEmail, recoverPassword } from "../services";
 
 function Settings() {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -15,12 +15,23 @@ function Settings() {
     }
 
     const [emailSent, setEmailSent] = useState(false);
+    const [recoverEmailSent, setRecoverEmailSent] = useState(false);
 
     const resendEmail = async () => {
         await verifyEmail(localStorage.getItem('token'))
             .then((data) => {
                 if (data.code === 200) {
                     setEmailSent(true);
+                }
+            });
+    }
+
+    const sendRecoverPasswordEmail = async () => {
+        await recoverPassword(currentUser.email)
+            .then((data) => {
+                console.log(data);
+                if (data.code === 200) {
+                    setRecoverEmailSent(true);
                 }
             });
     }
@@ -155,7 +166,6 @@ function Settings() {
             [name]: value
         }));
     };
-    console.log(currentUser);
 
     // esto es la variable que pilla si es user de google o no y pone el blur
     const googleUserFormStyle = currentUser && currentUser.googleAccount || !currentUser.verifiedEmail ? "blur-sm pointer-events-none" : "";
@@ -170,49 +180,56 @@ function Settings() {
                         <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black">profile settings</h2>
                         <hr className="w-full h-0.5 mb-4 bg-555 bg-opacity-50 rounded-full" />
                         {/* div relativo pa que se ponga encima, hace el check de si es user de google y pone el div absolute */}
-                        <div className="relative">                        
+                        <div className="relative">
                             {currentUser && currentUser.googleAccount ?
-                            <div className="absolute w-full h-full z-30 flex justify-center items-center">
-                                <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
-                                    <div className="flex flex-col gap-4 items-center justify-center">
-                                        <div className="w-full flex flex-col gap-1">
-                                            <img className="w-16" src={passAlert} alt="Password alert" />
-                                            <h3 className="font-dmsans font-semibold text-2xl text-black">Password setup required</h3>
-                                        </div>
-                                        <div className="flex flex-col gap-1">
-                                            <p className="font-dmsans text-black text-md text-opacity-70">Due to our privacy policy, we require that Google users <span className="font-bold text-black">set up a password</span> before they can change their user settings.</p>
-                                            <p className="font-dmsans text-black text-md text-opacity-70">You only need to do this once, and you will still be able to keep using the Google login alongside ours.</p>  
-                                            <p className="font-dmsans text-black text-md text-opacity-70">We'll <span className="font-bold text-black">send you an email</span> with instructions to set it up.</p>
-                                        </div>
-                                        <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
-                                            Send email
-                                        </button>
+                                <div className="absolute w-full h-full z-30 flex justify-center items-center">
+                                    <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                        {recoverEmailSent ?
+                                            <div className="flex flex-col gap-4 justify-center">
+                                                <h2 className="text-4xl font-dmsans font-bold text-black">Email sent</h2>
+                                                <p className="text-black font-normal font-dmsans opacity-70">Check your inbox for a password setup email. Make sure to check your spam folder.</p>
+                                            </div>
+                                            :
+                                            <div className="flex flex-col gap-4 items-center justify-center">
+                                                <div className="w-full flex flex-col gap-1">
+                                                    <img className="w-16" src={passAlert} alt="Password alert" />
+                                                    <h3 className="font-dmsans font-semibold text-2xl text-black">Password setup required</h3>
+                                                </div>
+                                                <div className="flex flex-col gap-1">
+                                                    <p className="font-dmsans text-black text-md text-opacity-70">Due to our privacy policy, we require that Google users <span className="font-bold text-black">set up a password</span> before they can change their user settings.</p>
+                                                    <p className="font-dmsans text-black text-md text-opacity-70">You only need to do this once, and you will still be able to keep using the Google login alongside ours.</p>
+                                                    <p className="font-dmsans text-black text-md text-opacity-70">We'll <span className="font-bold text-black">send you an email</span> with instructions to set it up.</p>
+                                                </div>
+                                                <button onClick={sendRecoverPasswordEmail} className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                                                    Send email
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
-                                </div>
-                            </div> : ''}
-                            {currentUser && !currentUser.verifiedEmail ? 
-                            <div className="absolute w-full h-full z-30 flex justify-center items-center">
-                                <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
-                                    {emailSent ? <div>
-                                        <h2 className="text-4xl font-dmsans font-bold text-black">Email sent</h2>
-                                        <p className="text-black font-normal font-dmsans opacity-70">Check your inbox for a verification email. Make sure to check your spam folder.</p>
-                                    </div> : 
-                                    <div className="flex flex-col gap-4 items-center justify-center">
-                                        <div className="w-full flex flex-col gap-1">
-                                            <img className="w-16" src={passAlert} alt="Password alert" />
-                                            <h3 className="font-dmsans font-semibold text-2xl text-black">Your account isn't verified</h3>
-                                        </div>
-                                        <div className="flex flex-col gap-1">
-                                            <p className="font-dmsans text-black text-md text-opacity-70">You need to <span className="font-bold text-black">verify your account</span> before you can change your user settings.</p>
-                                            <p className="font-dmsans text-black text-md text-opacity-70">Check your inbox for the email we sent you at signup.</p>  
-                                            <p className="font-dmsans text-black text-md text-opacity-70"><span className="font-bold text-black">Can't find it?</span> Click the button and we'll send you another.</p>
-                                        </div>
-                                        <button onClick={resendEmail} className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
-                                            Send email
-                                        </button>
-                                    </div>}                                    
-                                </div>
-                            </div> : ''}
+                                </div> : ''}
+                            {currentUser && !currentUser.verifiedEmail ?
+                                <div className="absolute w-full h-full z-30 flex justify-center items-center">
+                                    <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                        {emailSent ? <div>
+                                            <h2 className="text-4xl font-dmsans font-bold text-black">Email sent</h2>
+                                            <p className="text-black font-normal font-dmsans opacity-70">Check your inbox for a verification email. Make sure to check your spam folder.</p>
+                                        </div> :
+                                            <div className="flex flex-col gap-4 items-center justify-center">
+                                                <div className="w-full flex flex-col gap-1">
+                                                    <img className="w-16" src={passAlert} alt="Password alert" />
+                                                    <h3 className="font-dmsans font-semibold text-2xl text-black">Your account isn't verified</h3>
+                                                </div>
+                                                <div className="flex flex-col gap-1">
+                                                    <p className="font-dmsans text-black text-md text-opacity-70">You need to <span className="font-bold text-black">verify your account</span> before you can change your user settings.</p>
+                                                    <p className="font-dmsans text-black text-md text-opacity-70">Check your inbox for the email we sent you at signup.</p>
+                                                    <p className="font-dmsans text-black text-md text-opacity-70"><span className="font-bold text-black">Can't find it?</span> Click the button and we'll send you another.</p>
+                                                </div>
+                                                <button onClick={resendEmail} className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                                                    Send email
+                                                </button>
+                                            </div>}
+                                    </div>
+                                </div> : ''}
                             {/* el form coge la variable del blur. everything else is the same as before */}
                             <form className={`grid grid-cols-2 gap-x-14 ${googleUserFormStyle}`} onSubmit={handleSaveChanges}>
                                 <div className="flex flex-col gap-4">
@@ -302,36 +319,36 @@ function Settings() {
                                     </div>
                                     <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                                 </div>
-                            </form> 
+                            </form>
                         </div>
-                    </div> 
+                    </div>
                     <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black mt-10">account security</h2>
                     <hr className="w-full h-0.5 mb-5 bg-555 bg-opacity-50 rounded-full" />
                     <div className="grid grid-cols-2 gap-x-14">
-                        {currentUser && !currentUser.googleAccount ? 
-                        <form onSubmit={handleChangePassword} className="flex flex-col  gap-8">
-                            <div className="flex flex-col gap-4">
-                                <div className="flex flex-col gap-2">
-                                    <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="changeCurrentPassword">current password <span className="text-red-600">*</span></label>
-                                    <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="changeCurrentPassword" name="changeCurrentPassword" />
+                        {currentUser && !currentUser.googleAccount ?
+                            <form onSubmit={handleChangePassword} className="flex flex-col  gap-8">
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="changeCurrentPassword">current password <span className="text-red-600">*</span></label>
+                                        <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="changeCurrentPassword" name="changeCurrentPassword" />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="newPassword">new password <span className="text-red-600">*</span></label>
+                                        <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="newPassword" name="newPassword" />
+                                    </div>
+                                    <div className="flex flex-col gap-2">
+                                        <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="confirmNewPassword">confirm new password <span className="text-red-600">*</span></label>
+                                        <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="confirmNewPassword" name="confirmNewPassword" />
+                                    </div>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="newPassword">new password <span className="text-red-600">*</span></label>
-                                    <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="newPassword" name="newPassword" />
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-end gap-5">
+                                        <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Change password</button>
+                                        <p className="font-dmsans text-lg text-red-600">* required values</p>
+                                    </div>
+                                    <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="confirmNewPassword">confirm new password <span className="text-red-600">*</span></label>
-                                    <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="confirmNewPassword" name="confirmNewPassword" />
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-4">
-                                <div className="flex items-end gap-5">
-                                    <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Change password</button>
-                                    <p className="font-dmsans text-lg text-red-600">* required values</p>
-                                </div>
-                                <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
-                            </div>
-                        </form> : ''
+                            </form> : ''
                         }
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import UserMain from '../components/UserMain';
+import { resetPassword } from '../services';
 
-function ResetPass(){
-    const [changePasswordMessage, setChangePasswordMessage] = useState('');
+function ResetPass() {
+    const [passwordMessage, setPasswordMessage] = useState('');
+    let navigate = useNavigate();
+    const { code } = useParams();
     const handleChangePassword = async (event) => {
         event.preventDefault();
         let seemsOk = true;
@@ -11,7 +14,7 @@ function ResetPass(){
         const confirmationPassword = document.getElementById('confirmNewPassword');
         newPassword.classList.remove('border-red-500');
         confirmationPassword.classList.remove('border-red-500');
-        setChangePasswordMessage('');
+        setPasswordMessage('');
         if (!newPassword.value) {
             seemsOk = false;
             newPassword.classList.add('border-red-500');
@@ -29,7 +32,8 @@ function ResetPass(){
             }, 1200);
         }
         if (!seemsOk) {
-            setChangePasswordMessage('Please fill all the required fields');
+            setPasswordMessage('Please fill all the required fields');
+            return;
         }
         if (newPassword.value !== confirmationPassword.value || newPassword.value.length < 8) {
             seemsOk = false;
@@ -43,17 +47,18 @@ function ResetPass(){
             }, 1200);
             newPassword.value = '';
             confirmationPassword.value = '';
-            setChangePasswordMessage('Passwords do not match or are too short');
+            setPasswordMessage('Passwords do not match or are too short');
+            return;
         }
         if (seemsOk) {
-            const response = await changeUserPassword(localStorage.getItem('token'), newPassword.value, confirmationPassword.value);
-            if (response && !response.id) {
-                setChangePasswordMessage(response.message);
-            } else {
-                //TODO: Show success message
-                console.log('Password changed successfully');
-            }
-            console.log(response);
+            await resetPassword(code, newPassword.value, confirmationPassword.value)
+                .then(response => {
+                    if (response.code === 200) {
+                        navigate('/login');
+                    } else {
+                        setPasswordMessage(response.message);
+                    }
+                });
         }
     }
 
@@ -74,8 +79,8 @@ function ResetPass(){
                         <input id='confirmNewPassword' name='confirmNewPassword' className="p-2 mb-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" type="password" />
                     </div>
                 </div>
-                <p className='text-red-400 font-dmsans text-center'>{changePasswordMessage ? changePasswordMessage : ''}</p>
-                <button onClick={handleChangePassword} type="submit" className="py-2.5 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Reset password</button>         
+                <p className={`text-red-600 font-dmsans text-center`}>{passwordMessage ? passwordMessage : ''}</p>
+                <button onClick={handleChangePassword} type="submit" className="py-2.5 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Reset password</button>
             </form>
             <Link to={"/login"} className='mt-2 text-primary font-normal tracking-tight w-full transition-all duration-200 hover:text-purple-500'>Go back to login</Link>
         </UserMain>
