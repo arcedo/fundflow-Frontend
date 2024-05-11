@@ -55,6 +55,9 @@ function Settings() {
         setBio(event.target.value);
         handleInputChange(event);
     };
+
+    const [profileImage, setProfileImage] = useState(null);
+
     const handleProfileImageChange = (event) => {
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
@@ -65,6 +68,9 @@ function Settings() {
             reader.readAsDataURL(file);
         }
     };
+
+    const [bannerImage, setBannerImage] = useState(null);
+
     const handleBannerImageChange = (event) => {
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
