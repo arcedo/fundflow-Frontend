@@ -13,6 +13,7 @@ import Help from './pages/Help';
 import Search from "./pages/Search";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
+import NewProject from "./pages/NewProject";
 import Project from "./pages/Project";
 
 export default function App() {
@@ -30,9 +31,10 @@ export default function App() {
           <Route path="/help" element={<Help />} />
           <Route path="/search" element={<Search />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/new/:type" element={<NewProject />} />
           <Route path="/profile/:userUrl" element={<Profile />} />
           <Route path="/projects/:projectUrl" element={<Project />} />
-          <Route path="/projects/edit/:projectUrl" element={<Project editMode={true} />} />
+          <Route path="/projects/:projectUrl/edit" element={<Project editMode={true} />} />
           <Route path="/verifyEmail/:code" element={<Verify />} />
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="*" element={<Navigate to="/404" />} />

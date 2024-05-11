@@ -15,7 +15,7 @@ function MdlCreateProject({ onClose }) {
                     <h3 className="text-2xl font-dmsans font-bold text-black">What is the target?</h3>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="flex flex-col gap-3 justify-center items-center py-7 px-10 border-2 border-primary border-opacity-50 rounded-lg hover:scale-105 transition-all duration-200">
-                            <div className="bg-gray-400 p-4 rounded-full">
+                            <div className="bg-white shadow-xl bg-opacity-40 backdrop-blur-xl p-4 rounded-full">
                                 <img className="w-16 rotate-90" src={funds} alt="" />
                             </div>
                             <div className="text-center">
@@ -24,7 +24,7 @@ function MdlCreateProject({ onClose }) {
                             </div>
                         </div>
                         <div className="flex flex-col gap-3 justify-center items-center py-7 px-10 border-2 border-secondary border-opacity-50 rounded-lg hover:scale-105 transition-all duration-200">
-                            <div className="bg-gray-400 p-4 rounded-full">
+                            <div className="bg-white shadow-xl bg-opacity-40 backdrop-blur-xl p-4 rounded-full">
                                 <img className="w-16" src={collaborators} alt="" />
                             </div>
                             <div className="text-center">

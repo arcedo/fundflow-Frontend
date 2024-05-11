@@ -5,11 +5,24 @@ import MdlDeleteUser from "../components/MdlDeleteUser";
 import { useNavigate } from "react-router-dom";
 import { getLoggedUser, changeUserPassword } from "../services";
 import passAlert from "../assets/icons/passAlert.svg";
+import { verifyEmail } from "../services";
 
 function Settings() {
+    const userData = JSON.parse(localStorage.getItem('userData'));
     let navigate = useNavigate();
     if (!localStorage.getItem('token')) {
         navigate('/login');
+    }
+
+    const [emailSent, setEmailSent] = useState(false);
+
+    const resendEmail = async () => {
+        await verifyEmail(localStorage.getItem('token'))
+            .then((data) => {
+                if (data.code === 200) {
+                    setEmailSent(true);
+                }
+            });
     }
 
     const [currentUser, setCurrentUser] = useState({ username: '', email: '', biography: '' });
@@ -180,6 +193,10 @@ function Settings() {
                             {currentUser && !currentUser.verifiedEmail ? 
                             <div className="absolute w-full h-full z-30 flex justify-center items-center">
                                 <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                    {emailSent ? <div>
+                                        <h2 className="text-4xl font-dmsans font-bold text-black">Email sent</h2>
+                                        <p className="text-black font-normal font-dmsans opacity-70">Check your inbox for a verification email. Make sure to check your spam folder.</p>
+                                    </div> : 
                                     <div className="flex flex-col gap-4 items-center justify-center">
                                         <div className="w-full flex flex-col gap-1">
                                             <img className="w-16" src={passAlert} alt="Password alert" />
@@ -190,10 +207,10 @@ function Settings() {
                                             <p className="font-dmsans text-black text-md text-opacity-70">Check your inbox for the email we sent you at signup.</p>  
                                             <p className="font-dmsans text-black text-md text-opacity-70"><span className="font-bold text-black">Can't find it?</span> Click the button and we'll send you another.</p>
                                         </div>
-                                        <button className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
+                                        <button onClick={resendEmail} className="w-full self-center mx-auto bg-gradient-to-r from-primary to-secondary rounded-md text-white font-dmsans font-bold shadow-md hover:shadow-none transition-all duration-300 p-3.5">
                                             Send email
                                         </button>
-                                    </div>
+                                    </div>}                                    
                                 </div>
                             </div> : ''}
                             {/* el form coge la variable del blur. everything else is the same as before */}

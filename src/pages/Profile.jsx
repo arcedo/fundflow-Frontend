@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
@@ -14,9 +14,8 @@ import { getUserByUrl, getProjectByCreator } from "../services/index";
 function Profile() {
     const skip = 0;
     const limit = 8;
-    const location = useLocation();
     let navigate = useNavigate();
-    const viewUser = location.pathname.split('/profile/')[1];
+    const { userUrl } = useParams();
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [isFollowing, setIsFollowing] = useState(false);
     const [user, setUser] = useState(null);
@@ -24,7 +23,7 @@ function Profile() {
 
     useEffect(() => {
         const fetchUserAndProjects = async () => {
-            await getUserByUrl(viewUser)
+            await getUserByUrl(userUrl)
                 .then(async (data) => {
                     if (data.message) {
                         navigate('/not-found');
@@ -41,7 +40,7 @@ function Profile() {
                 });
         }
         fetchUserAndProjects();
-    }, [viewUser]);
+    }, [userUrl]);
 
     const logoutUser = () => {
         localStorage.removeItem('token');
@@ -85,7 +84,7 @@ function Profile() {
             <div className="flex flex-col items-center justify-center gap-10">
                 <div className="relative flex justify-center items-start object-contain object-center overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
                     <img className="" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profileBanner` : ''} alt="" />
-                    {user && !user.verifiedEmail && userData.userUrl === viewUser ? (
+                    {user && !user.verifiedEmail && userData.userUrl === userUrl ? (
                         <div className="absolute flex justify-center items-center py-1 w-full bottom-0 bg-red-500">
                             <button onClick={openVerifyUserModal} className="font-dmsans text-white font-bold underline">Your account isn't verified yet.</button>
                         </div>) : null}
@@ -106,7 +105,7 @@ function Profile() {
                             <p className="font-dmsans text-black">{user && user.biography ? user.biography : ''}</p>
                         </div>
                         <div className="w-2/12 fade-in" style={{ animationDelay: `0.1s` }}>
-                            {userData && userData.userUrl === viewUser ? (
+                            {userData && userData.userUrl === userUrl ? (
                                 <div className="flex flex-col gap-3">
                                     <Link to={"/settings"} className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-secondary hover:translate-x-1.5 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">
                                         edit
@@ -134,7 +133,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <ProfileSection belongingUser={userData && userData.userUrl === viewUser ? true : false} ownerProjects={projects} />
+            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} />
             <Footer />
         </div>
     );
