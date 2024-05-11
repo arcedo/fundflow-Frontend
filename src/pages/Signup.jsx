@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import UserMain from '../components/UserMain';
@@ -10,6 +10,13 @@ function Signup() {
     let navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [message, setMessage] = useState(null);
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            navigate('/');
+        }
+    });
+
     //TODO: Optimize this function
     const verificationSingUp = async (event) => {
         event.preventDefault();
@@ -73,7 +80,7 @@ function Signup() {
 
             if (userResponse && userResponse.token) {
                 localStorage.setItem('token', userResponse.token);
-                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl }));
+                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail}));
                 navigate('/');
             }
             if (userResponse && userResponse.message) {
