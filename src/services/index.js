@@ -110,6 +110,14 @@ export async function changeUserPassword(token, currentPassword, newPassword, co
     return await fetchDataAuth('PUT', `${server}users/changePassword`, token, { currentPassword, newPassword, confirmPassword });
 }
 
+export async function changeUserData(token, newUserData) {
+    return await fetchDataAuth('PUT', `${server}users/`, token, newUserData);
+}
+
+export async function deleteOwnUser(token, password) {
+    return await fetchDataAuth('DELETE', `${server}users/`, token, { password });
+}
+
 // Images
 export async function putProfilePicture(token, profilePicture) {
     return await fetchDataPost('PUT', `${server}user/picture`, { token, profilePicture });

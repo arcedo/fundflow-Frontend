@@ -5,7 +5,7 @@ import MdlDeleteUser from "../components/MdlDeleteUser";
 import { useNavigate } from "react-router-dom";
 import { getLoggedUser, changeUserPassword } from "../services";
 import passAlert from "../assets/icons/passAlert.svg";
-import { verifyEmail, recoverPassword } from "../services";
+import { verifyEmail, recoverPassword, changeUserData } from "../services";
 
 function Settings() {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -16,6 +16,8 @@ function Settings() {
 
     const [emailSent, setEmailSent] = useState(false);
     const [recoverEmailSent, setRecoverEmailSent] = useState(false);
+
+    const [newUser, setNewUser] = useState({ username: '', email: '', biography: '' });
 
     const resendEmail = async () => {
         await verifyEmail(localStorage.getItem('token'))
@@ -44,6 +46,7 @@ function Settings() {
                     setCurrentUser(user[0]);
                     userData.verifiedEmail = user[0].verifiedEmail;
                     localStorage.setItem('userData', JSON.stringify(userData));
+                    setNewUser({ username: user[0].username, email: user[0].email, biography: user[0].biography, name: user[0].name, lastName: user[0].lastName })
                 });
         }
         fetchUser();
@@ -53,7 +56,7 @@ function Settings() {
     const fileInputRefBanner = useRef(null);
     const handleBioChange = (event) => {
         setBio(event.target.value);
-        handleInputChange(event);
+        setNewUser({ ...newUser, biography: event.target.value });
     };
 
     const [profileImage, setProfileImage] = useState(null);
@@ -99,9 +102,56 @@ function Settings() {
         setShowDeleteUserModal(false);
     };
 
-    const handleSaveChanges = (event) => {
+    const [saveChangesMessage, setSaveChangesMessage] = useState({ success: false, message: '' });
+    const handleSaveChanges = async (event) => {
         event.preventDefault();
-        console.log('Save changes');
+        let seemsOk = true;
+        document.getElementById('username').classList.remove('border-red-500');
+        document.getElementById('email').classList.remove('border-red-500');
+        document.getElementById('password').classList.remove('border-red-500');
+
+        if (!newUser.username) {
+            seemsOk = false;
+            const username = document.getElementById('username');
+            username.classList.add('border-red-500');
+            username.classList.add("animate-shake");
+            setTimeout(() => {
+                username.classList.remove("animate-shake");
+            }, 1200);
+        }
+        if (!newUser.email) {
+            seemsOk = false;
+            const email = document.getElementById('email');
+            email.classList.add('border-red-500');
+            email.classList.add("animate-shake");
+            setTimeout(() => {
+                email.classList.remove("animate-shake");
+            }, 1200);
+        }
+        if (!newUser.currentPassword) {
+            seemsOk = false;
+            const password = document.getElementById('password');
+            password.classList.add('border-red-500');
+            password.classList.add("animate-shake");
+            setTimeout(() => {
+                password.classList.remove("animate-shake");
+            }, 1200);
+        }
+        if (!seemsOk) {
+            return;
+        } else {
+            await changeUserData(localStorage.getItem('token'), newUser)
+                .then((data) => {
+                    console.log(data);
+                    if (data.id) {
+                        setSaveChangesMessage({ success: true, message: 'Changes saved successfully!' });
+                        setCurrentUser({ ...currentUser, ...newUser, currentPassword: '' });
+                        setNewUser({ ...newUser, currentPassword: '' });
+                    } else {
+                        setSaveChangesMessage({ success: false, message: data.message });
+                    }
+                });
+        }
     }
     const [changePasswordMessage, setChangePasswordMessage] = useState({ success: false, message: '' });
     const handleChangePassword = async (event) => {
@@ -167,20 +217,12 @@ function Settings() {
         }
     }
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setCurrentUser(prevUser => ({
-            ...prevUser,
-            [name]: value
-        }));
-    };
-
     // esto es la variable que pilla si es user de google o no y pone el blur
-    const googleUserFormStyle = currentUser && currentUser.googleAccount || !currentUser.verifiedEmail ? "blur-sm pointer-events-none" : "";
+    const googleUserFormStyle = currentUser && (currentUser.googleAccount || !currentUser.verifiedEmail) ? "blur-sm pointer-events-none" : "";
 
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
-            {showDeleteUserModal && <MdlDeleteUser onClose={closeDeleteUserModal} email={currentUser.email} />}
+            {showDeleteUserModal && <MdlDeleteUser onClose={closeDeleteUserModal} email={currentUser.email} googleAccount={currentUser.googleAccount} />}
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center pt-32 fade-in">
                 <div className="w-10/12 items-center justify-start">
@@ -244,21 +286,21 @@ function Settings() {
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="flex flex-col gap-2">
                                             <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="username">username <span className="text-red-600">*</span></label>
-                                            <input value={currentUser ? currentUser.username : ''} onChange={handleInputChange} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="text" id="username" name="username" />
+                                            <input value={newUser ? newUser.username : ''} onChange={(e) => setNewUser({ ...newUser, username: e.target.value })} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="text" id="username" name="username" />
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="email">email <span className="text-red-600">*</span></label>
-                                            <input value={currentUser ? currentUser.email : ''} onChange={handleInputChange} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="email" id="email" name="email" />
+                                            <input value={newUser ? newUser.email : ''} onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="email" id="email" name="email" />
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="flex flex-col gap-2">
                                             <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="name">name</label>
-                                            <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="text" id="name" name="name" />
+                                            <input value={newUser && newUser.name ? newUser.name : ''} onChange={(e) => setNewUser({ ...newUser, name: e.target.value })} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="text" id="name" name="name" />
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="surname">surname</label>
-                                            <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="text" id="surname" name="surname" />
+                                            <input value={newUser && newUser.lastName ? newUser.lastName : ''} onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="text" id="surname" name="surname" />
                                         </div>
                                     </div>
                                     <p className="font-dmsans text-md text-black text-opacity-70">Users are identified by their username, the name will only show in the profile.</p>
@@ -270,15 +312,15 @@ function Settings() {
                                             id="bio"
                                             name="bio"
                                             style={{ resize: 'none' }}
-                                            placeholder={currentUser && currentUser.biography ? '' : "Tell us about yourself"}
-                                            value={currentUser && currentUser.biography ? currentUser.biography : bio}
+                                            placeholder={newUser && newUser.biography ? '' : "Tell us about yourself"}
+                                            value={newUser && newUser.biography ? newUser.biography : bio}
                                             onChange={handleBioChange}
                                         ></textarea>
                                         <p className={`text-right font-dmsans text-md ${bio.length > 250 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{bio.length}/250</p>
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <label className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit" htmlFor="password">current password <span className="text-red-600">*</span></label>
-                                        <input className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="password" name="password" />
+                                        <input value={newUser && newUser.currentPassword ? newUser.currentPassword : ''} onChange={(e) => setNewUser({ ...newUser, currentPassword: e.target.value })} className="font-dmsans text-lg text-black font-normal border-2 border-gray-300 bg-white p-2 rounded-md outline-none focus:border-gray-400 transition-all duration-200" type="password" id="password" name="password" />
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-4">
@@ -325,6 +367,7 @@ function Settings() {
                                         <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Save changes</button>
                                         <p className="font-dmsans text-lg text-red-600">* required values</p>
                                     </div>
+                                    <p className={`${saveChangesMessage && saveChangesMessage.success ? 'text-green-600' : 'text-red-400'} font-dmsans`}>{saveChangesMessage && saveChangesMessage.message ? saveChangesMessage.message : ''}</p>
                                 </div>
                             </form>
                         </div>

@@ -40,7 +40,7 @@ function RandomSection() {
                         <section className={`flip-card-back w-full overflow-hidden py-5 px-5 sm:py-10 sm:px-10 shadow-xl border-2 border-gray-200 border-opacity-50 bg-gray-100 backdrop-blur-md gap-10 rounded-md flex flex-col justify-center items-center`}>
                             <div className='flex gap-8 justify-center items-center'>
                                 <img src={logo} alt="" className='w-20 h-20 rounded-md' />
-                                {/* <h1 className='font-dmsans text-black text-7xl font-bold' >fundflow.</h1> */}
+                                {/* <h4 className='font-dmsans text-black text-7xl font-bold' >fundflow.</h4> */}
                             </div>
                         </section>
                     </div>

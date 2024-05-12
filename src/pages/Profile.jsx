@@ -100,7 +100,10 @@ function Profile() {
                         <div className="w-2/12">
                         </div>
                         <div className="flex flex-col gap-4 w-8/12 fade-in" style={{ animationDelay: `0.05s` }}>
-                            <h2 className="text-6xl font-montserrat font-extrabold text-black">{user ? user.username : ''}</h2>
+                            <div className="flex items-end">
+                                <h2 className="text-6xl font-montserrat font-extrabold text-black">{user ? user.username : ''}</h2>
+                                <p className="text-black font-semibold text-lg font-dmsans text-opacity-70">&nbsp; {user && user.name ? user.name : ''} {user && user.lastName ? user.lastName : ''}</p>
+                            </div>
                             <div className="flex gap-5">
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.rating : '-'}</span> positive rating</p>
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.followers : 0}</span> followers</p>
