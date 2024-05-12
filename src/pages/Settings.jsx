@@ -103,7 +103,7 @@ function Settings() {
         event.preventDefault();
         console.log('Save changes');
     }
-    const [changePasswordMessage, setChangePasswordMessage] = useState('');
+    const [changePasswordMessage, setChangePasswordMessage] = useState({ success: false, message: '' });
     const handleChangePassword = async (event) => {
         event.preventDefault();
         let seemsOk = true;
@@ -113,7 +113,7 @@ function Settings() {
         password.classList.remove('border-red-500');
         newPassword.classList.remove('border-red-500');
         confirmationPassword.classList.remove('border-red-500');
-        setChangePasswordMessage('');
+        setChangePasswordMessage({ success: false, message: '' });
         if (!password.value) {
             seemsOk = false;
             password.classList.add('border-red-500');
@@ -139,7 +139,7 @@ function Settings() {
             }, 1200);
         }
         if (!seemsOk) {
-            setChangePasswordMessage('Please fill all the required fields');
+            setChangePasswordMessage({ success: false, message: 'Please fill all the required fields' });
         }
         if (newPassword.value !== confirmationPassword.value || newPassword.value.length < 8) {
             seemsOk = false;
@@ -151,15 +151,17 @@ function Settings() {
                 confirmationPassword.classList.remove("animate-shake");
                 newPassword.classList.remove("animate-shake");
             }, 1200);
-            setChangePasswordMessage('Passwords do not match or are too short');
+            setChangePasswordMessage({ success: false, message: 'Passwords do not match or are too short' });
         }
         if (seemsOk) {
             const response = await changeUserPassword(localStorage.getItem('token'), password.value, newPassword.value, confirmationPassword.value);
             if (response && !response.id) {
-                setChangePasswordMessage(response.message);
+                setChangePasswordMessage({ success: false, message: response.message });
             } else {
-                //TODO: Show success message
-                console.log('Password changed successfully');
+                setChangePasswordMessage({ success: true, message: response.message });
+                password.value = '';
+                newPassword.value = '';
+                confirmationPassword.value = '';
             }
             console.log(response);
         }
@@ -323,7 +325,6 @@ function Settings() {
                                         <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Save changes</button>
                                         <p className="font-dmsans text-lg text-red-600">* required values</p>
                                     </div>
-                                    <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
                                 </div>
                             </form>
                         </div>
@@ -352,7 +353,7 @@ function Settings() {
                                         <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Change password</button>
                                         <p className="font-dmsans text-lg text-red-600">* required values</p>
                                     </div>
-                                    <p className='text-red-400 font-dmsans'>{changePasswordMessage ? changePasswordMessage : ''}</p>
+                                    <p className={`${changePasswordMessage && changePasswordMessage.success ? 'text-green-600' : 'text-red-400'} font-dmsans`}>{changePasswordMessage && changePasswordMessage.message ? changePasswordMessage.message : ''}</p>
                                 </div>
                             </form> : ''
                         }
@@ -371,9 +372,9 @@ function Settings() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
             <Footer />
-        </div>
+        </div >
     );
 }
 
