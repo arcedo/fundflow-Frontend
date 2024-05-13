@@ -5,7 +5,7 @@ import MdlDeleteUser from "../components/MdlDeleteUser";
 import { useNavigate } from "react-router-dom";
 import { getLoggedUser, changeUserPassword } from "../services";
 import passAlert from "../assets/icons/passAlert.svg";
-import { verifyEmail, recoverPassword, changeUserData } from "../services";
+import { verifyEmail, recoverPassword, changeUserData, putProfilePicture, putProfileBanner } from "../services";
 
 function Settings() {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -16,7 +16,8 @@ function Settings() {
 
     const [emailSent, setEmailSent] = useState(false);
     const [recoverEmailSent, setRecoverEmailSent] = useState(false);
-
+    const [profileImage, setProfileImage] = useState({ src: '', new: false });
+    const [bannerImage, setBannerImage] = useState({ src: '', new: false, message: '' });
     const [newUser, setNewUser] = useState({ username: '', email: '', biography: '' });
 
     const resendEmail = async () => {
@@ -31,7 +32,6 @@ function Settings() {
     const sendRecoverPasswordEmail = async () => {
         await recoverPassword(currentUser.email)
             .then((data) => {
-                console.log(data);
                 if (data.code === 200) {
                     setRecoverEmailSent(true);
                 }
@@ -47,6 +47,8 @@ function Settings() {
                     userData.verifiedEmail = user[0].verifiedEmail;
                     localStorage.setItem('userData', JSON.stringify(userData));
                     setNewUser({ username: user[0].username, email: user[0].email, biography: user[0].biography, name: user[0].name, lastName: user[0].lastName })
+                    setProfileImage({ src: `${import.meta.env.VITE_API_URL}users/${user[0].url}/profilePicture`, new: false, message: '' });
+                    setBannerImage({ src: `${import.meta.env.VITE_API_URL}users/${user[0].url}/profileBanner`, new: false, message: '' });
                 });
         }
         fetchUser();
@@ -59,27 +61,23 @@ function Settings() {
         setNewUser({ ...newUser, biography: event.target.value });
     };
 
-    const [profileImage, setProfileImage] = useState(null);
-
     const handleProfileImageChange = (event) => {
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setProfileImage(reader.result);
+                setProfileImage({ src: reader.result, new: true, message: '' });
             };
             reader.readAsDataURL(file);
         }
     };
-
-    const [bannerImage, setBannerImage] = useState(null);
 
     const handleBannerImageChange = (event) => {
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setBannerImage(reader.result);
+                setBannerImage({ src: reader.result, new: true, message: '' });
             };
             reader.readAsDataURL(file);
         }
@@ -110,7 +108,7 @@ function Settings() {
         document.getElementById('email').classList.remove('border-red-500');
         document.getElementById('password').classList.remove('border-red-500');
 
-        if (!newUser.username) {
+        if (!newUser.username && newUser.username !== currentUser.username) {
             seemsOk = false;
             const username = document.getElementById('username');
             username.classList.add('border-red-500');
@@ -119,7 +117,7 @@ function Settings() {
                 username.classList.remove("animate-shake");
             }, 1200);
         }
-        if (!newUser.email) {
+        if (!newUser.email && newUser.email !== currentUser.email) {
             seemsOk = false;
             const email = document.getElementById('email');
             email.classList.add('border-red-500');
@@ -140,17 +138,30 @@ function Settings() {
         if (!seemsOk) {
             return;
         } else {
-            await changeUserData(localStorage.getItem('token'), newUser)
-                .then((data) => {
-                    console.log(data);
-                    if (data.id) {
-                        setSaveChangesMessage({ success: true, message: 'Changes saved successfully!' });
-                        setCurrentUser({ ...currentUser, ...newUser, currentPassword: '' });
-                        setNewUser({ ...newUser, currentPassword: '' });
-                    } else {
-                        setSaveChangesMessage({ success: false, message: data.message });
-                    }
-                });
+            if (newUser.username !== currentUser.username || newUser.email !== currentUser.email || newUser.biography !== currentUser.biography) {
+                await changeUserData(localStorage.getItem('token'), newUser)
+                    .then((data) => {
+                        if (data.id) {
+                            setSaveChangesMessage({ success: true, message: 'Changes saved successfully!' });
+                            setCurrentUser({ ...currentUser, ...newUser, currentPassword: '' });
+                            setNewUser({ ...newUser, currentPassword: '' });
+                        } else {
+                            setSaveChangesMessage({ success: false, message: data.message });
+                        }
+                    });
+            }
+            if (profileImage.new) {
+                await putProfilePicture(localStorage.getItem('token'), fileInputRefProfile.current.files[0], newUser.currentPassword)
+                    .then((data) => {
+                        setProfileImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profilePicture`, new: false, message: data.message });
+                    });
+            }
+            if (bannerImage.new) {
+                await putProfileBanner(localStorage.getItem('token'), fileInputRefBanner.current.files[0], newUser.currentPassword)
+                    .then((data) => {
+                        setBannerImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profileBanner`, new: false, message: data.message });
+                    });
+            }
         }
     }
     const [changePasswordMessage, setChangePasswordMessage] = useState({ success: false, message: '' });
@@ -213,13 +224,11 @@ function Settings() {
                 newPassword.value = '';
                 confirmationPassword.value = '';
             }
-            console.log(response);
         }
     }
 
     // esto es la variable que pilla si es user de google o no y pone el blur
     const googleUserFormStyle = currentUser && (currentUser.googleAccount || !currentUser.verifiedEmail) ? "blur-sm pointer-events-none" : "";
-
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             {showDeleteUserModal && <MdlDeleteUser onClose={closeDeleteUserModal} email={currentUser.email} googleAccount={currentUser.googleAccount} />}
@@ -325,11 +334,14 @@ function Settings() {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col gap-2">
-                                        <h3 className="font-dmsans text-lg font-semibold text-black text-opacity-70">profile picture</h3>
+                                        <div className="flex gap-5 items-center">
+                                            <h3 className="font-dmsans text-lg font-semibold text-black text-opacity-70">profile picture</h3>
+                                            {profileImage && profileImage.message ? <p className="font-dmsans text-md text-black">{profileImage.message}</p> : ''}
+                                        </div>
                                         <div className="flex flex-col gap-2 justify-center items-center">
                                             <img
                                                 className="w-52 h-52 rounded-full cursor-pointer object-cover shadow-md hover:shadow-lg hover:brightness-50 transition-all duration-200"
-                                                src={currentUser && currentUser.url ? `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profilePicture` : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'}
+                                                src={profileImage && profileImage.src}
                                                 alt="Profile"
                                                 onClick={handleProfileImageClick}
                                             />
@@ -343,11 +355,14 @@ function Settings() {
                                         </div>
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <h3 className="font-dmsans text-lg font-semibold text-black text-opacity-70">banner picture</h3>
+                                        <div className="flex gap-5 items-center">
+                                            <h3 className="font-dmsans text-lg font-semibold text-black text-opacity-70">banner picture</h3>
+                                            {bannerImage && bannerImage.message ? <p className="font-dmsans text-md text-black">{bannerImage.message}</p> : ''}
+                                        </div>
                                         <div className="flex flex-col gap-2 justify-center">
                                             <img
                                                 className="w-full h-60 rounded-md object-cover cursor-pointer shadow-md hover:shadow-lg hover:brightness-75 transition-all duration-200 bg-555"
-                                                src={currentUser && currentUser.url ? `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profileBanner` : ''}
+                                                src={bannerImage && bannerImage.src}
                                                 alt="Banner"
                                                 onClick={handleBannerImageClick}
                                             />

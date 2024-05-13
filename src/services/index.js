@@ -12,16 +12,20 @@ async function fetchDataGet(url) {
     }
 };
 
-async function fetchDataAuth(method, url, token, body) {
+async function fetchDataAuth(method, url, token, body, isFormData) {
     try {
+        const headers = {
+            'Authorization': token
+        };
+
+        if (!isFormData) {
+            headers['Content-Type'] = 'application/json';
+        }
         return await fetch(url, {
             method: method,
             mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token
-            },
-            body: JSON.stringify(body)
+            headers: headers,
+            body: isFormData ? body : JSON.stringify(body)
         })
             .then(async (res) => {
                 return await res.json();
@@ -119,6 +123,16 @@ export async function deleteOwnUser(token, password) {
 }
 
 // Images
-export async function putProfilePicture(token, profilePicture) {
-    return await fetchDataPost('PUT', `${server}user/picture`, { token, profilePicture });
+export async function putProfilePicture(token, profilePicture, password) {
+    const formData = new FormData();
+    formData.append('profilePicture', profilePicture);
+    formData.append('password', password);
+    return await fetchDataAuth('PUT', `${server}users/profilePicture`, token, formData, true);
+}
+
+export async function putProfileBanner(token, profileCover, password) {
+    const formData = new FormData();
+    formData.append('profileCover', profileCover);
+    formData.append('password', password);
+    return await fetchDataAuth('PUT', `${server}users/profileCover`, token, formData, true);
 }

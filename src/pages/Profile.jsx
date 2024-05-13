@@ -85,8 +85,8 @@ function Profile() {
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center gap-10">
-                <div className="relative flex justify-center items-start object-contain object-center overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
-                    <img className="" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profileBanner` : ''} alt="" />
+                <div className="relative flex justify-center items-start overflow-hidden w-full bg-black" style={{ height: `${window.innerWidth < 640 ? '25vh' : '50vh'}` }}>
+                    <img className="object-cover object-center w-full h-full" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profileBanner` : ''} alt="" />
                     {user && !user.verifiedEmail && userData.userUrl === userUrl ? (
                         <div className="absolute flex justify-center items-center py-1 w-full bottom-0 bg-red-500">
                             <button onClick={openVerifyUserModal} className="font-dmsans text-white font-bold underline">Your account isn't verified yet.</button>
@@ -95,7 +95,9 @@ function Profile() {
             </div>
             <div className="flex flex-col justify-center items-center fade-in">
                 <div className="relative w-10/12">
-                    <img className="absolute -top-44 flex flex-col w-2/12 bg-gradient-to-r from-primary to-secondary rounded-full shadow-xl" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profilePicture` : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
+                    <div className="absolute -top-44 flex flex-col w-72 h-72 bg-gradient-to-r overflow-hidden from-primary to-secondary rounded-full shadow-xl">
+                        <img className="" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profilePicture` : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
+                    </div>
                     <div className="flex justify-between items-start gap-20">
                         <div className="w-2/12">
                         </div>
