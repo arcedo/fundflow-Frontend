@@ -52,6 +52,7 @@ function NewProject() {
         });
         details.classList.remove('hidden');
         thumbnail.classList.add('hidden');
+        setIsSwapped(true);
     }, [location.pathname]);
 
     const handleNextStep = () => {
