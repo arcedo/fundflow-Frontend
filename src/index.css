@@ -203,3 +203,7 @@ input:-webkit-autofill:active{
   -webkit-mask-image: linear-gradient(black 60%, transparent);
   mask-image: linear-gradient(black 60%, transparent);
 }
+
+.category-option.selected {
+  opacity: 1 !important;
+}

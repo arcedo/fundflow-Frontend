@@ -77,7 +77,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                         <img className="w-5 opacity-75" src={like} alt="Like Icon" />
                         {likes}
                     </p>
-                    <p className="font-dmsans text-black text-opacity-75 text-sm font-semibold cursor-pointer">{fundedPercentage}% funded</p>
+                    <p className="font-dmsans text-black text-opacity-75 text-sm font-semibold cursor-pointer">{fundedPercentage}% complete</p>
                 </div>
             </div>
         </div>

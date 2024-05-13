@@ -5,7 +5,6 @@ import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
 
 function ProjectDetails({ project, editMode }) {
-
     const formattedCurrentFunding = project.currentFunding.toLocaleString('de-DE');
     const formattedGoalFunding = project.goalFunding.toLocaleString('de-DE');
 
