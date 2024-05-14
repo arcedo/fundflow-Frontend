@@ -46,7 +46,7 @@ function RandomProject({ project }) {
             </div>
             <div className="w-full h-full flex col-span-2 flex-col justify-between">
                 <div className="flex flex-col gap-3.5">
-                    <div className="w-full flex flex-col sm:flex-row sm:items-end gap-2">
+                    <div className="w-full flex flex-col gap-2">
                         <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.title}</Link>
                         <Link to={`/profile/${project.userUrl}`} className="font-dmsans text-lg text-black group">by <span className="text-black  text-opacity-75 group-hover:text-primary transition-all duration-300font-semibold">{project.creator}</span></Link>
                     </div>

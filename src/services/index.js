@@ -55,7 +55,12 @@ async function fetchDataWithBody(method, url, data) {
     }
 }
 
-// Projects
+// Categories 
+export async function getCategories() {
+    return await fetchDataGet(`${server}categories`);
+}
+
+// Project fetching
 export async function getLatestsProjects(skip, limit) {
     return await fetchDataGet(`${server}projects?startIndex=${skip}&limit=${limit}`);
 }
@@ -70,6 +75,11 @@ export async function getProjectsByCategory(idCategory, skip, limit) {
 
 export async function getProjectByCreator(creatorId, skip, limit) {
     return await fetchDataGet(`${server}projects/byUser/${creatorId}?startIndex=${skip}&limit=${limit}`);
+}
+
+// Project creation
+export async function createProject(token, projectData) {
+    return await fetchDataAuth('POST', `${server}projects/`, token, projectData);
 }
 
 // Auth
