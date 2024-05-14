@@ -146,3 +146,9 @@ export async function putProfileBanner(token, profileCover, password) {
     formData.append('password', password);
     return await fetchDataAuth('PUT', `${server}users/profileCover`, token, formData, true);
 }
+
+export async function putProjectCover(token, projectId, cover) {
+    const formData = new FormData();
+    formData.append('cover', cover);
+    return await fetchDataAuth('PUT', `${server}projects/${projectId}/cover`, token, formData, true);
+}

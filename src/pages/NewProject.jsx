@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
-import { getCategories, createProject } from "../services";
+import React, { useState, useEffect, useRef } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { getCategories, createProject, putProjectCover } from "../services";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import like from "../assets/icons/like.svg";
@@ -14,8 +14,8 @@ function NewProject() {
     const [currentStep, setCurrentStep] = useState(1);
     const [isSwapped, setIsSwapped] = useState(true);
     const [categories, setCategories] = useState([{ name: '', id: 0 }])
-
     const { type } = useParams();
+    const location = useLocation();
     const projectType = type;
 
     const handleSwap = () => {
@@ -34,16 +34,16 @@ function NewProject() {
     const [newProject, setNewProject] = useState({
         title: "",
         description: "",
-        idCategory: "",
+        idCategory: 0,
+        categoryName: '',
         typeGoal: type,
-        goal: "",
+        goal: '',
         currency: "€",
         deadlineDate: "",
         hoursLeft: "",
         cover: "",
     });
 
-    const location = useLocation();
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -57,9 +57,10 @@ function NewProject() {
             setNewProject({
                 title: "",
                 description: "",
-                idCategory: "",
+                idCategory: 0,
+                categoryName: '',
                 typeGoal: type,
-                goal: "",
+                goal: '',
                 currency: "€",
                 deadlineDate: "",
                 hoursLeft: "",
@@ -109,7 +110,7 @@ function NewProject() {
     const checkStep = (step) => {
         switch (step) {
             case 1:
-                if (newProject.title === '') {
+                if (!newProject.title) {
                     document.getElementById('title').classList.add('border-red-500');
                     document.getElementById('title').classList.add('animate-shake');
                     setTimeout(() => {
@@ -121,7 +122,7 @@ function NewProject() {
                     return 'all good';
                 }
             case 2:
-                if (newProject.description === '') {
+                if (!newProject.description) {
                     document.getElementById('description').classList.add('border-red-500');
                     document.getElementById('description').classList.add('animate-shake');
                     setTimeout(() => {
@@ -133,7 +134,7 @@ function NewProject() {
                     return 'all good';
                 }
             case 3:
-                if (newProject.idCategory === '') {
+                if (!newProject.idCategory) {
                     return 'Please select a category';
                 } else {
                     return 'all good';
@@ -195,20 +196,8 @@ function NewProject() {
             case 6:
                 return 'all good';
             default:
-                return 'whar?';
+                return;
         }
-    };
-    const [errorSubmit, setErrorSubmit] = useState('');
-    const handleSubmit = async () => {
-        newProject.idCategory = categories.find((category) => category.name === newProject.idCategory).id;
-        await createProject(localStorage.getItem('token'), newProject)
-            .then((data) => {
-                if (data.url) {
-                    navigate(`/projects/${data.url}`);
-                } else {
-                    setErrorSubmit(data.message);
-                }
-            })
     };
 
     const handleInputChange = (e) => {
@@ -248,23 +237,61 @@ function NewProject() {
         }
     };
 
-    const handleCategorySelect = (idCategory) => {
+    const handleInputChangeGood = (e) => {
+        const { name, value } = e.target;
+        let hoursDiff = newProject.hoursLeft ?? 0;
+        if (currentStep === 2 && name === 'description' && value.length > 250) {
+            return;
+        } else if (currentStep === 5 && name === 'deadlineDate') {
+            const hoursDiff = Math.ceil(new Date(value).getTime() - new Date().getTime() / (1000 * 60 * 60));
+            if (hoursDiff < 0) {
+                return;
+            }
+        }
+        setNewProject({
+            ...newProject,
+            [name]: value,
+            hoursLeft: hoursDiff,
+        });
+    };
+
+    const handleCategorySelect = (categoryName) => {
         document.querySelectorAll('.category-option').forEach((option) => {
             option.classList.remove('selected');
-            if (option.innerHTML === idCategory) {
+            if (option.innerHTML === categoryName) {
                 option.classList.add('selected');
             }
         })
-        setNewProject({ ...newProject, idCategory });
+        setNewProject({ ...newProject, idCategory: categories.find((category) => category.name === categoryName).id, categoryName: categoryName })
     };
 
     const handleFileInputChange = (e) => {
-        const { name, files } = e.target;
-        setNewProject({
-            ...newProject,
-            [name]: files[0],
-        });
-        document.getElementById('cover').src = URL.createObjectURL(files[0]);
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setNewProject({
+                ...newProject,
+                cover: reader.result,
+                file: file,
+            });
+        };
+        reader.readAsDataURL(file);
+    };
+
+    const [errorSubmit, setErrorSubmit] = useState('');
+    const handleSubmit = async () => {
+
+        await createProject(localStorage.getItem('token'), newProject)
+            .then(async (data) => {
+                if (data.url) {
+                    if (newProject.cover) {
+                        await putProjectCover(localStorage.getItem('token'), data.id, newProject.file)
+                    }
+                    navigate(`/projects/${data.url}`);
+                } else {
+                    setErrorSubmit(data.message);
+                }
+            });
     };
     return (
         <div className="relative w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
@@ -328,7 +355,7 @@ function NewProject() {
                                             {categories && categories.map((category) => (
                                                 <div
                                                     key={category.id}
-                                                    className={`category-option py-2 px-4 rounded-full lowercase cursor-pointer opacity-50 text-white font-dmsans font-semibold hover:opacity-75 bg-black transition-all duration-200 ${newProject.idCategory === "art" ? "selected" : ""}`}
+                                                    className={`category-option py-2 px-4 rounded-full lowercase cursor-pointer opacity-50 text-white font-dmsans font-semibold hover:opacity-75 bg-black transition-all duration-200 ${newProject.categoryName === "art" ? "selected" : ""}`}
                                                     onClick={() => handleCategorySelect(category.name)}>
                                                     {category.name}
                                                 </div>
@@ -412,7 +439,7 @@ function NewProject() {
                         {currentStep === 5 && (
                             <>
                                 <div className="w-4/5 flex flex-col gap-3 fade-in">
-                                    <div>
+                                    <div className="flex flex-col gap-3">
                                         <label htmlFor="deadlineDate" className="text-black font-normal font-dmsans opacity-70">Which should be the closing date?</label>
                                         <input
                                             id="deadlineDate"
@@ -496,9 +523,9 @@ function NewProject() {
                         <div id="thumbnail" className="w-3/5 hidden">
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">thumbnail preview</p>
                             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
-                                <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.idCategory}</p>
+                                <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName}</p>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
-                                    <img id="cover" src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
+                                    <img id="coverPreview" src={newProject && newProject.cover ? newProject.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between gap-3 pt-3 w-full">

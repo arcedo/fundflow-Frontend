@@ -20,8 +20,6 @@ function RandomProject({ project }) {
         document.getElementById('projectImage' + index).classList.toggle('brightness-90');
         setHoveredImage({ src: image._id, index: index });
     }
-    console.log(project);
-    console.log(hoveredImage);
     return (
         <>
             <div className="w-full flex gap-3 flex-col sm:flex-row col-span-3 sm:h-full">
