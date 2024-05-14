@@ -82,6 +82,10 @@ export async function createProject(token, projectData) {
     return await fetchDataAuth('POST', `${server}projects/`, token, projectData);
 }
 
+export async function deleteProject(token, projectId) {
+    return await fetchDataAuth('DELETE', `${server}projects/${projectId}`, token);
+}
+
 // Auth
 export async function login(username, password) {
     return await fetchDataWithBody('POST', `${server}auth/login`, { username, password });

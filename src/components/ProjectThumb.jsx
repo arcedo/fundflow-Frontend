@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MdlDeleteProject from "./MdlDeleteProject";
 import like from "../assets/icons/like.svg";
 import projectSettings from "../assets/icons/projectSettings.svg";
 
 function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, creatorUrl, projectCategory, likes, fundedPercentage, belongingUser }) {
+    let navigate = useNavigate();
+    const userData = JSON.parse(localStorage.getItem("userData"));
     const [showOptionsMenu, setShowOptionsMenu] = useState(false);
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
 
@@ -14,6 +16,16 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
 
     const handleOptionClick = (action) => {
         setShowOptionsMenu(false);
+        switch (action) {
+            case "Edit":
+                navigate(`/projects/${projectUrl}/edit`);
+                break;
+            case "Delete":
+                openDeleteProjectModal();
+                break;
+            default:
+                break;
+        }
     };
 
     useEffect(() => {
@@ -30,8 +42,8 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
     }, []);
 
     const openDeleteProjectModal = () => {
-        handleOptionClick('Delete');
         setShowDeleteProjectModal(true);
+        setShowOptionsMenu(false);
     };
 
     const closeDeleteProjectModal = () => {
@@ -40,10 +52,10 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
 
     return (
         <div className="flex flex-col group/project" ref={optionsRef}>
-            {showDeleteProjectModal && <MdlDeleteProject onClose={closeDeleteProjectModal} projectName={projectName} />}
-            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
+            {showDeleteProjectModal && <MdlDeleteProject onClose={closeDeleteProjectModal} projectName={projectName} projectId={projectId} />}
+            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 min-w-96 w-full rounded-md">
                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory}</p>
-                {belongingUser && (
+                {userData && userData.userUrl === projectCreator ? (
                     <div>
                         <div className="absolute flex items-center justify-center font-dmsans top-3 left-3 z-30 p-1 bg-white rounded-full cursor-pointer group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200">
                             <img onClick={toggleOptions} src={projectSettings} className="w-7 opacity-70 hover:opacity-100"></img>
@@ -57,19 +69,20 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                             </div>
                         )}
                     </div>
-                )}
+                ) : null}
                 <Link to={`/projects/${projectUrl}`} className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 filter brightness-75 group-hover/project:brightness-100">
                     <img className="h-full w-full rounded-md object-cover" src={`${import.meta.env.VITE_API_URL}projects/${projectId}/cover`} alt={`Project ${projectName} Cover Image`} />
                 </Link>
             </div>
-            {/* TODO: make character limit before ... 17 */}
             <div className="flex items-center justify-between gap-3 pt-3">
                 <div className="flex items-center justify-between gap-3">
                     <Link to={`/profile/${creatorUrl}`} className="h-12 w-12 rounded-full flex justify-center items-center overflow-hidden bg-gradient-to-r from-primary to-secondary group">
                         <img src={`${import.meta.env.VITE_API_URL}users/${creatorUrl}/profilePicture`} alt={`Project ${projectName} Cover Image`} className="group-hover:scale-110 w-full h-full transition-all duration-150" />
                     </Link>
                     <div className="flex flex-col">
-                        <Link to={`/projects/${projectUrl}`} className="font-dmsans text-2xl font-bold text-black group-hover/project:text-secondary transition duration-300 text-opacity-75 cursor-pointer">{projectName}</Link>
+                        <Link to={`/projects/${projectUrl}`} className="font-dmsans text-2xl font-bold text-black group-hover/project:text-secondary transition duration-300 text-opacity-75 cursor-pointer">
+                            {projectName.length > 12 ? `${projectName.slice(0, 12)}...` : projectName}
+                        </Link>
                         <Link to={`/profile/${creatorUrl}`} className="font-dmsans text-black transition duration-300 text-opacity-75 text-sm cursor-pointer group/user">by <span className="group-hover/user:text-primary hover:border-b hover:border-b-black transition duration-300">{projectCreator}</span></Link>
                     </div>
                 </div>

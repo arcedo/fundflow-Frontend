@@ -1,23 +1,33 @@
 import React from "react";
 import Modal from "./Modal";
+import { deleteProject } from "../services/index";
 
-function MdlDeleteProject({ onClose, projectName }) {
-    const deleteCheck = () => {
+function MdlDeleteProject({ onClose, projectName, projectId }) {
+    const deleteCheck = async() => {
         const confirm = document.querySelector("#confirm");
         const input = document.querySelector("#deleteInput");
-        if (input.value === projectName) {
-            console.log("Deleting project...");
-            onClose();
-        } else {
+        let seemsOk = true;
+        if (input.value !== projectName) {
+            seemsOk = false;
             confirm.style.color = "red";
             input.style.borderColor = "red";
-            input.value = "";
             input.classList.add("animate-shake");
             setTimeout(() => {
-                confirm.style.color = "#222"
+                confirm.style.color = "rgba(0, 0, 0, 0.7)";
                 input.style.borderColor = "rgba(0, 0, 0, 0.25)";
                 input.classList.remove("animate-shake");
             }, 1200);
+        }
+        if (seemsOk) {
+            deleteProject(localStorage.getItem('token'), projectId)
+                .then((data) => {
+                    if (data.message === "Project deleted successfully") {
+                        onClose();
+                        window.location.reload();
+                    } else {
+                        console.error(data.message);
+                    }
+                });
         }
     };
 
