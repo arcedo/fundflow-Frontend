@@ -77,6 +77,11 @@ export async function getProjectByCreator(creatorId, skip, limit) {
     return await fetchDataGet(`${server}projects/byUser/${creatorId}?startIndex=${skip}&limit=${limit}`);
 }
 
+// TODO: Implement this, with url or id?
+export async function getFullProject(projectUrl) {
+    return await fetchDataGet(`${server}projects/${projectUrl}`);
+}
+
 // Project creation
 export async function createProject(token, projectData) {
     return await fetchDataAuth('POST', `${server}projects/`, token, projectData);

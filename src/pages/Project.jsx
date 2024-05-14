@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { getFullProject } from "../services";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProjectDetails from "../components/ProjectDetails";
@@ -10,6 +11,7 @@ import edit from "../assets/icons/edit.svg";
 function Project({ editMode }) {
 
     const belongingUser = false;
+    
     const project = {
         projectId: 1,
         projectName: "Project One",
@@ -94,13 +96,13 @@ function Project({ editMode }) {
             <Header categoriesDisabled={true}/>
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
                 <ProjectDetails project={project} editMode={editMode} />
-                {!editMode ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed bottom-0 right-0 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                {/* {!editMode ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed bottom-0 right-0 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />
                     </div>
                 </Link> : null}
                 <ProjectGallery project={project} editMode={editMode} />
-                <ProjectSection project={project} editMode={editMode} belongingUser={belongingUser} />
+                <ProjectSection project={project} editMode={editMode} belongingUser={belongingUser} /> */}
             </div>
             <Footer />
         </div>
