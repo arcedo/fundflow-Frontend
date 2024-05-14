@@ -20,12 +20,14 @@ function RandomProject({ project }) {
         document.getElementById('projectImage' + index).classList.toggle('brightness-90');
         setHoveredImage({ src: image._id, index: index });
     }
+    console.log(project);
+    console.log(hoveredImage);
     return (
         <>
             <div className="w-full flex gap-3 flex-col sm:flex-row col-span-3 sm:h-full">
                 <div className="flex-1 relative sm:overflow-hidden rounded-md">
                     <div className="sm:absolute inset-0">
-                        <img src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage ? hoveredImage.src : ''}`} alt="" className="w-full h-60 rounded-md sm:h-full object-cover" />
+                        <img src={hoveredImage && hoveredImage.src ? `${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}` : `${import.meta.env.VITE_API_URL}projects/${project.id}/cover`} alt="" className="w-full h-60 rounded-md sm:h-full object-cover" />
                     </div>
                 </div>
                 <div className="sm:w-2/12 flex sm:flex-col gap-3">

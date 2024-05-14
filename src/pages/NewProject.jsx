@@ -13,7 +13,7 @@ function NewProject() {
     const totalSteps = 6;
     const [currentStep, setCurrentStep] = useState(1);
     const [isSwapped, setIsSwapped] = useState(true);
-    const [categories, setCategories] = useState([{name: '', id: 0}])
+    const [categories, setCategories] = useState([{ name: '', id: 0 }])
 
     const { type } = useParams();
     const projectType = type;
@@ -84,8 +84,8 @@ function NewProject() {
             } else if (currentStep === 5) {
                 handleSwap();
             }
-            setCurrentStep(currentStep + 1);            
-        } else{
+            setCurrentStep(currentStep + 1);
+        } else {
             document.getElementById('errorText').classList.add('fade-in');
             document.getElementById('errorText').innerHTML = checkMessage;
             setTimeout(() => {
@@ -181,24 +181,38 @@ function NewProject() {
                     }
                 }
             case 5:
-                return 'all good';
+                if (newProject.deadlineDate === '') {
+                    document.getElementById('deadlineDate').classList.add('border-red-500');
+                    document.getElementById('deadlineDate').classList.add('animate-shake');
+                    setTimeout(() => {
+                        document.getElementById('deadlineDate').classList.remove('border-red-500');
+                        document.getElementById('deadlineDate').classList.remove('animate-shake');
+                    }, 1500);
+                    return 'Please select a deadline';
+                } else {
+                    return 'all good';
+                }
             case 6:
                 return 'all good';
             default:
                 return 'whar?';
         }
     };
-
-    const handleSubmit = async() => {
+    const [errorSubmit, setErrorSubmit] = useState('');
+    const handleSubmit = async () => {
         newProject.idCategory = categories.find((category) => category.name === newProject.idCategory).id;
         await createProject(localStorage.getItem('token'), newProject)
             .then((data) => {
-                console.log(data);
+                if (data.url) {
+                    navigate(`/projects/${data.url}`);
+                } else {
+                    setErrorSubmit(data.message);
+                }
             })
     };
 
     const handleInputChange = (e) => {
-        if (currentStep === 2){
+        if (currentStep === 2) {
             const { name, value } = e.target;
             if (name === 'description' && value.length > 250) {
                 return;
@@ -208,7 +222,7 @@ function NewProject() {
                     [name]: value,
                 });
             }
-        } else if (currentStep === 5){
+        } else if (currentStep === 5) {
             const { name, value } = e.target;
             if (name === 'deadlineDate') {
                 const selectedDate = new Date(value);
@@ -242,7 +256,7 @@ function NewProject() {
             }
         })
         setNewProject({ ...newProject, idCategory });
-    }; 
+    };
 
     const handleFileInputChange = (e) => {
         const { name, files } = e.target;
@@ -251,7 +265,7 @@ function NewProject() {
             [name]: files[0],
         });
         document.getElementById('cover').src = URL.createObjectURL(files[0]);
-    };    
+    };
     return (
         <div className="relative w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header categoriesDisabled={true} />
@@ -264,13 +278,13 @@ function NewProject() {
                                 <div className="w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
                                         <label htmlFor="title" className="text-black font-normal font-dmsans opacity-70">What's the desired name?</label>
-                                        <input 
-                                            id="title" 
+                                        <input
+                                            id="title"
                                             name="title"
                                             value={newProject.title}
                                             onChange={handleInputChange}
-                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" 
-                                            type="text" 
+                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                            type="text"
                                         />
                                     </div>
                                     <div className="flex gap-3 items-center">
@@ -286,12 +300,12 @@ function NewProject() {
                                 <div className="w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
                                         <label htmlFor="description" className="text-black font-normal font-dmsans opacity-70">Provide a brief description. You'll be able to detail things later.</label>
-                                        <textarea 
-                                            id="description" 
+                                        <textarea
+                                            id="description"
                                             name="description"
                                             value={newProject.description}
                                             onChange={handleInputChange}
-                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200 resize-none" 
+                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200 resize-none"
                                             rows="4"
                                         ></textarea>
                                         <p className={`text-right font-dmsans text-md ${newProject.description.length > 250 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.description.length}/250</p>
@@ -313,11 +327,11 @@ function NewProject() {
                                         <div className="flex gap-2 mt-1">
                                             {categories && categories.map((category) => (
                                                 <div
-                                                key={category.id}
-                                                className={`category-option py-2 px-4 rounded-full lowercase cursor-pointer opacity-50 text-white font-dmsans font-semibold hover:opacity-75 bg-black transition-all duration-200 ${newProject.idCategory === "art" ? "selected" : ""}`}
-                                                onClick={() => handleCategorySelect(category.name)}>
-                                                {category.name}
-                                            </div>
+                                                    key={category.id}
+                                                    className={`category-option py-2 px-4 rounded-full lowercase cursor-pointer opacity-50 text-white font-dmsans font-semibold hover:opacity-75 bg-black transition-all duration-200 ${newProject.idCategory === "art" ? "selected" : ""}`}
+                                                    onClick={() => handleCategorySelect(category.name)}>
+                                                    {category.name}
+                                                </div>
                                             ))}
                                         </div>
                                     </div>
@@ -335,19 +349,20 @@ function NewProject() {
                                 {projectType === 'funds' ? (
                                     <div className="w-4/5 flex flex-col gap-3 fade-in">
                                         <div>
-                                            <p className="text-black font-normal font-dmsans opacity-70">What's your fund goal?</p>
+                                            <label htmlFor="goal" className="text-black font-normal font-dmsans opacity-70">What's your fund goal?</label>
                                             <div className="flex gap-2">
-                                                <input 
-                                                    id="goal" 
+                                                <input
+                                                    id="goal"
                                                     name="goal"
                                                     value={newProject.goal}
                                                     min={0}
                                                     onChange={handleInputChange}
-                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200" 
-                                                    type="number" 
+                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                                    type="number"
                                                 />
-                                                <select 
-                                                    id="currency" 
+                                                <label htmlFor="currency" className="hidden">Currency:</label>
+                                                <select
+                                                    id="currency"
                                                     name="currency"
                                                     value={newProject.currency}
                                                     onChange={handleInputChange}
@@ -370,16 +385,16 @@ function NewProject() {
                                 ) : (
                                     <div className="w-4/5 flex flex-col gap-3 fade-in">
                                         <div>
-                                            <p className="text-black font-normal font-dmsans opacity-70">What's your collaborator goal?</p>
+                                            <label htmlFor="goal" className="text-black font-normal font-dmsans opacity-70">What's your collaborator goal?</label>
                                             <div className="flex gap-2 items-end">
-                                                <input 
-                                                    id="goal" 
+                                                <input
+                                                    id="goal"
                                                     name="goal"
                                                     value={newProject.goal}
                                                     min={0}
                                                     onChange={handleInputChange}
-                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200" 
-                                                    type="number" 
+                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                                    type="number"
                                                 />
                                                 <p className="font-dmsans text-black text-opacity-70">people</p>
                                             </div>
@@ -398,14 +413,14 @@ function NewProject() {
                             <>
                                 <div className="w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
-                                        <p className="text-black font-normal font-dmsans opacity-70">Which should be the closing date?</p>
-                                        <input 
-                                            id="deadlineDate" 
+                                        <label htmlFor="deadlineDate" className="text-black font-normal font-dmsans opacity-70">Which should be the closing date?</label>
+                                        <input
+                                            id="deadlineDate"
                                             name="deadlineDate"
                                             value={newProject.deadlineDate}
                                             onChange={handleInputChange}
-                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200" 
-                                            type="date" 
+                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                            type="date"
                                             min={today}
                                         />
                                     </div>
@@ -423,23 +438,24 @@ function NewProject() {
                                 <div className="w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
                                         <p className="text-black font-normal font-dmsans opacity-70">Do you want to upload a cover image? You can always do this later.</p>
-                                        <input 
-                                            id="cover" 
+                                        <label htmlFor="cover" className="">Upload Image</label>
+                                        <input
+                                            id="cover"
                                             name="cover"
                                             onChange={handleFileInputChange}
-                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200" 
-                                            type="file" 
+                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200 hidden"
+                                            type="file"
                                         />
                                     </div>
                                     <div className="flex gap-3 items-center">
                                         <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
                                         <button onClick={handleSubmit} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Create</button>
-                                        <p id="errorText" className="font-dmsans text-red-500"></p>
+                                        {errorSubmit && (<p className="font-dmsans text-red-500">{errorSubmit}</p>)}
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
                                 </div>
                             </>
-                        )}       
+                        )}
                     </div>
                     <div className="w-1/2 flex gap-5 items-start justify-center fade-in">
                         <div id="details" className="w-3/5 min-w-96">
@@ -482,13 +498,13 @@ function NewProject() {
                             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
                                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.idCategory}</p>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
-                                    <img id="cover" src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555"/>
+                                    <img id="cover" src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between gap-3 pt-3 w-full">
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="h-12 w-12 rounded-full overflow-hidden bg-black group">
-                                        <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} className="group-hover:scale-110 transition-all duration-150 bg-555"/>
+                                        <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} className="group-hover:scale-110 transition-all duration-150 bg-555" />
                                     </div>
                                     <div className="flex flex-col">
                                         <h3 className="font-dmsans text-2xl font-bold text-black text-opacity-75">{newProject.title}</h3>
@@ -503,7 +519,7 @@ function NewProject() {
                                     <p className="font-dmsans text-black text-opacity-75 text-sm font-semibold">0% complete</p>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <Footer />
