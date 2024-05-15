@@ -511,7 +511,7 @@ function NewProject() {
                                         </>
                                     ) : (
                                         <>
-                                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">0</span> collaborators of a {newProject.goal} goal</p>
+                                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">0</span> collaborators of a <span className="text-black text-opacity-100 font-semibold">{newProject.goal}</span> goal</p>
                                         </>
                                     )}
                                     <div className="flex items-center justify-between">
