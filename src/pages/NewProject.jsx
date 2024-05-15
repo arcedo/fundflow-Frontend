@@ -506,7 +506,7 @@ function NewProject() {
                                     </div>
                                     {projectType === 'funds' ? (
                                         <>
-                                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">0{newProject.currency}</span> funded of a {newProject.goal}{newProject.currency} goal</p>
+                                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">0{newProject.currency}</span> funded of a <span className="text-black text-opacity-100 font-semibold">{newProject.goal}{newProject.currency}</span> goal</p>
                                             <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">0</span> funders</p>
                                         </>
                                     ) : (
@@ -540,7 +540,7 @@ function NewProject() {
                                         <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} className="group-hover:scale-110 transition-all duration-150 bg-555" />
                                     </div>
                                     <div className="flex flex-col">
-                                        <h3 className="font-dmsans text-2xl font-bold text-black text-opacity-75">{newProject.title}</h3>
+                                        <h3 className="font-dmsans text-2xl font-bold text-black text-opacity-75">{newProject.title.length > 15 ? `${newProject.title.slice(0, 15)}...` : newProject.title}</h3>
                                         <h3 className="font-dmsans text-black transition duration-300 text-opacity-75 text-sm ">by {userData.userUrl}</h3>
                                     </div>
                                 </div>

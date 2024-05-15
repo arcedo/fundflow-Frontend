@@ -164,6 +164,11 @@ function Settings() {
                         setBannerImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profileBanner`, new: false, message: data.message });
                     });
             }
+            if (profileImage.new || bannerImage.new) {
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
         }
     }
     const [changePasswordMessage, setChangePasswordMessage] = useState({ success: false, message: '' });
