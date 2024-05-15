@@ -17,7 +17,7 @@ function ProjectDetails({ project, editMode }) {
                             <h2 className="font-dmsans font-bold text-5xl">{project && project.title}</h2>
                             <Link to={`/profile/${project && project.userUrl}`} className="font-dmsans text-black text-opacity-70 group">by <span className="group-hover:text-secondary font-semibold transition-colors duration-200">{project.userUrl}</span></Link>
                         </div>
-                        <p className="font-dmsans">{project && project.shortDescription}</p>
+                        <p className="font-dmsans">{project && project.description}</p>
                         <div className="flex flex-col gap-3">
                             <div className="bg-gray-300 h-3 rounded-full w-full">
                                 <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full" style={{ width: `${project.fundedPercentage}%` }}>
