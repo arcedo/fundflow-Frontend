@@ -18,14 +18,9 @@ function Verify() {
             const response = await endVerificationEmail(code);
             setVerification(response);
             if (response && response.message && redirect) {
-                if (localStorage.getItem('userData')) {
-                    // TODO: Verify if the user logged is the same as the one that is being verified
-                    const currentUser = JSON.parse(localStorage.getItem('userData'));
-                    currentUser.verifiedEmail = true;
-                    localStorage.setItem('userData', JSON.stringify(currentUser));
-                }
+                //TODO test if only redirecting the user to his profile that will verify if the user has the verified email
                 setTimeout(() => {
-                    navigate('/');
+                    navigate(`/profile/${userData.userUrl}`);
                 }, 1500);
             }
         }
