@@ -1,15 +1,40 @@
 import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import MdlEditProjectDetails from "./MdlEditProjectDetails";
+import MdlProjectPurchase from "./MdlProjectPurchase";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
 
 function ProjectDetails({ project, editMode }) {
+    const [showEditProjectDetailsModal, setShowEditProjectDetailsModal] = useState(false);
+
+    const openEditProjectDetailsModal = () => {
+        setShowEditProjectDetailsModal(true);
+    };
+
+    const closeEditProjectDetailsModal = () => {
+        setShowEditProjectDetailsModal(false);
+    };
+
+    const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
+
+    const openProjectPurchaseModal = () => {
+        setShowProjectPurchaseModal(true);
+    };
+
+    const closeProjectPurchaseModal = () => {
+        setShowProjectPurchaseModal(false);
+    };
+
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
     const formattedGoalFunding = project && project.goalFunding ? project.goalFunding.toLocaleString('de-DE') : 0;
 
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
+            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} />}
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
                 <div className="w-10/12 grid grid-cols-2 gap-20">
                     <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
@@ -23,7 +48,7 @@ function ProjectDetails({ project, editMode }) {
                                 <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full" style={{ width: `${project.fundedPercentage}%` }}>
                                 </div>
                             </div>
-                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}€</span> funded of a {formattedGoalFunding}€ goal</p>
+                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}€</span> funded of a <span className="font-semibold">{formattedGoalFunding}€</span> goal</p>
                             <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.sponsors ? project.sponsors : '0'}</span> funders</p>
                             <div className="flex items-center justify-between">
                                 <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.timeLeft ? project.timeLeft : '0'}</span> hours left</p>
@@ -34,8 +59,8 @@ function ProjectDetails({ project, editMode }) {
                                 </div>
                             </div>
                         </div>
-                        {editMode ? <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Edit details</button>
-                            : <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Help this project</button>}
+                        {editMode ? <button onClick={openEditProjectDetailsModal} className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Edit details</button>
+                            : <button onClick={openProjectPurchaseModal} className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Help this project</button>}
                     </div>
                 </div>
             </div>
