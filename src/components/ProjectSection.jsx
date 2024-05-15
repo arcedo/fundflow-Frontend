@@ -6,7 +6,7 @@ import ProjectAbout from "./ProjectAbout";
 import ProjectTiers from "./ProjectTiers";
 import ProjectBlogs from "./ProjectBlogs";
 
-function ProjectSection({ project, belongingUser }) {
+function ProjectSection({ project }) {
     const [activeTab, setActiveTab] = useState("about");
 
     const renderSection = () => {
@@ -78,7 +78,7 @@ function ProjectSection({ project, belongingUser }) {
             </div>
         </div>
     );
-    
+
 }
 
 export default ProjectSection;

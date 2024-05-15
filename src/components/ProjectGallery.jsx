@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-function ProjectGallery({ project }) {
+function ProjectGallery({ project, editMode }) {
 
     const [hoveredImage, setHoveredImage] = useState({ src: project.projectImage[0], index: 0 });
 

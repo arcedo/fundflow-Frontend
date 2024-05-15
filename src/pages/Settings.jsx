@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getLoggedUser, changeUserPassword } from "../services";
 import passAlert from "../assets/icons/passAlert.svg";
 import { verifyEmail, recoverPassword, changeUserData, putProfilePicture, putProfileBanner } from "../services";
+import { resizeImage } from "../helpers/resize";
 
 function Settings() {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -145,19 +146,20 @@ function Settings() {
                             setSaveChangesMessage({ success: true, message: 'Changes saved successfully!' });
                             setCurrentUser({ ...currentUser, ...newUser, currentPassword: '' });
                             setNewUser({ ...newUser, currentPassword: '' });
+                            localStorage.setItem('userData', JSON.stringify({ ...userData, userUrl: data.url }));
                         } else {
                             setSaveChangesMessage({ success: false, message: data.message });
                         }
                     });
             }
             if (profileImage.new) {
-                await putProfilePicture(localStorage.getItem('token'), fileInputRefProfile.current.files[0], newUser.currentPassword)
+                await putProfilePicture(localStorage.getItem('token'), await resizeImage(fileInputRefProfile.current.files[0], 500, 500, 100), newUser.currentPassword)
                     .then((data) => {
                         setProfileImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profilePicture`, new: false, message: data.message });
                     });
             }
             if (bannerImage.new) {
-                await putProfileBanner(localStorage.getItem('token'), fileInputRefBanner.current.files[0], newUser.currentPassword)
+                await putProfileBanner(localStorage.getItem('token'), await resizeImage(fileInputRefBanner.current.files[0], 1900, 750, 85), newUser.currentPassword)
                     .then((data) => {
                         setBannerImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profileBanner`, new: false, message: data.message });
                     });

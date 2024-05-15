@@ -4,11 +4,15 @@ import like from "../assets/icons/like.svg";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import views from "../assets/icons/views.svg";
 import link from "../assets/icons/link.svg";
+import logo from "../assets/icons/logoLight.png";
 
 function RandomProject({ project }) {
     if (!project) {
         // Render some placeholder or loading state while waiting for data
-        return <div>Loading...</div>;
+        return <div className="col-span-5 flex justify-center flex-col items-center w-full h-full gap-5">
+            <img src={logo} alt="" className='w-24 h-24 rounded-md' />
+            <p className="text-2xl font-dmsans font-semibold">Loading...</p>
+        </div>;
     }
 
     const [hoveredImage, setHoveredImage] = useState({ src: project?.imgs?.[0]?._id ?? '', index: 0 });
@@ -50,7 +54,8 @@ function RandomProject({ project }) {
                         <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.title}</Link>
                         <Link to={`/profile/${project.userUrl}`} className="font-dmsans text-lg text-black group">by <span className="text-black  text-opacity-75 group-hover:text-primary transition-all duration-300font-semibold">{project.creator}</span></Link>
                     </div>
-                    <p className="w-full font-dmsans text-black text-normal font-medium opacity-75 select-none">{project.description}</p>
+                    {/* TODO no description  why??? */}
+                    <p className="w-full font-dmsans text-black text-normal font-medium opacity-75 select-none">{project && project.description ? project.description : ''}</p>
                     <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
                     <div className="flex justify-center sm:justify-normal py-3 sm:py-0 items-center gap-6">
                         <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" /></button>

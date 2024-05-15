@@ -13,7 +13,7 @@ function Login() {
         if (localStorage.getItem('token')) {
             navigate('/');
         }
-    });
+    }, []);
 
     const verificationLogin = async (event) => {
         event.preventDefault();
@@ -42,7 +42,7 @@ function Login() {
             const userResponse = await login(username.value, password.value);
             if (userResponse && userResponse.token) {
                 localStorage.setItem('token', userResponse.token);
-                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail}));
+                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail }));
                 navigate('/');
             }
             setUser(userResponse); // Update the user state

@@ -9,7 +9,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId
     const placeholdersCount = projectsFound ? projectsFound.length % numberOfColumns : 0;
     const placeholdersNeeded = placeholdersCount > 0 ? numberOfColumns - placeholdersCount : 0;
     return (
-        <section className="flex justify-center items-center fade-in">
+        <section className="flex justify-center items-center fade-in w-full">
             <div className="w-full">
                 <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4 fade-in">{sectionTitle}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">

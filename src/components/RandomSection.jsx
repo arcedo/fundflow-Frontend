@@ -13,7 +13,12 @@ function RandomSection() {
     }, []);
 
     const fetchProjects = async () => {
-        const projectsData = await getRandomProjects(0, 1);
+        let projectsData;
+        if (projects && projects[0] && projects[0].id) {
+            projectsData = await getRandomProjects(0, 1, projects[0].id);
+        } else {
+            projectsData = await getRandomProjects(0, 1);
+        }
         setProjects(projectsData);
     };
 

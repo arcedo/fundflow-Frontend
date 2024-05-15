@@ -65,8 +65,8 @@ export async function getLatestsProjects(skip, limit) {
     return await fetchDataGet(`${server}projects?startIndex=${skip}&limit=${limit}`);
 }
 
-export async function getRandomProjects(skip, limit) {
-    return await fetchDataGet(`${server}projects/random?startIndex=${skip}&limit=${limit}`);
+export async function getRandomProjects(skip, limit, lastId) {
+    return await fetchDataGet(`${server}projects/random?startIndex=${skip}&limit=${limit}${lastId ? `&lastId=${lastId}` : ''}`);
 }
 
 export async function getProjectsByCategory(idCategory, skip, limit) {
@@ -77,7 +77,6 @@ export async function getProjectByCreator(creatorId, skip, limit) {
     return await fetchDataGet(`${server}projects/byUser/${creatorId}?startIndex=${skip}&limit=${limit}`);
 }
 
-// TODO: Implement this, with url or id?
 export async function getFullProject(projectUrl) {
     return await fetchDataGet(`${server}projects/${projectUrl}`);
 }

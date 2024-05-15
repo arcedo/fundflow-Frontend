@@ -15,7 +15,7 @@ function Signup() {
         if (localStorage.getItem('token')) {
             navigate('/');
         }
-    });
+    }, []);
 
     //TODO: Optimize this function
     const verificationSingUp = async (event) => {
@@ -80,7 +80,7 @@ function Signup() {
 
             if (userResponse && userResponse.token) {
                 localStorage.setItem('token', userResponse.token);
-                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail}));
+                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail }));
                 navigate('/');
             }
             if (userResponse && userResponse.message) {

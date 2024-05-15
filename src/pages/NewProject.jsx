@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { getCategories, createProject, putProjectCover } from "../services";
+import { resizeImage } from "../helpers/resize";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import like from "../assets/icons/like.svg";
@@ -41,8 +42,9 @@ function NewProject() {
         currency: "€",
         deadlineDate: "",
         hoursLeft: "",
-        cover: "",
     });
+
+    const [coverPicture, setCoverPicture] = useState({ file: null, cover: '' });
 
 
     useEffect(() => {
@@ -265,27 +267,31 @@ function NewProject() {
         setNewProject({ ...newProject, idCategory: categories.find((category) => category.name === categoryName).id, categoryName: categoryName })
     };
 
-    const handleFileInputChange = (e) => {
+    const handleFileInputChange = async (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
+        const resizedImage = await resizeImage(file, 1900, 750, 85);
+        console.log(resizedImage);
         reader.onloadend = () => {
-            setNewProject({
-                ...newProject,
+            setCoverPicture({
                 cover: reader.result,
-                file: file,
+                file: resizedImage,
             });
         };
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(resizedImage);
     };
 
     const [errorSubmit, setErrorSubmit] = useState('');
     const handleSubmit = async () => {
-
         await createProject(localStorage.getItem('token'), newProject)
             .then(async (data) => {
+                console.log(data);
                 if (data.url) {
-                    if (newProject.cover) {
-                        await putProjectCover(localStorage.getItem('token'), data.id, newProject.file)
+                    if (coverPicture.cover) {
+                        putProjectCover(localStorage.getItem('token'), data.id, coverPicture.file)
+                            .then((response) => {
+                                console.log(response);
+                            });
                     }
                     navigate(`/projects/${data.url}`);
                 } else {
@@ -525,7 +531,7 @@ function NewProject() {
                             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
                                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName}</p>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
-                                    <img id="coverPreview" src={newProject && newProject.cover ? newProject.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
+                                    <img id="coverPreview" src={coverPicture && coverPicture.cover ? coverPicture.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
                                 </div>
                             </div>
                             <div className="flex items-center justify-between gap-3 pt-3 w-full">
