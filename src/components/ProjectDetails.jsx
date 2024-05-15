@@ -13,7 +13,7 @@ function ProjectDetails({ project, editMode }) {
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
                 <div className="w-10/12 grid grid-cols-2 gap-20">
                     <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
-                        <div className="flex gap-2 items-end">
+                        <div className="flex flex-col gap-2">
                             <h2 className="font-dmsans font-bold text-5xl">{project && project.title}</h2>
                             <Link to={`/profile/${project && project.userUrl}`} className="font-dmsans text-black text-opacity-70 group">by <span className="group-hover:text-secondary font-semibold transition-colors duration-200">{project.userUrl}</span></Link>
                         </div>

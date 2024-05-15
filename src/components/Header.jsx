@@ -122,10 +122,12 @@ function Header({ categoriesDisabled }) {
                             new
                         </button>
                         <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
-                        <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black overflow-hidden'} h-11 w-11 shadow-md group flex justify-center items-center overflow-hidden rounded-full`}>
+                        <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black overflow-hidden'} h-11 w-11 shadow-md group flex justify-center items-center rounded-full`}>
                             {userData ? <div className="relative">
                                 {userData.verifiedEmail ? null : <div className="bg-white absolute z-30 -top-2 -right-2 rounded-full"><img src={alert} alt="" className="w-7" /></div>}
-                                <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="Your avatar" className="w-full h-full rounded-full group-hover:scale-125 scale-110 transition-all duration-300" />
+                                <div className="h-11 w-11 overflow-hidden rounded-full">
+                                    <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="Your avatar" className="w-full h-full rounded-full group-hover:scale-125 scale-110 transition-all duration-300" />
+                                </div>
                             </div>
                                 : <img src={account} alt="Login" className="group-hover:grayscale-0 grayscale w-full h-full transition-all duration-300" />
                             }
