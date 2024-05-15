@@ -15,6 +15,7 @@ function MdlDeleteProject({ onClose, projectName, projectId }) {
                 .then((data) => {
                     if (data.code === 200) {
                         onClose();
+                        window.location.reload();
                     } else {
                         setError(data.message);
                     }
