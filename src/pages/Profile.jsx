@@ -9,7 +9,7 @@ import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
 import following from "../assets/icons/check.svg";
-import { getUserByUrl, getProjectByCreator } from "../services/index";
+import { getUserByUrl, getProjectByCreator, doesUserFollow } from "../services/index";
 
 function Profile() {
     const skip = 0;
@@ -35,6 +35,13 @@ function Profile() {
                         if (userData && userData.userUrl === data[0].url) {
                             userData.verifiedEmail = data[0].verifiedEmail;
                             localStorage.setItem('userData', JSON.stringify(userData));
+                        } else if (userData) {
+                            await doesUserFollow(localStorage.getItem('token'), userData.userUrl, data[0].url)
+                                .then((res) => {
+                                    if (res.code === 200) {
+                                        setIsFollowing(true);
+                                    }
+                                });
                         }
                         await getProjectByCreator(data[0].id, skip, limit)
                             .then(projects => {
@@ -79,6 +86,8 @@ function Profile() {
     const closeLoginNeededModal = () => {
         setShowLoginNeededModal(false);
     };
+    console.log(user);
+    console.log(isFollowing);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
@@ -108,7 +117,8 @@ function Profile() {
                             </div>
                             <div className="flex gap-5">
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.rating : '-'}</span> positive rating</p>
-                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.followers : 0}</span> followers</p>
+                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</p>
+                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</p>
                             </div>
                             <p className="font-dmsans text-black">{user && user.biography ? user.biography : ''}</p>
                         </div>
@@ -125,13 +135,13 @@ function Profile() {
                                     </button>
                                 </div>
                             ) : (
-                                <div onClick={isFollowing ? handleUnFollow : handleFollow}>
+                                <div>
                                     {isFollowing ? (
-                                        <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">
+                                        <button onClick={handleUnFollow} className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">
                                             following<img className="w-6" src={following} alt="following" />
                                         </button>
                                     ) : (
-                                        <button className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">
+                                        <button onClick={handleFollow} className="px-4 flex gap-3 justify-center items-center w-36 h-12 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 rounded-md text-black font-semibold font-dmsans shadow transition-all duration-200">
                                             follow<img className="w-6" src={notFollowing} alt="not following" />
                                         </button>
                                     )}

@@ -5,7 +5,9 @@ function MdlDeleteProject({ onClose, projectName, projectId }) {
     const [values, setValues] = useState({ confirm: '', input: '', inputStyle: '' });
     const [error, setError] = useState('');
     const deleteCheck = async () => {
-        if (values.input !== projectName) {
+        console.log(projectName);
+        console.log(values.input);
+        if (values.input.replace(/\s/g, "") !== projectName.replace(/\s/g, "")) {
             setValues({ confirm: 'text-red-600', input: values.input, inputStyle: 'border-red-600 text-red-600 animate-shake' });
             setTimeout(() => {
                 setValues({ confirm: '', input: '', inputStyle: '' });
@@ -15,6 +17,7 @@ function MdlDeleteProject({ onClose, projectName, projectId }) {
                 .then((data) => {
                     if (data.code === 200) {
                         onClose();
+                        window.location.reload();
                     } else {
                         setError(data.message);
                     }

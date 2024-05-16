@@ -140,6 +140,27 @@ export async function deleteOwnUser(token, password) {
     return await fetchDataAuth('DELETE', `${server}users/`, token, { password });
 }
 
+//Follows
+export async function followUser(token, userUrl, followUserUrl) {
+    return await fetchDataAuth('POST', `${server}follows/follow`, token, { userUrl, followUserUrl });
+}
+
+export async function unfollowUser(token, userUrl, followUserUrl) {
+    return await fetchDataAuth('DELETE', `${server}follows/unfollow`, token, { userUrl, followUserUrl });
+}
+
+export async function doesUserFollow(token, userUrl, followUserUrl) {
+    return await fetchDataAuth('GET', `${server}follows/${followUserUrl}/isFollowing/${userUrl}`, token);
+}
+
+export async function getFollowers(token, userUrl) {
+    return await fetchDataAuth('GET', `${server}follows/${userUrl}/followers`, token);
+}
+
+export async function getFollowing(token, userUrl) {
+    return await fetchDataAuth('GET', `${server}follows/${userUrl}/following`, token);
+}
+
 // Images
 export async function putProfilePicture(token, profilePicture, password) {
     const formData = new FormData();
