@@ -33,9 +33,13 @@ function RandomProject({ project }) {
                     </div>
                 </div>
                 <div className="sm:w-2/12 flex sm:flex-col gap-3">
-                    {!project.imgs ? '' : project.imgs.map((image, index) => (
+                {/* Render exactly four slots */}
+                {Array.from({ length: 4 }).map((_, index) => {
+                    const image = project.imgs && project.imgs[index];
+                    return (
                         <div className="sm:h-24 w-full relative overflow-hidden rounded-md" key={index}>
-                            <div>
+                            {image ? (
+                                // If project has images, render the image
                                 <img
                                     id={`projectImage${index}`}
                                     src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${image._id}`}
@@ -43,9 +47,15 @@ function RandomProject({ project }) {
                                     className={`w-full h-14 sm:h-full object-cover filter ${index === 0 ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300`}
                                     onMouseEnter={() => imageDisplayed(image, index)}
                                 />
-                            </div>
+                            ) : (
+                                // If project doesn't have enough images, render a placeholder
+                                <div className="bg-gray-200 w-full h-full flex items-center justify-center opacity-75">
+                                </div>
+                            )}
                         </div>
-                    ))}
+                    );
+                })}
+
                 </div>
             </div>
             <div className="w-full h-full flex col-span-2 flex-col justify-between">

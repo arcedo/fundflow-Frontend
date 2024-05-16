@@ -203,9 +203,29 @@ function NewProject() {
     };
 
     const handleInputChange = (e) => {
-        if (currentStep === 2) {
+        if (currentStep === 1) {
+            const { name, value } = e.target;
+            if (name === 'title' && value.length > 30) {
+                return;
+            } else {
+                setNewProject({
+                    ...newProject,
+                    [name]: value,
+                });
+            }
+        } else if (currentStep === 2) {
             const { name, value } = e.target;
             if (name === 'description' && value.length > 250) {
+                return;
+            } else {
+                setNewProject({
+                    ...newProject,
+                    [name]: value,
+                });
+            }
+        } else if (currentStep === 4) {
+            const { name, value } = e.target;
+            if (name === 'goal' && value.length > 9) {
                 return;
             } else {
                 setNewProject({
@@ -319,6 +339,7 @@ function NewProject() {
                                             className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                             type="text"
                                         />
+                                        <p className={`text-right font-dmsans text-md ${newProject.title.length > 30 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.title.length}/30</p>
                                     </div>
                                     <div className="flex gap-3 items-center">
                                         <button onClick={handleNextStep} className="w-1/4 h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 bor</div>der-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
@@ -381,7 +402,7 @@ function NewProject() {
                             <>
                                 {projectType === 'funds' ? (
                                     <div className="w-4/5 flex flex-col gap-3 fade-in">
-                                        <div>
+                                        <div className="w-fit">
                                             <label htmlFor="goal" className="text-black font-normal font-dmsans opacity-70">What's your fund goal?</label>
                                             <div className="flex gap-2">
                                                 <input
@@ -390,7 +411,7 @@ function NewProject() {
                                                     value={newProject.goal}
                                                     min={0}
                                                     onChange={handleInputChange}
-                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                                     type="number"
                                                 />
                                                 <label htmlFor="currency" className="hidden">Currency:</label>
@@ -407,6 +428,7 @@ function NewProject() {
                                                     <option value="¥">¥</option>
                                                 </select>
                                             </div>
+                                            <p className={`text-right font-dmsans text-md ${newProject.goal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.goal.length}/9</p>
                                         </div>
                                         <div className="flex gap-3 items-center">
                                             <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
@@ -417,7 +439,7 @@ function NewProject() {
                                     </div>
                                 ) : (
                                     <div className="w-4/5 flex flex-col gap-3 fade-in">
-                                        <div>
+                                        <div className="w-fit">
                                             <label htmlFor="goal" className="text-black font-normal font-dmsans opacity-70">What's your collaborator goal?</label>
                                             <div className="flex gap-2 items-end">
                                                 <input
@@ -426,11 +448,12 @@ function NewProject() {
                                                     value={newProject.goal}
                                                     min={0}
                                                     onChange={handleInputChange}
-                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                                    className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                                     type="number"
                                                 />
                                                 <p className="font-dmsans text-black text-opacity-70">people</p>
                                             </div>
+                                            <p className={`text-right font-dmsans text-md ${newProject.goal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.goal.length}/9</p>
                                         </div>
                                         <div className="flex gap-3 items-center">
                                             <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
