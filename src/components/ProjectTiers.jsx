@@ -11,7 +11,7 @@ function ProjectTiers({ project }) {
     const openProjectPurchaseModal = (tier) => {
         if (!userData){
             openLoginNeededModal();
-        } else if (!userData.emailVerified) {
+        } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
         } else {
             setSelectedTier(tier);

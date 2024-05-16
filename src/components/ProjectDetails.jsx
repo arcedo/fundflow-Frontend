@@ -34,7 +34,7 @@ function ProjectDetails({ project, editMode }) {
     const openProjectPurchaseModal = () => {
         if (!userData){
             openLoginNeededModal();
-        } else if (!userData.emailVerified) {
+        } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
         } else {
             setShowProjectPurchaseModal(true);
@@ -74,7 +74,7 @@ function ProjectDetails({ project, editMode }) {
 
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
-            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} />}
+            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} projectType={projectType} project={project} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
