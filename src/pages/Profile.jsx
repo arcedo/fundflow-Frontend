@@ -9,7 +9,7 @@ import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
 import following from "../assets/icons/check.svg";
-import { getUserByUrl, getProjectByCreator, doesUserFollow } from "../services/index";
+import { getUserByUrl, getProjectByCreator, doesUserFollow, followUser, unfollowUser } from "../services/index";
 
 function Profile() {
     const skip = 0;
@@ -36,7 +36,7 @@ function Profile() {
                             userData.verifiedEmail = data[0].verifiedEmail;
                             localStorage.setItem('userData', JSON.stringify(userData));
                         } else if (userData) {
-                            await doesUserFollow(localStorage.getItem('token'), userData.userUrl, data[0].url)
+                            await doesUserFollow(localStorage.getItem('token'), data[0].url, userData.userUrl)
                                 .then((res) => {
                                     if (res.code === 200) {
                                         setIsFollowing(true);
@@ -51,7 +51,7 @@ function Profile() {
                 });
         }
         fetchUserAndProjects();
-    }, [userUrl]);
+    }, [userUrl, isFollowing]);
 
     const logoutUser = () => {
         localStorage.removeItem('token');
@@ -59,16 +59,38 @@ function Profile() {
         navigate('/login');
     }
 
-    function handleFollow() {
+    async function handleFollow() {
         if (!userData) {
             openLoginNeededModal();
             return;
         }
-        setIsFollowing(true);
+        if (!userData.verifiedEmail) {
+            openVerifyUserModal();
+            return;
+        }
+        await followUser(localStorage.getItem('token'), user.url, userData.userUrl)
+            .then((res) => {
+                if (res.code === 201) {
+                    setIsFollowing(true);
+                }
+            });
     }
 
-    function handleUnFollow() {
-        setIsFollowing(false);
+    async function handleUnFollow() {
+        if (!userData) {
+            openLoginNeededModal();
+            return;
+        }
+        if (!userData.verifiedEmail) {
+            openVerifyUserModal();
+            return;
+        }
+        await unfollowUser(localStorage.getItem('token'), user.url, userData.userUrl)
+            .then((res) => {
+                if (res.code === 200) {
+                    setIsFollowing(false);
+                }
+            });
     }
 
     const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);
