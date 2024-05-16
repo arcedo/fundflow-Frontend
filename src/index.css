@@ -199,6 +199,13 @@ input:-webkit-autofill:active{
   animation-fill-mode: both;
 }
 
+.fade-in-slider {
+  animation-name: fadeIn;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+
+}
+
 .blogMask{
   -webkit-mask-image: linear-gradient(black 60%, transparent);
   mask-image: linear-gradient(black 60%, transparent);

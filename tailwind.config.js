@@ -18,6 +18,9 @@ export default {
         '555': '#555555',
         'black': '#222222',
       },
+      transitionDuration: {
+        '2000': '2000ms',
+      },
     },
   },
   plugins: [],

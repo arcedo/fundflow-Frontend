@@ -24,7 +24,7 @@ function Slider() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prevSlide) => (prevSlide === items.length - 1 ? 0 : prevSlide + 1));
-        }, 5500);
+        }, 6500);
     
         return () => clearInterval(interval);
     }, []);
@@ -37,10 +37,10 @@ function Slider() {
                         <img
                             src={item.image}
                             alt={item.text}
-                            className={`w-full h-full object-cover brightness-50 ${index === currentSlide ? 'opacity-100' : 'opacity-0'} transition-opacity duration-1000`}
+                            className={`w-full h-full object-cover brightness-50 ${index === currentSlide ? 'opacity-100' : 'opacity-0'} transition-opacity duration-2000`}
                         />
                         {index === currentSlide && (
-                            <div className="absolute inset-0 flex flex-col justify-center items-center pt-24 fade-in">
+                            <div className="absolute inset-0 flex flex-col justify-center items-center pt-24 fade-in-slider">
                                 <h2 className='font-dmsans text-3xl sm:text-6xl font-bold text-white select-none'>
                                     {item.html}
                                 </h2>
