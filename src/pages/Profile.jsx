@@ -10,7 +10,7 @@ import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
 import following from "../assets/icons/check.svg";
-import { getUserByUrl, getProjectByCreator, doesUserFollow, followUser, unfollowUser } from "../services/index";
+import { getUserByUrl, getProjectByCreator, doesUserFollow, followUser, unfollowUser, getFollowers, getFollowing } from "../services/index";
 
 function Profile() {
     const skip = 0;
@@ -23,6 +23,7 @@ function Profile() {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
+        closeFollowsModal();
         const fetchUserAndProjects = async () => {
             await getUserByUrl(userUrl)
                 .then(async (data) => {
@@ -110,21 +111,35 @@ function Profile() {
         setShowLoginNeededModal(false);
     };
 
-    const [showFollowsModal, setShowFollowsModal] = useState(false);
+    const [followModal, setFollowModal] = useState({ visible: false, type: '' });
 
-    const openFollowsModal = () => {
-        setShowFollowsModal(true);
+    async function openFollowsModal(type) {
+        if (!userData) {
+            openLoginNeededModal();
+            return;
+        } else {
+            if (type === 'followers') {
+                await getFollowers(localStorage.getItem('token'), user.url)
+                    .then((res) => {
+                        setUser({ ...user, followersUrl: res });
+                    });
+            } else if (type === 'following') {
+                await getFollowing(localStorage.getItem('token'), user.url)
+                    .then((res) => {
+                        setUser({ ...user, followingUrl: res });
+                    });
+            }
+            setFollowModal({ visible: true, type });
+        }
     };
 
     const closeFollowsModal = () => {
-        setShowFollowsModal(false);
+        setFollowModal({ visible: false, type: '' });
     };
-
     console.log(user);
-    console.log(isFollowing);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
-            {showFollowsModal && <MdlFollows onClose={closeFollowsModal} user={user} follows={user.followers}/>}
+            {followModal.visible && <MdlFollows onClose={closeFollowsModal} user={user} follows={followModal.type === 'followers' ? user.followersUrl : user.followingUrl} type={followModal.type} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <Header categoriesDisabled={true} />
@@ -152,8 +167,8 @@ function Profile() {
                             </div>
                             <div className="flex gap-5">
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.rating : '-'}</span> positive rating</p>
-                                <button onClick={openFollowsModal} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</button>
-                                <button onClick={openFollowsModal} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</button>
+                                <button onClick={() => openFollowsModal('followers')} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</button>
+                                <button onClick={() => openFollowsModal('following')} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</button>
                             </div>
                             <p className="font-dmsans text-black">{user && user.biography ? user.biography : ''}</p>
                         </div>
@@ -188,7 +203,7 @@ function Profile() {
             </div>
             <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} />
             <Footer />
-        </div>
+        </div >
     );
 }
 
