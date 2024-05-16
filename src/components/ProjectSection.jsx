@@ -16,7 +16,7 @@ function ProjectSection({ project, editMode }) {
     const openProjectPurchaseModal = () => {
         if (!userData){
             openLoginNeededModal();
-        } else if (!userData.emailVerified) {
+        } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
         } else {
             setShowProjectPurchaseModal(true);
