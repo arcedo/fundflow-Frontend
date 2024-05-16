@@ -118,17 +118,9 @@ function Profile() {
             openLoginNeededModal();
             return;
         } else {
-            if (type === 'followers') {
-                await getFollowers(localStorage.getItem('token'), user.url)
-                    .then((res) => {
-                        setUser({ ...user, followersUrl: res });
-                    });
-            } else if (type === 'following') {
-                await getFollowing(localStorage.getItem('token'), user.url)
-                    .then((res) => {
-                        setUser({ ...user, followingUrl: res });
-                    });
-            }
+            const followers = await getFollowers(localStorage.getItem('token'), user.url)
+            const following = await getFollowing(localStorage.getItem('token'), user.url)
+            setUser({ ...user, followersUrl: followers, followingUrl: following });
             setFollowModal({ visible: true, type });
         }
     };
@@ -136,10 +128,9 @@ function Profile() {
     const closeFollowsModal = () => {
         setFollowModal({ visible: false, type: '' });
     };
-    console.log(user);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
-            {followModal.visible && <MdlFollows onClose={closeFollowsModal} user={user} follows={followModal.type === 'followers' ? user.followersUrl : user.followingUrl} type={followModal.type} />}
+            {followModal.visible && <MdlFollows onClose={closeFollowsModal} user={user} type={followModal.type} setUser={setUser} sameUser={user.url === userData.userUrl} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <Header categoriesDisabled={true} />

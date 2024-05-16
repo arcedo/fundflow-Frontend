@@ -291,7 +291,6 @@ function NewProject() {
         const file = e.target.files[0];
         const reader = new FileReader();
         const resizedImage = await resizeImage(file, 1900, 750, 85);
-        console.log(resizedImage);
         reader.onloadend = () => {
             setCoverPicture({
                 cover: reader.result,
@@ -305,7 +304,6 @@ function NewProject() {
     const handleSubmit = async () => {
         await createProject(localStorage.getItem('token'), newProject)
             .then(async (data) => {
-                console.log(data);
                 if (data.url) {
                     if (coverPicture.cover) {
                         putProjectCover(localStorage.getItem('token'), data.id, coverPicture.file)

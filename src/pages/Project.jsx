@@ -21,7 +21,6 @@ function Project() {
                 await getFullProject(projectUrl)
                     .then((data) => {
                         setProject(data);
-                        console.log(data);
                     });
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -29,8 +28,6 @@ function Project() {
         };
         fetchData();
     }, [projectUrl]);
-    // console.log(project);
-    // console.log(editMode);
 
     useEffect(() => {
         if (editMode && !userData || editMode && userData.userUrl !== project.creator) {
@@ -126,12 +123,12 @@ function Project() {
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />
                     </div>
-                </Link> : null }
+                </Link> : null}
                 {editMode && project && userData && project.userUrl === userData.userUrl ? <Link to={`/projects/${project.projectUrl}`} className="fixed top-20 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={save} alt="save button" />
                     </div>
-                </Link> : null }
+                </Link> : null}
                 <ProjectGallery project={projectO} editMode={editMode} />
                 <ProjectSection project={projectO} editMode={editMode} />
             </div>
