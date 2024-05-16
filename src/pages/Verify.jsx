@@ -11,20 +11,20 @@ function Verify() {
     const [verification, setVerification] = useState(null);
     useEffect(() => {
         const userData = JSON.parse(localStorage.getItem('userData'));
-        if (userData && userData.verifiedEmail) {
-            navigate('/');
-        }
         const verify = async () => {
             const response = await endVerificationEmail(code);
             setVerification(response);
             if (response && response.message && redirect) {
-                //TODO test if only redirecting the user to his profile that will verify if the user has the verified email
                 setTimeout(() => {
                     navigate(`/profile/${userData.userUrl}`);
                 }, 1500);
             }
         }
-        verify();
+        if (userData && userData.verifiedEmail) {
+            navigate('/');
+        } else {
+            verify();
+        }
     }, [navigate, code]);
     return (
         <UserMain>

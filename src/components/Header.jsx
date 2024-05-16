@@ -62,7 +62,7 @@ function Header({ categoriesDisabled }) {
     function searchButton() {
         const searchQuery = document.getElementById("searchBar").value;
         if (searchQuery !== "") {
-            window.location.href = `/search?query=${searchQuery}`;
+            navigate(`/search?query=${searchQuery}`);
         }
     }
 
