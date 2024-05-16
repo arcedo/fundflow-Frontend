@@ -3,11 +3,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import MdlEditProjectDetails from "./MdlEditProjectDetails";
 import MdlProjectPurchase from "./MdlProjectPurchase";
+import MdlLoginNeeded from "./MdlLoginNeeded";
+import MdlVerifyUser from "./MdlVerifyUser";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
 
 function ProjectDetails({ project, editMode }) {
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const projectType = (project.priceGoal ? 'funds' : 'collab');
     
     let today = new Date(); 
@@ -29,11 +32,37 @@ function ProjectDetails({ project, editMode }) {
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
 
     const openProjectPurchaseModal = () => {
-        setShowProjectPurchaseModal(true);
+        if (!userData){
+            openLoginNeededModal();
+        } else if (!userData.emailVerified) {
+            openVerifyUserModal();
+        } else {
+            setShowProjectPurchaseModal(true);
+        }
     };
 
     const closeProjectPurchaseModal = () => {
         setShowProjectPurchaseModal(false);
+    };
+
+    const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
+    
+    const openLoginNeededModal = () => {
+        setShowLoginNeededModal(true);
+    };
+
+    const closeLoginNeededModal = () => {
+        setShowLoginNeededModal(false);
+    };
+
+    const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);
+
+    const openVerifyUserModal = () => {
+        setShowVerifyUserModal(true);
+    };
+
+    const closeVerifyUserModal = () => {
+        setShowVerifyUserModal(false);
     };
 
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
@@ -47,6 +76,8 @@ function ProjectDetails({ project, editMode }) {
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
+            {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
+            {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
                 <div className="w-10/12 grid grid-cols-2 gap-20">
                     <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">

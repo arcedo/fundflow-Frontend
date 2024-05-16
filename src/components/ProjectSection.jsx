@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import MdlProjectPurchase from "./MdlProjectPurchase";
+import MdlLoginNeeded from "./MdlLoginNeeded";
+import MdlVerifyUser from "./MdlVerifyUser";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
 import ProjectAbout from "./ProjectAbout";
@@ -8,14 +10,41 @@ import ProjectTiers from "./ProjectTiers";
 import ProjectBlogs from "./ProjectBlogs";
 
 function ProjectSection({ project, editMode }) {
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
 
     const openProjectPurchaseModal = () => {
-        setShowProjectPurchaseModal(true);
+        if (!userData){
+            openLoginNeededModal();
+        } else if (!userData.emailVerified) {
+            openVerifyUserModal();
+        } else {
+            setShowProjectPurchaseModal(true);
+        }
     };
 
     const closeProjectPurchaseModal = () => {
         setShowProjectPurchaseModal(false);
+    };
+
+    const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
+    
+    const openLoginNeededModal = () => {
+        setShowLoginNeededModal(true);
+    };
+
+    const closeLoginNeededModal = () => {
+        setShowLoginNeededModal(false);
+    };
+
+    const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);
+
+    const openVerifyUserModal = () => {
+        setShowVerifyUserModal(true);
+    };
+
+    const closeVerifyUserModal = () => {
+        setShowVerifyUserModal(false);
     };
 
     const [activeTab, setActiveTab] = useState("about");
@@ -40,6 +69,8 @@ function ProjectSection({ project, editMode }) {
     return (
         <div className="flex flex-col justify-center items-center w-full">
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
+            {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
+            {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div id="sectionHeader" className="w-full h-16 bg-grey-300 flex justify-center items-center sticky top-40 z-10">
                 <div className="w-10/12 flex justify-between">
                     <div className="flex justify-start items-end gap-8">

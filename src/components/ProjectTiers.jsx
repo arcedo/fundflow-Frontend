@@ -1,24 +1,55 @@
 import React, { useState } from "react";
 import MdlProjectPurchase from "./MdlProjectPurchase";
+import MdlLoginNeeded from "./MdlLoginNeeded";
+import MdlVerifyUser from "./MdlVerifyUser";
 
 function ProjectTiers({ project }) {
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
-    const [selectedTier, setSelectedTier] = useState(null); // State to store the selected tier
+    const [selectedTier, setSelectedTier] = useState(null);
 
-    const openProjectPurchaseModal = (tier) => { // Accept tier object as parameter
-        setSelectedTier(tier); // Set the selected tier
-        setShowProjectPurchaseModal(true);
+    const openProjectPurchaseModal = (tier) => {
+        if (!userData){
+            openLoginNeededModal();
+        } else if (!userData.emailVerified) {
+            openVerifyUserModal();
+        } else {
+            setSelectedTier(tier);
+            setShowProjectPurchaseModal(true);
+        }
     };
 
     const closeProjectPurchaseModal = () => {
         setShowProjectPurchaseModal(false);
     };
 
+    const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
+    
+    const openLoginNeededModal = () => {
+        setShowLoginNeededModal(true);
+    };
+
+    const closeLoginNeededModal = () => {
+        setShowLoginNeededModal(false);
+    };
+
+    const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);
+
+    const openVerifyUserModal = () => {
+        setShowVerifyUserModal(true);
+    };
+
+    const closeVerifyUserModal = () => {
+        setShowVerifyUserModal(false);
+    };
+
     const hasMoreTiers = project.tiers.length > 3;
 
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 fade-in">
-            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />} {/* Pass selected tier to modal */}
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />}
+            {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
+            {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">Pitch your grain of sand in...</h3>
             <div className="flex gap-5 w-full justify-center items-center">
                 {project.tiers.slice(0, 3).map((tier, index) => {
