@@ -142,7 +142,7 @@ function Profile() {
                     <div className="absolute -top-44 flex flex-col w-72 h-72 bg-gradient-to-r overflow-hidden from-primary to-secondary rounded-full shadow-xl">
                         <img className="w-full h-full" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profilePicture` : 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'} />
                     </div>
-                    <div className="flex justify-between items-start gap-20">
+                    <div className="flex justify-between items-start gap-28">
                         <div className="w-2/12">
                         </div>
                         <div className="flex flex-col gap-4 w-8/12 fade-in" style={{ animationDelay: `0.05s` }}>
