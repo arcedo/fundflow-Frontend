@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import MdlProjectPurchase from "./MdlProjectPurchase";
 
 function ProjectTiers({ project }) {
+    const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
+    const [selectedTier, setSelectedTier] = useState(null); // State to store the selected tier
+
+    const openProjectPurchaseModal = (tier) => { // Accept tier object as parameter
+        setSelectedTier(tier); // Set the selected tier
+        setShowProjectPurchaseModal(true);
+    };
+
+    const closeProjectPurchaseModal = () => {
+        setShowProjectPurchaseModal(false);
+    };
+
     const hasMoreTiers = project.tiers.length > 3;
 
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 fade-in">
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />} {/* Pass selected tier to modal */}
             <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">Pitch your grain of sand in...</h3>
             <div className="flex gap-5 w-full justify-center items-center">
                 {project.tiers.slice(0, 3).map((tier, index) => {
@@ -21,7 +35,7 @@ function ProjectTiers({ project }) {
                                             <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier.tierName}</h4>
                                             <p className="text-black font-dmsans font-bold text-3xl">{tier.tierPrice}€</p>
                                         </div>
-                                        <button className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button>
+                                        <button onClick={() => openProjectPurchaseModal(tier)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
                                         <p className="text-black font-dmsans font-normal text-opacity-75">{tier.tierDescription}</p>
                                     </div>
                                 </div>

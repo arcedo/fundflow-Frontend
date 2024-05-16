@@ -7,6 +7,7 @@ import ProjectDetails from "../components/ProjectDetails";
 import ProjectGallery from "../components/ProjectGallery";
 import ProjectSection from "../components/ProjectSection";
 import edit from "../assets/icons/edit.svg";
+import save from "../assets/icons/save.svg";
 
 function Project() {
     const { projectUrl } = useParams();
@@ -113,11 +114,15 @@ function Project() {
             <Header categoriesDisabled={true} />
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
                 <ProjectDetails project={project} editMode={editMode} />
-                {!editMode && project && userData && project.userUrl === userData.userUrl ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed bottom-0 right-0 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                {!editMode && project && userData && project.userUrl === userData.userUrl ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed bottom-0 right-2/4 translate-x-8 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />
                     </div>
-                </Link> : null}
+                </Link> : <Link to={`/projects/${project.projectUrl}`} className="fixed bottom-0 right-2/4 translate-x-8 m-8 z-40 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                    <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
+                        <img className="h-8" src={save} alt="save button" />
+                    </div>
+                </Link>}
                 <ProjectGallery project={projectO} editMode={editMode} />
                 <ProjectSection project={projectO} editMode={editMode} />
             </div>

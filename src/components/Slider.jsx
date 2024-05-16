@@ -5,15 +5,15 @@ import Main3 from '../assets/pictures/main3.webp';
 
 const items = [
     {
-        html: <h3>Let's fund it <span className='bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text pb-1'>together</span></h3>,
+        html: <p>Let's fund it <span className='bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text pb-1'>together</span></p>,
         image: Main3
     },
     {
-        html: <h3><span className='bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text pb-1'>Unleash</span> your creativity</h3>,
+        html: <p><span className='bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text pb-1'>Unleash</span> your creativity</p>,
         image: Main1
     },
     {
-        html: <h3>Find your <span className='bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text pb-1'>flow</span></h3>,
+        html: <p>Find your <span className='bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text pb-1'>flow</span></p>,
         image: Main2
     },
 ];
@@ -24,7 +24,7 @@ function Slider() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prevSlide) => (prevSlide === items.length - 1 ? 0 : prevSlide + 1));
-        }, 7000);
+        }, 5500);
     
         return () => clearInterval(interval);
     }, []);
