@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProfileSection from "../components/ProfileSection";
+import MdlFollows from "../components/MdlFollows";
 import MdlVerifyUser from "../components/MdlVerifyUser";
 import MdlLoginNeeded from "../components/MdlLoginNeeded";
 import logout from "../assets/icons/logout.svg";
@@ -108,10 +109,22 @@ function Profile() {
     const closeLoginNeededModal = () => {
         setShowLoginNeededModal(false);
     };
+
+    const [showFollowsModal, setShowFollowsModal] = useState(false);
+
+    const openFollowsModal = () => {
+        setShowFollowsModal(true);
+    };
+
+    const closeFollowsModal = () => {
+        setShowFollowsModal(false);
+    };
+
     console.log(user);
     console.log(isFollowing);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
+            {showFollowsModal && <MdlFollows onClose={closeFollowsModal} user={user} follows={user.followers}/>}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <Header categoriesDisabled={true} />
@@ -139,8 +152,8 @@ function Profile() {
                             </div>
                             <div className="flex gap-5">
                                 <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.rating : '-'}</span> positive rating</p>
-                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</p>
-                                <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</p>
+                                <button onClick={openFollowsModal} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</button>
+                                <button onClick={openFollowsModal} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</button>
                             </div>
                             <p className="font-dmsans text-black">{user && user.biography ? user.biography : ''}</p>
                         </div>

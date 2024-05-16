@@ -8,6 +8,14 @@ import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
 
 function ProjectDetails({ project, editMode }) {
+    const projectType = (project.priceGoal ? 'funds' : 'collab');
+    
+    let today = new Date(); 
+    let deadline = new Date(project.deadlineDate); 
+    const timeDiff = deadline.getTime() - today.getTime();
+    const hoursDiff = Math.ceil(timeDiff / (1000 * 60 * 60));
+    const remainingHours = hoursDiff > 0 ? hoursDiff : 0;
+
     const [showEditProjectDetailsModal, setShowEditProjectDetailsModal] = useState(false);
 
     const openEditProjectDetailsModal = () => {
@@ -29,7 +37,11 @@ function ProjectDetails({ project, editMode }) {
     };
 
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
-    const formattedGoalFunding = project && project.goalFunding ? project.goalFunding.toLocaleString('de-DE') : 0;
+    const formattedGoalFunding = project && project.priceGoal ? project.priceGoal.toLocaleString('de-DE') : 0;
+
+    if (formattedCurrentFunding === 0) {
+        project.fundedPercentage = 0;
+    }
 
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
@@ -48,10 +60,11 @@ function ProjectDetails({ project, editMode }) {
                                 <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full" style={{ width: `${project.fundedPercentage}%` }}>
                                 </div>
                             </div>
-                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}€</span> funded of a <span className="font-semibold">{formattedGoalFunding}€</span> goal</p>
-                            <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.sponsors ? project.sponsors : '0'}</span> funders</p>
+                            {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p> 
+                            : <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.currentProgress ? project.currentProgress : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>}       
+                            {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.sponsors ? project.sponsors : '0'}</span> funders</p> : null}
                             <div className="flex items-center justify-between">
-                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.timeLeft ? project.timeLeft : '0'}</span> hours left</p>
+                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
                                 <div className="flex gap-5">
                                     <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />{project && project.views ? project.views : 0}</p>
                                     <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" />{project && project.likes ? project.likes : 0}</button>

@@ -53,7 +53,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
     return (
         <div className="flex flex-col group/project" ref={optionsRef}>
             {showDeleteProjectModal && <MdlDeleteProject onClose={closeDeleteProjectModal} projectName={projectName} projectId={projectId} />}
-            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 min-w-96 w-full rounded-md">
+            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory}</p>
                 {userData && userData.userUrl === projectCreator ? (
                     <div>
