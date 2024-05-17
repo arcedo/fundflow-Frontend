@@ -53,7 +53,7 @@ function MdlFollows({ onClose, user, type, setUser, sameUser }) {
                                                 following<img className="w-6" src={following} alt="following" />
                                             </button>
                                         ) : (
-                                            <button onClick={() => followFromModal(follow)} className="px-4 h-full focus:border-none focus:outline-none flex gap-3 justify-center items-center w-36 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 text-black font-semibold font-dmsans transition-all duration-200">
+                                            <button onClick={() => followFromModal(follow)} className="px-12 h-full focus:border-none focus:outline-none flex gap-3 justify-center items-center w-36 bg-gray-300 hover:bg-gray-400 hover:bg-opacity-70 text-black font-semibold font-dmsans transition-all duration-200">
                                                 follow<img className="w-6" src={notFollowing} alt="not following" />
                                             </button>
                                         )
