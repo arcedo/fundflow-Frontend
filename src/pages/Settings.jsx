@@ -153,13 +153,13 @@ function Settings() {
                     });
             }
             if (profileImage.new) {
-                await putProfilePicture(localStorage.getItem('token'), await resizeImage(fileInputRefProfile.current.files[0], 500, 500, 100), newUser.currentPassword)
+                await putProfilePicture(localStorage.getItem('token'), await resizeImage(fileInputRefProfile.current.files[0], 500, 500, 90), newUser.currentPassword)
                     .then((data) => {
                         setProfileImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profilePicture`, new: false, message: data.message });
                     });
             }
             if (bannerImage.new) {
-                await putProfileBanner(localStorage.getItem('token'), await resizeImage(fileInputRefBanner.current.files[0], 1900, 750, 100), newUser.currentPassword)
+                await putProfileBanner(localStorage.getItem('token'), await resizeImage(fileInputRefBanner.current.files[0], 1900, 750, 90), newUser.currentPassword)
                     .then((data) => {
                         setBannerImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profileBanner`, new: false, message: data.message });
                     });

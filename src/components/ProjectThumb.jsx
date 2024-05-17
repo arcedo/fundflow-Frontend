@@ -81,7 +81,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                     </Link>
                     <div className="flex flex-col">
                         <Link to={`/projects/${projectUrl}`} className="font-dmsans text-2xl font-bold text-black group-hover/project:text-secondary transition duration-300 text-opacity-75 cursor-pointer">
-                            {projectName.length > 15 ? `${projectName.slice(0, 15)}...` : projectName}
+                            {projectName.length > 14 ? `${projectName.slice(0, 14)}...` : projectName}
                         </Link>
                         <Link to={`/profile/${creatorUrl}`} className="font-dmsans text-black transition duration-300 text-opacity-75 text-sm cursor-pointer group/user">by <span className="group-hover/user:text-primary hover:border-b hover:border-b-black transition duration-300">{projectCreator}</span></Link>
                     </div>

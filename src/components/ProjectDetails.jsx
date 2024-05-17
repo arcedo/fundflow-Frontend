@@ -2,12 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import MdlEditProjectDetails from "./MdlEditProjectDetails";
+import MdlEditCover from "./MdlEditCover";
 import MdlProjectPurchase from "./MdlProjectPurchase";
 import MdlLoginNeeded from "./MdlLoginNeeded";
 import MdlVerifyUser from "./MdlVerifyUser";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
+import image from "../assets/icons/image.svg";
 
 function ProjectDetails({ project, editMode }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -65,6 +67,16 @@ function ProjectDetails({ project, editMode }) {
         setShowVerifyUserModal(false);
     };
 
+    const [showEditCoverModal, setShowEditCoverModal] = useState(false);
+
+    const openEditCoverModal = () => {
+        setShowEditCoverModal(true);
+    };
+
+    const closeEditCoverModal = () => {
+        setShowEditCoverModal(false);
+    };
+
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
     const formattedGoalFunding = project && project.priceGoal ? project.priceGoal.toLocaleString('de-DE') : 0;
 
@@ -75,10 +87,18 @@ function ProjectDetails({ project, editMode }) {
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} projectType={projectType} project={project} />}
+            {showEditCoverModal && <MdlEditCover onClose={closeEditCoverModal} project={project} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
+                {editMode && (
+                    <div onClick={openEditCoverModal} className="absolute bottom-0 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                        <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
+                            <img className="h-8" src={image} alt="save button" />
+                        </div>
+                    </div>
+                )}
                 <div className="w-10/12 grid grid-cols-2 gap-20">
                     <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
                         <div className="flex flex-col gap-2">
