@@ -60,7 +60,7 @@ export async function getCategories() {
     return await fetchDataGet(`${server}categories`);
 }
 
-// Project fetching
+// Projects
 export async function getLatestsProjects(skip, limit) {
     return await fetchDataGet(`${server}projects?startIndex=${skip}&limit=${limit}`);
 }

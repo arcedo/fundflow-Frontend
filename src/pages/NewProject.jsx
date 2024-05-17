@@ -290,7 +290,7 @@ function NewProject() {
     const handleFileInputChange = async (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
-        const resizedImage = await resizeImage(file, 1900, 750, 85);
+        const resizedImage = await resizeImage(file, 1900, 750, 100);
         reader.onloadend = () => {
             setCoverPicture({
                 cover: reader.result,

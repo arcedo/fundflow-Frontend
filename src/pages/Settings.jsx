@@ -159,7 +159,7 @@ function Settings() {
                     });
             }
             if (bannerImage.new) {
-                await putProfileBanner(localStorage.getItem('token'), await resizeImage(fileInputRefBanner.current.files[0], 1900, 750, 85), newUser.currentPassword)
+                await putProfileBanner(localStorage.getItem('token'), await resizeImage(fileInputRefBanner.current.files[0], 1900, 750, 100), newUser.currentPassword)
                     .then((data) => {
                         setBannerImage({ src: `${import.meta.env.VITE_API_URL}users/${currentUser.url}/profileBanner`, new: false, message: data.message });
                     });
