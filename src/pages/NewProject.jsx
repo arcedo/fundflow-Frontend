@@ -46,7 +46,6 @@ function NewProject() {
 
     const [coverPicture, setCoverPicture] = useState({ file: null, cover: '' });
 
-
     useEffect(() => {
         const fetchCategories = async () => {
             await getCategories()

@@ -76,6 +76,7 @@ function ProjectDetails({ project, editMode, setProject }) {
 
     const closeEditCoverModal = () => {
         setShowEditCoverModal(false);
+        // TODO update cover when closing modal
     };
 
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
@@ -109,7 +110,7 @@ function ProjectDetails({ project, editMode, setProject }) {
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
                 {editMode && (
-                    <div onClick={openEditCoverModal} className="absolute bottom-0 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full group">
+                    <div onClick={openEditCoverModal} className="absolute bottom-0 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full cursor-pointer group">
                         <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                             <img className="h-8" src={image} alt="save button" />
                         </div>
