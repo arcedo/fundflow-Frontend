@@ -83,8 +83,6 @@ export async function getFullProject(projectUrl) {
 
 // Project stats
 export async function getProjectStats(projectId) {
-    console.log(projectId);
-    console.log(await fetchDataGet(`${server}projects/${projectId}/stats`));
     return await fetchDataGet(`${server}projects/${projectId}/stats`);
 }
 

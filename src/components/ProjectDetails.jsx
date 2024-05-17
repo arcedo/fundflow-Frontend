@@ -91,11 +91,11 @@ function ProjectDetails({ project, editMode, setProject }) {
         } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
         } else {
-            console.log(project.id);
             await statsInteraction(localStorage.getItem('token'), project.id, evaluation);
-            console.log(project.id);
-            await getProjectStats(project.id);
-            console.log(project.id);
+            await getProjectStats(project.id)
+                .then((response) => {
+                    setProject({ ...project, stats: response });
+                })
         }
     }
     // console.log(project);
