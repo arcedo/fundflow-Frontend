@@ -21,6 +21,9 @@ function Project() {
                 await getFullProject(projectUrl)
                     .then((data) => {
                         setProject(data);
+                        if ((editMode && !userData) || (editMode && userData.userUrl !== data.userUrl)) {
+                            navigate('/projects/' + projectUrl);
+                        }
                     });
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -29,12 +32,8 @@ function Project() {
         fetchData();
     }, [projectUrl]);
 
-    useEffect(() => {
-        if (editMode && !userData || editMode && userData.userUrl !== project.creator) {
-            navigate('/projects/' + projectUrl);
-        }
-    }, [editMode, project, projectUrl, userData, navigate]);
-
+    console.log(project);
+    console.log(userData);
     const projectO = {
         projectId: 1,
         projectName: "Project One",

@@ -17,7 +17,7 @@ function MdlEditProject({ onClose, project, projectType }) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if ((name === 'title' && value.length > 30) || (name === 'description' && value.length > 250)) {
+        if ((name === 'title' && value.length > 30) || (name === 'description' && value.length > 250) || (name === 'priceGoal' && value.length > 9) || (name === 'collGoal' && value.length > 9)) {
             return;
         }
         if ((name === 'priceGoal' || name === 'collGoal') && parseFloat(value) <= 0) {
@@ -68,33 +68,36 @@ function MdlEditProject({ onClose, project, projectType }) {
                         />
                     </div>
                     <p className={`text-right font-dmsans text-md ${editedProject.description.length > 250 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{editedProject.description.length}/250</p>
-                    <div className="w-full grid grid-cols-2 gap-2">
+                    <div className="w-full grid grid-cols-2 gap-4">
                         {projectType === "funds" && (
-                            <div className="flex gap-2">
-                                <div className="w-9/12">
-                                    <label htmlFor="priceGoal" className="w-fit text-lg font-dmsans font-semibold text-black">fund goal</label>
-                                    <input
-                                        type="number"
-                                        id="priceGoal"
-                                        name="priceGoal"
-                                        className="p-2 mb-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
-                                        value={editedProject.priceGoal}
-                                        onChange={handleInputChange}
-                                    />
+                            <div className="flex flex-col">
+                                <div className="flex gap-2">
+                                    <div className="w-9/12">
+                                        <label htmlFor="priceGoal" className="w-fit text-lg font-dmsans font-semibold text-black">fund goal</label>
+                                        <input
+                                            type="number"
+                                            id="priceGoal"
+                                            name="priceGoal"
+                                            className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                            value={editedProject.priceGoal}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    <div className="w-3/12">
+                                        <select
+                                            id="currency"
+                                            name="currency"
+                                            value={editedProject.currency}
+                                            onChange={handleInputChange}
+                                            className="p-2 mt-7 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/8 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                        >
+                                            {['€', '$', '£', '¥'].map(currency => (
+                                                <option key={currency} value={currency}>{currency}</option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 </div>
-                                <div className="w-3/12">
-                                    <select
-                                        id="currency"
-                                        name="currency"
-                                        value={editedProject.currency}
-                                        onChange={handleInputChange}
-                                        className="p-2 mt-7 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/8 text-black outline-none focus:border-opacity-80 transition-all duration-200"
-                                    >
-                                        {['€', '$', '£', '¥'].map(currency => (
-                                            <option key={currency} value={currency}>{currency}</option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <p className={`text-right font-dmsans text-md ${editedProject.priceGoal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{editedProject.priceGoal.length}/9</p>
                             </div>
                         )}
                         {projectType !== "funds" && (

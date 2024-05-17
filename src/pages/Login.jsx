@@ -5,6 +5,7 @@ import UserMain from '../components/UserMain';
 import googleIcon from '../assets/icons/googleIcon.svg';
 import { login, loginGoogle } from '../services/index';
 
+// TODO: make login redirect you to where you were before logging in
 function Login() {
     let navigate = useNavigate();
     const [user, setUser] = useState(null);

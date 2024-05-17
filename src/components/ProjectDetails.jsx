@@ -103,8 +103,27 @@ function ProjectDetails({ project, editMode }) {
                                 </div>
                             </div>
                         </div>
-                        {editMode ? <button onClick={openEditProjectDetailsModal} className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Edit details</button>
-                            : <button onClick={openProjectPurchaseModal} className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold">Help this project</button>}
+                        {editMode ? (
+                            <button
+                            onClick={openEditProjectDetailsModal}
+                            className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
+                            >
+                            Edit details
+                            </button>
+                        ) : (
+                            remainingHours > 0 ? (
+                            <button
+                                onClick={openProjectPurchaseModal}
+                                className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
+                            >
+                                Help this project
+                            </button>
+                            ) : (
+                            <button className="mt-2 h-12 bg-gray-300 border-none rounded-lg text-black font-dmsans font-bold cursor-not-allowed">
+                                Project ended
+                            </button>
+                            )
+                        )}                  
                     </div>
                 </div>
             </div>
