@@ -8,13 +8,14 @@ import MdlVerifyUser from "./MdlVerifyUser";
 import likeInteract from "../assets/icons/likeInteract.svg";
 import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
+import { statsInteraction, getProjectStats } from "../services";
 
-function ProjectDetails({ project, editMode }) {
+function ProjectDetails({ project, editMode, setProject }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const projectType = (project.priceGoal ? 'funds' : 'collab');
-    
-    let today = new Date(); 
-    let deadline = new Date(project.deadlineDate); 
+
+    let today = new Date();
+    let deadline = new Date(project.deadlineDate);
     const timeDiff = deadline.getTime() - today.getTime();
     const hoursDiff = Math.ceil(timeDiff / (1000 * 60 * 60));
     const remainingHours = hoursDiff > 0 ? hoursDiff : 0;
@@ -32,7 +33,7 @@ function ProjectDetails({ project, editMode }) {
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
 
     const openProjectPurchaseModal = () => {
-        if (!userData){
+        if (!userData) {
             openLoginNeededModal();
         } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
@@ -46,7 +47,7 @@ function ProjectDetails({ project, editMode }) {
     };
 
     const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
-    
+
     const openLoginNeededModal = () => {
         setShowLoginNeededModal(true);
     };
@@ -72,6 +73,20 @@ function ProjectDetails({ project, editMode }) {
         project.fundedPercentage = 0;
     }
 
+    const evaluateProject = async (evaluation) => {
+        if (!userData) {
+            openLoginNeededModal();
+        } else if (!userData.verifiedEmail) {
+            openVerifyUserModal();
+        } else {
+            console.log(project.id);
+            await statsInteraction(localStorage.getItem('token'), project.id, evaluation);
+            console.log(project.id);
+            await getProjectStats(project.id);
+            console.log(project.id);
+        }
+    }
+    // console.log(project);
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} projectType={projectType} project={project} />}
@@ -91,39 +106,39 @@ function ProjectDetails({ project, editMode }) {
                                 <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full" style={{ width: `${project.fundedPercentage}%` }}>
                                 </div>
                             </div>
-                            {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p> 
-                            : <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.currentProgress ? project.currentProgress : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>}       
+                            {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p>
+                                : <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.currentProgress ? project.currentProgress : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>}
                             {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.sponsors ? project.sponsors : '0'}</span> funders</p> : null}
                             <div className="flex items-center justify-between">
                                 <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
                                 <div className="flex gap-5">
-                                    <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />{project && project.views ? project.views : 0}</p>
-                                    <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" />{project && project.likes ? project.likes : 0}</button>
-                                    <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40 group-hover:opacity-100 -rotate-180" src={dislike} alt="" />{project && project.dislikes ? project.dislike : 0}</button>
+                                    <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />{project && project.stats && project.stats.views ? project.stats.views : 0}</p>
+                                    <button onClick={() => evaluateProject('likes')} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
+                                    <button onClick={() => evaluateProject('dislikes')} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40 group-hover:opacity-100 -rotate-180" src={dislike} alt="dislikes" />{project && project.stats && project.stats.dislikes ? project.stats.dislikes : 0}</button>
                                 </div>
                             </div>
                         </div>
                         {editMode ? (
                             <button
-                            onClick={openEditProjectDetailsModal}
-                            className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
+                                onClick={openEditProjectDetailsModal}
+                                className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
                             >
-                            Edit details
+                                Edit details
                             </button>
                         ) : (
                             remainingHours > 0 ? (
-                            <button
-                                onClick={openProjectPurchaseModal}
-                                className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
-                            >
-                                Help this project
-                            </button>
+                                <button
+                                    onClick={openProjectPurchaseModal}
+                                    className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
+                                >
+                                    Help this project
+                                </button>
                             ) : (
-                            <button className="mt-2 h-12 bg-gray-300 border-none rounded-lg text-black font-dmsans font-bold cursor-not-allowed">
-                                Project ended
-                            </button>
+                                <button className="mt-2 h-12 bg-gray-300 border-none rounded-lg text-black font-dmsans font-bold cursor-not-allowed">
+                                    Project ended
+                                </button>
                             )
-                        )}                  
+                        )}
                     </div>
                 </div>
             </div>
