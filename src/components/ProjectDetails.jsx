@@ -95,7 +95,7 @@ function ProjectDetails({ project, editMode, setProject }) {
             await statsInteraction(localStorage.getItem('token'), project.id, evaluation);
             await getProjectStats(project.id)
                 .then((response) => {
-                    setProject({ ...project, stats: response[0] });
+                    setProject({ ...project, stats: response });
                 })
         }
     }
