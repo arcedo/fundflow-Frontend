@@ -81,6 +81,10 @@ export async function getFullProject(projectUrl) {
     return await fetchDataGet(`${server}projects/${projectUrl}`);
 }
 
+export async function getProjectsByUserStatus(token, evaluation, skip, limit) {
+    return await fetchDataAuth('GET', `${server}projects/byEvaluation/?evaluation=${evaluation}&startIndex=${skip}&limit=${limit}`, token);
+}
+
 // Project stats
 export async function getProjectStats(projectId) {
     return await fetchDataGet(`${server}projects/${projectId}/stats`);

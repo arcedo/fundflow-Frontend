@@ -4,6 +4,7 @@ import GridProjectSection from "./GridProjectSection";
 function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects }) {
     const [activeTab, setActiveTab] = useState("projects");
 
+    console.log(likedProjects);
     const renderSection = () => {
         switch (activeTab) {
             case "collaborating":
