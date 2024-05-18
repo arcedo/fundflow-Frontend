@@ -37,8 +37,7 @@ export default function App() {
           <Route path="/projects/:projectUrl/edit" element={<Project editMode={true} />} />
           <Route path="/verifyEmail/:code" element={<Verify />} />
           <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="*" element={<Navigate to="/404" />} />
-          <Route path="/404" element={<Error404 />} />
+          <Route path="*" element={<Error404 />} />
         </Routes>
       </Router>
     </>

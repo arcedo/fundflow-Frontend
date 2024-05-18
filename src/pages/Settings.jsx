@@ -139,11 +139,14 @@ function Settings() {
         if (!seemsOk) {
             return;
         } else {
-            if (newUser.username !== currentUser.username || newUser.email !== currentUser.email || newUser.biography !== currentUser.biography) {
+            if (newUser.username !== currentUser.username || newUser.email !== currentUser.email || newUser.biography !== currentUser.biography || newUser.name !== currentUser.name || newUser.lastName !== currentUser.lastName ) {
                 await changeUserData(localStorage.getItem('token'), newUser)
                     .then((data) => {
                         if (data.id) {
                             setSaveChangesMessage({ success: true, message: 'Changes saved successfully!' });
+                            setTimeout(() => {
+                                setSaveChangesMessage({ success: true, message: '' });
+                            }, 3000);
                             setCurrentUser({ ...currentUser, ...newUser, currentPassword: '' });
                             setNewUser({ ...newUser, currentPassword: '' });
                             localStorage.setItem('userData', JSON.stringify({ ...userData, userUrl: data.url }));

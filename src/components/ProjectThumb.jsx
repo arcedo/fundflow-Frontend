@@ -4,7 +4,7 @@ import MdlDeleteProject from "./MdlDeleteProject";
 import like from "../assets/icons/like.svg";
 import projectSettings from "../assets/icons/projectSettings.svg";
 
-function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, creatorUrl, projectCategory, likes, fundedPercentage }) {
+function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, creatorUrl, projectCategory, likes, dislikes, fundedPercentage }) {
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem("userData"));
     const [showOptionsMenu, setShowOptionsMenu] = useState(false);
@@ -89,7 +89,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                 <div className="flex flex-col gap-1 text-right">
                     <p className="font-dmsans text-black text-opacity-75 text-sm font-semibold cursor-pointer flex items-center justify-end gap-1">
                         <img className="w-5 opacity-75" src={like} alt="Like Icon" />
-                        {likes}
+                        {(likes-dislikes)}
                     </p>
                     <p className="font-dmsans text-black text-opacity-75 text-sm font-semibold cursor-pointer">{fundedPercentage}% complete</p>
                 </div>

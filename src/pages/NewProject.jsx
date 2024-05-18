@@ -374,7 +374,7 @@ function NewProject() {
                             <>
                                 <div className="w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
-                                        <p className="text-black font-normal font-dmsans opacity-70">What category does your project belong to?</p>
+                                        <p className="text-black font-normal font-dmsans opacity-70">Which category does your project fit in the most?</p>
                                         <div className="flex gap-2 mt-1">
                                             {categories && categories.map((category) => (
                                                 <div
@@ -548,13 +548,13 @@ function NewProject() {
                         </div>
                         <div id="thumbnail" className="w-3/5 hidden">
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">thumbnail preview</p>
-                            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
+                            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-11/12 rounded-md">
                                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName}</p>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
                                     <img id="coverPreview" src={coverPicture && coverPicture.cover ? coverPicture.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
                                 </div>
                             </div>
-                            <div className="flex items-center justify-between gap-3 pt-3 w-full">
+                            <div className="flex items-center justify-between gap-3 pt-3 w-11/12">
                                 <div className="flex items-center justify-between gap-3">
                                     <div className="h-12 w-12 rounded-full overflow-hidden bg-black group">
                                         <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} className="group-hover:scale-110 transition-all duration-150 bg-555" />
