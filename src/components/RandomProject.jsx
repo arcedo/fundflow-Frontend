@@ -35,7 +35,7 @@ function RandomProject({ project }) {
                 {Array.from({ length: 4 }).map((_, index) => {
                     const image = project.imgs && project.imgs[index];
                     return (
-                        <div className="sm:h-1/4 w-full relative overflow-hidden rounded-md" key={index}>
+                        <div className="sm:h-24 w-full relative overflow-hidden rounded-md" key={index}>
                             {image ? (
                                 <img
                                     id={`projectImage${index}`}
@@ -57,15 +57,15 @@ function RandomProject({ project }) {
             <div className="w-full h-full flex col-span-2 flex-col justify-between">
                 <div className="flex flex-col gap-3.5">
                     <div className="w-full flex flex-col gap-2">
-                        <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.title}</Link>
-                        <Link to={`/profile/${project.userUrl}`} className="font-dmsans text-lg text-black group">by <span className="text-black  text-opacity-75 group-hover:text-primary transition-all duration-300font-semibold">{project.creator}</span></Link>
+                        <Link to={`/projects/${project.projectUrl}`} className="w-fit font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.title}</Link>
+                        <Link to={`/profile/${project.userUrl}`} className="w-fit font-dmsans text-lg text-black group">by <span className="text-black  text-opacity-75 group-hover:text-primary transition-all duration-300font-semibold">{project.creator}</span></Link>
                     </div>
                     <p className="w-full font-dmsans text-black text-normal font-medium opacity-75 select-none">{project.description}</p>
                     <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
-                    <div className="flex justify-center sm:justify-normal py-3 sm:py-0 items-center gap-6">
+                    {/* <div className="flex justify-center sm:justify-normal py-3 sm:py-0 items-center gap-6"> */}
                         <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" /></button>
-                        <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 opacity-40 -rotate-180 group-hover:opacity-100" src={like} alt="" /></button>
-                    </div>
+                        {/* <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 opacity-40 -rotate-180 group-hover:opacity-100" src={like} alt="" /></button> */}
+                    {/* </div> */}
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-between w-full">
                     <div className="w-fit">
