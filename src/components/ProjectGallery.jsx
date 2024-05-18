@@ -27,7 +27,7 @@ function ProjectGallery({ project, editMode, setProject }) {
     const handleImageUpload = async (event) => {
         const file = event.target.files[0];
         if (file) {
-            const resizedImage = await resizeImage(file, 500, 500, 100);
+            const resizedImage = await resizeImage(file, 1000, 1000, 100);
             await postProjectImage(localStorage.getItem('token'), project.id, resizedImage)
                 .then(async (response) => {
                     if (response.id) {
@@ -74,14 +74,14 @@ function ProjectGallery({ project, editMode, setProject }) {
                     {Array.from({ length: 4 }).map((_, index) => {
                         const image = project.imgs && project.imgs[index];
                         return (
-                            <div className="sm:h-1/4 w-full relative overflow-hidden rounded-md" key={index}>
+                            <div className={`sm:h-1/4 w-full relative ${editMode ? '' : 'overflow-hidden'} rounded-md`} key={index}>
                                 {image ? (editMode ?
-                                    <button onClick={() => handleDeleteImage(image._id)} className="w-full">
+                                    <button onClick={() => handleDeleteImage(image._id)} className="w-full bg-red-600 group shake overflow-hidden h-full rounded-md">
                                         <img
                                             id={"projectImage" + index}
                                             src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${image._id}`}
                                             alt={`Project Image ${index}`}
-                                            className={`w-full h-14 sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300`}
+                                            className={`w-full h-14 sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300 group-hover:opacity-85`}
                                             onMouseEnter={() => imageDisplayed(image, index)}
                                         />
                                     </button>
