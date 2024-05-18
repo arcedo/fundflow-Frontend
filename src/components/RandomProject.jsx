@@ -8,14 +8,13 @@ import logo from "../assets/icons/logoLight.png";
 
 function RandomProject({ project }) {
     if (!project) {
-        // Render some placeholder or loading state while waiting for data
         return <div className="col-span-5 flex justify-center flex-col items-center w-full h-full gap-5">
             <img src={logo} alt="" className='w-24 h-24 rounded-md' />
             <p className="text-2xl font-dmsans font-semibold">Loading...</p>
         </div>;
     }
 
-    const [hoveredImage, setHoveredImage] = useState({ src: project?.imgs?.[0]?._id ?? '', index: 0 });
+    const [hoveredImage, setHoveredImage] = useState({ src: '', index: 0 });
 
     function imageDisplayed(image, index) {
         document.getElementById('projectImage' + hoveredImage.index).classList.toggle('brightness-75');

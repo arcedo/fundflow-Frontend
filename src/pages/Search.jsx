@@ -67,8 +67,8 @@ function Search() {
                     </div>     
                     <div className="w-10/12 flex flex-col gap-5">
                         <h2 className="font-dmsans text-4xl font-semibold text-opacity-70 text-black">search results for <span className="text-black text-opacity-100 font-bold">{searchQuery}</span></h2>
-                        <GridUserSection sectionTitle={"users"} usersFound={users} />
-                        <GridProjectSection sectionTitle={"projects"} projectsFound={latestsProjects} />
+                        <GridUserSection key={searchQuery} sectionTitle={"users"} usersFound={users} />
+                        <GridProjectSection key={searchQuery} sectionTitle={"projects"} projectsFound={latestsProjects} />
                     </div>             
                 </div>
             </div>

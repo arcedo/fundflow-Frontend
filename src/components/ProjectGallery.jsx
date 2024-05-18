@@ -62,8 +62,8 @@ function ProjectGallery({ project, editMode, setProject }) {
                 <div className="flex-1 relative sm:overflow-hidden rounded-md">
                     <div className="sm:absolute inset-0">
                         {project?.imgs?.length === 0 || !hoveredImage.src ? (
-                            <div className="w-full h-full bg-gray-300 flex items-center justify-center  rounded-md">
-                                <p className="text-black font-dmsans font-semibold text-2xl text-opacity-75">{editMode ? 'Upload some images!' : 'No images available'}</p>
+                            <div className="w-full h-full bg-gray-300 flex items-center justify-center rounded-md">
+                                <p className="text-black font-dmsans font-semibold text-2xl text-opacity-75">{editMode ? 'upload some images' : 'no images available'}</p>
                             </div>
                         ) : (
                             <img src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}`} alt="" className="w-full rounded-md sm:h-full object-cover" />
@@ -76,12 +76,12 @@ function ProjectGallery({ project, editMode, setProject }) {
                         return (
                             <div className={`sm:h-1/4 w-full relative ${editMode ? '' : 'overflow-hidden'} rounded-md`} key={index}>
                                 {image ? (editMode ?
-                                    <button onClick={() => handleDeleteImage(image._id)} className="w-full bg-red-600 group shake overflow-hidden h-full rounded-md">
+                                    <button onClick={() => handleDeleteImage(image._id)} className="w-full hover:bg-red-600 transition-all duration-200 group shake overflow-hidden h-full rounded-md">
                                         <img
                                             id={"projectImage" + index}
                                             src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${image._id}`}
                                             alt={`Project Image ${index}`}
-                                            className={`w-full h-14 sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300 group-hover:opacity-85`}
+                                            className={`w-full h-14 sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300 group-hover:opacity-70`}
                                             onMouseEnter={() => imageDisplayed(image, index)}
                                         />
                                     </button>
@@ -94,7 +94,7 @@ function ProjectGallery({ project, editMode, setProject }) {
                                         onMouseEnter={() => imageDisplayed(image, index)}
                                     />
                                 ) : (editMode ?
-                                    <div className="w-full h-full bg-gray-300 opacity-75">
+                                    <div className="w-full h-full bg-gray-300 rounded-md opacity-75">
                                         <label htmlFor={`projectImageInput${index}`} className="w-full h-full flex justify-center items-center flex-col cursor-pointer">
                                             <img className="w-10" src={plusDark} alt="add new image" />
                                         </label>
