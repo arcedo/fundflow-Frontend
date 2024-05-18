@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import MdlEditProjectDetails from "./MdlEditProjectDetails";
 import MdlEditCover from "./MdlEditCover";
 import MdlProjectPurchase from "./MdlProjectPurchase";
@@ -12,7 +12,8 @@ import views from "../assets/icons/views.svg";
 import { statsInteraction, getProjectStats, getProjectStatsFromUser } from "../services";
 import image from "../assets/icons/image.svg";
 
-function ProjectDetails({ project, editMode, setProject, userStats, setUserStats }) {
+function ProjectDetails({ project, editMode, setProject, userStats, setUserStats, refreshData }) {
+    let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('userData'));
     const projectType = (project.priceGoal ? 'funds' : 'collab');
 
@@ -30,6 +31,8 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
 
     const closeEditProjectDetailsModal = () => {
         setShowEditProjectDetailsModal(false);
+        refreshData();
+        navigate(`/projects/${project.projectUrl}/edit`);
     };
 
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
@@ -76,7 +79,9 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
 
     const closeEditCoverModal = () => {
         setShowEditCoverModal(false);
-        // TODO update cover when closing modal
+        setTimeout(() => {
+            refreshData();
+        }, 2000);
     };
 
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
@@ -86,7 +91,6 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
         project.fundedPercentage = 0;
     }
 
-    // TODO: like/dislike checked or not
     const evaluateProject = async (evaluation) => {
         if (!userData) {
             openLoginNeededModal();

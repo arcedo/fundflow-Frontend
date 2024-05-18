@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
+import { updateProjectData } from "../services";
 
 function MdlEditProject({ onClose, project, projectType }) {
     const today = new Date().toISOString().split('T')[0];
 
     const [editedProject, setEditedProject] = useState({
+        idCategory: project.idCategory,
         title: project.title,
         description: project.description,
-        priceGoal: projectType === "funds" ? project.priceGoal || "" : "",
-        collGoal: projectType === "funds" ? "" : project.collGoal || "",
+        typeGoal: projectType === "funds" ? "price" : "coll",
+        goal: projectType === "funds" ? project.priceGoal : project.collGoal,
         currency: project.currency || "€",
         deadlineDate: project.deadlineDate || today,
     });
@@ -17,10 +19,10 @@ function MdlEditProject({ onClose, project, projectType }) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if ((name === 'title' && value.length > 30) || (name === 'description' && value.length > 250) || (name === 'priceGoal' && value.length > 9) || (name === 'collGoal' && value.length > 9)) {
+        if ((name === 'title' && value.length > 30) || (name === 'description' && value.length > 250) || (name === 'goal' && value.length > 9)) {
             return;
         }
-        if ((name === 'priceGoal' || name === 'collGoal') && parseFloat(value) <= 0) {
+        if ((name === 'goal') && parseFloat(value) <= 0) {
             setError("Goal cannot be negative or 0.");
             return;
         }
@@ -31,12 +33,20 @@ function MdlEditProject({ onClose, project, projectType }) {
         });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         if (error) {
             return;
         }
-        console.log("Edited project:", editedProject);
-        onClose();
+        console.log(editedProject);
+        await updateProjectData(localStorage.getItem("token"), project.id, editedProject)
+            .then(async(data) => {
+                if (data.error) {
+                    setError(data.error);
+                    return;
+                } else {
+                    onClose();
+                }
+            });
     };
 
     return (
@@ -73,13 +83,13 @@ function MdlEditProject({ onClose, project, projectType }) {
                             <div className="flex flex-col">
                                 <div className="flex gap-2">
                                     <div className="w-9/12">
-                                        <label htmlFor="priceGoal" className="w-fit text-lg font-dmsans font-semibold text-black">fund goal</label>
+                                        <label htmlFor="goal" className="w-fit text-lg font-dmsans font-semibold text-black">fund goal</label>
                                         <input
                                             type="number"
-                                            id="priceGoal"
-                                            name="priceGoal"
+                                            id="goal"
+                                            name="goal"
                                             className="p-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
-                                            value={editedProject.priceGoal}
+                                            value={editedProject.goal}
                                             onChange={handleInputChange}
                                         />
                                     </div>
@@ -97,18 +107,18 @@ function MdlEditProject({ onClose, project, projectType }) {
                                         </select>
                                     </div>
                                 </div>
-                                <p className={`text-right font-dmsans text-md ${editedProject.priceGoal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{editedProject.priceGoal.length}/9</p>
+                                <p className={`text-right font-dmsans text-md ${editedProject.goal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{editedProject.goal.length}/9</p>
                             </div>
                         )}
                         {projectType !== "funds" && (
                             <div>
-                                <label htmlFor="collGoal" className="w-fit text-lg font-dmsans font-semibold text-black">collaborators goal</label>
+                                <label htmlFor="goal" className="w-fit text-lg font-dmsans font-semibold text-black">collaborators goal</label>
                                 <input
                                     type="number"
-                                    id="collGoal"
-                                    name="collGoal"
+                                    id="goal"
+                                    name="goal"
                                     className="p-2 mb-2 bg-white rounded-lg font-montserrat border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200"
-                                    value={editedProject.collGoal}
+                                    value={editedProject.goal}
                                     onChange={handleInputChange}
                                 />
                             </div>

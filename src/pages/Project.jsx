@@ -16,37 +16,40 @@ function Project() {
     const [project, setProject] = useState({});
     const [userStats, setUserStats] = useState({});
     const userData = JSON.parse(localStorage.getItem('userData'));
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await getFullProject(projectUrl)
-                    .then(async (data) => {
-                        setProject(data);
-                        if ((editMode && !userData) || (editMode && userData.userUrl !== data.userUrl)) {
-                            navigate('/projects/' + projectUrl);
-                        } else if (!editMode && userData) {
-                            await viewProject(localStorage.getItem('token'), data.id, data.idCategory)
+
+    const fetchData = async () => {
+        try {
+            await getFullProject(projectUrl)
+                .then(async (data) => {
+                    setProject(data);
+                    if ((editMode && !userData) || (editMode && userData.userUrl !== data.userUrl)) {
+                        navigate('/projects/' + projectUrl);
+                    } else if (!editMode && userData) {
+                        await viewProject(localStorage.getItem('token'), data.id, data.idCategory)
+                            .then((res) => {
+                                if (res.code === 201) {
+                                    data.stats = { ...data.stats, views: (data.stats.views || 0) + 1 };
+                                    setProject(data);
+                                }
+                            });
+                        if (userData.verifiedEmail) {
+                            await getProjectStatsFromUser(localStorage.getItem('token'), data.id)
                                 .then((res) => {
-                                    if (res.code === 201) {
-                                        data.stats = { ...data.stats, views: (data.stats.views || 0) + 1 };
-                                        setProject(data);
-                                    }
+                                    setUserStats(res);
                                 });
-                            if (userData.verifiedEmail) {
-                                await getProjectStatsFromUser(localStorage.getItem('token'), data.id)
-                                    .then((res) => {
-                                        setUserStats(res);
-                                    });
-                            }
                         }
-                    });
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+                    }
+                });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
         fetchData();
     }, [projectUrl]);
-
+    console.log(project);
+    
     const projectO = {
         projectId: 1,
         projectName: "Project One",
@@ -137,7 +140,7 @@ function Project() {
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
-                <ProjectDetails project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} />
+                <ProjectDetails project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} refreshData={fetchData} />
                 {!editMode && project && userData && project.userUrl === userData.userUrl ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed top-20 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />

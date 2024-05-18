@@ -81,6 +81,10 @@ export async function getFullProject(projectUrl) {
     return await fetchDataGet(`${server}projects/${projectUrl}`);
 }
 
+export async function updateProjectData(token, projectId, projectData) {
+    return await fetchDataAuth('PUT', `${server}projects/${projectId}`, token, projectData);
+}
+
 // Project stats
 export async function getProjectStats(projectId) {
     return await fetchDataGet(`${server}projects/${projectId}/stats`);
