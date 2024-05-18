@@ -86,13 +86,17 @@ export async function getProjectStats(projectId) {
     return await fetchDataGet(`${server}projects/${projectId}/stats`);
 }
 
+export async function getProjectStatsFromUser(token, projectId) {
+    return await fetchDataAuth('GET', `${server}projects/${projectId}/stats/user`, token);
+}
+
 export async function viewProject(token, projectId, idCategory) {
     return await fetchDataAuth('POST', `${server}projects/${projectId}/stats`, token, { idCategory });
 }
 
 // evaluation must be 'like' or 'dislike'
-export async function statsInteraction(token, idProject, evaluation, fund, collaboration) {
-    return await fetchDataAuth('PUT', `${server}projects/${idProject}/stats`, token, { evaluation, fund, collaboration });
+export async function statsInteraction(token, idProject, evaluation, evaluationStatus, fund, collaboration) {
+    return await fetchDataAuth('PUT', `${server}projects/${idProject}/stats`, token, { evaluation, fund, collaboration, evaluationStatus });
 }
 
 // Project creation
