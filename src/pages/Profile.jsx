@@ -10,7 +10,7 @@ import logout from "../assets/icons/logout.svg";
 import edit from "../assets/icons/edit.svg";
 import notFollowing from "../assets/icons/follow.svg";
 import following from "../assets/icons/check.svg";
-import { getUserByUrl, getProjectByCreator, doesUserFollow, followUser, unfollowUser, getFollowers, getFollowing } from "../services/index";
+import { getUserByUrl, getProjectByCreator, doesUserFollow, followUser, unfollowUser, getFollowers, getFollowing, getProjectsByUserStatus } from "../services/index";
 
 function Profile() {
     const skip = 0;
@@ -21,6 +21,9 @@ function Profile() {
     const [isFollowing, setIsFollowing] = useState(false);
     const [user, setUser] = useState(null);
     const [projects, setProjects] = useState([]);
+    const [likedProjects, setLikedProjects] = useState([]);
+    const [dislikedProjects, setDislikedProjects] = useState([]);
+    const [collaboratingProjects, setCollaboratingProjects] = useState([]);
 
     useEffect(() => {
         closeFollowsModal();
@@ -49,6 +52,20 @@ function Profile() {
                             .then(projects => {
                                 setProjects(projects);
                             });
+                        if (userData && userData.userUrl === userUrl) {
+                            await getProjectsByUserStatus(localStorage.getItem('token'), 'like', skip, limit)
+                                .then(projects => {
+                                    setLikedProjects(projects);
+                                });
+                            await getProjectsByUserStatus(localStorage.getItem('token'), 'dislike', skip, limit)
+                                .then(projects => {
+                                    setDislikedProjects(projects);
+                                });
+                        }
+                        // await getProjectsByUserStatus(localStorage.getItem('token'), 'collaborating', skip, limit)
+                        //     .then(projects => {
+                        //         setCollaboratingProjects(projects);
+                        //     });
                     }
                 });
         }
@@ -192,7 +209,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} />
+            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} likedProjects={likedProjects} dislikedProjects={dislikedProjects} />
             <Footer />
         </div >
     );
