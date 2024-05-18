@@ -49,7 +49,7 @@ function Project() {
         fetchData();
     }, [projectUrl]);
     console.log(project);
-    
+
     const projectO = {
         projectId: 1,
         projectName: "Project One",
@@ -151,7 +151,7 @@ function Project() {
                         <img className="h-8" src={save} alt="save button" />
                     </div>
                 </Link> : null}
-                <ProjectGallery project={projectO} editMode={editMode} />
+                <ProjectGallery project={project} editMode={editMode} setProject={setProject} />
                 <ProjectSection project={projectO} editMode={editMode} />
             </div>
             <Footer />

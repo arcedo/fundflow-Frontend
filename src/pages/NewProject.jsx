@@ -306,9 +306,6 @@ function NewProject() {
                 if (data.url) {
                     if (coverPicture.cover) {
                         putProjectCover(localStorage.getItem('token'), data.id, coverPicture.file)
-                            .then((response) => {
-                                console.log(response);
-                            });
                     }
                     navigate(`/projects/${data.url}`);
                 } else {
@@ -495,6 +492,7 @@ function NewProject() {
                                         <input
                                             id="cover"
                                             name="cover"
+                                            accept="image/*"
                                             onChange={handleFileInputChange}
                                             className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-full text-black outline-none focus:border-opacity-80 transition-all duration-200 hidden"
                                             type="file"

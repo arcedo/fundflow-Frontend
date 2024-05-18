@@ -207,3 +207,17 @@ export async function putProjectCover(token, projectId, cover) {
     formData.append('cover', cover);
     return await fetchDataAuth('PUT', `${server}projects/${projectId}/cover`, token, formData, true);
 }
+
+export async function postProjectImage(token, projectId, image) {
+    const formData = new FormData();
+    formData.append('image', image);
+    return await fetchDataAuth('POST', `${server}projects/${projectId}/image`, token, formData, true);
+}
+
+export async function getProjectImages(projectId) {
+    return await fetchDataGet(`${server}projects/${projectId}/srcImages`);
+}
+
+export async function deleteProjectImage(token, projectId, imageId) {
+    return await fetchDataAuth('DELETE', `${server}projects/${projectId}/image/${imageId}`, token);
+}
