@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MdlEditProjectDetails from "./MdlEditProjectDetails";
 import MdlEditCover from "./MdlEditCover";
 import MdlProjectPurchase from "./MdlProjectPurchase";
@@ -12,8 +12,7 @@ import views from "../assets/icons/views.svg";
 import { statsInteraction, getProjectStats, getProjectStatsFromUser } from "../services";
 import image from "../assets/icons/image.svg";
 
-function ProjectDetails({ project, editMode, setProject, userStats, setUserStats, refreshData }) {
-    let navigate = useNavigate();
+function ProjectDetails({ project, editMode, setProject, userStats, setUserStats }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const projectType = (project.priceGoal ? 'funds' : 'collab');
 
@@ -31,8 +30,6 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
 
     const closeEditProjectDetailsModal = () => {
         setShowEditProjectDetailsModal(false);
-        refreshData();
-        navigate(`/projects/${project.projectUrl}/edit`);
     };
 
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
@@ -79,9 +76,6 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
 
     const closeEditCoverModal = () => {
         setShowEditCoverModal(false);
-        setTimeout(() => {
-            refreshData();
-        }, 2000);
     };
 
     const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
@@ -117,7 +111,7 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
     // console.log(project);
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
-            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} projectType={projectType} project={project} />}
+            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject}  projectType={projectType} project={project} />}
             {showEditCoverModal && <MdlEditCover onClose={closeEditCoverModal} project={project} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}

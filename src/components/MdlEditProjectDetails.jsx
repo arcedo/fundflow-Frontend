@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { updateProjectData } from "../services";
 
-function MdlEditProject({ onClose, project, projectType }) {
+function MdlEditProject({ onClose, setProject, project, projectType }) {
+    let navigate = useNavigate();
     const today = new Date().toISOString().split('T')[0];
 
     const [editedProject, setEditedProject] = useState({
@@ -37,14 +39,20 @@ function MdlEditProject({ onClose, project, projectType }) {
         if (error) {
             return;
         }
-        console.log(editedProject);
         await updateProjectData(localStorage.getItem("token"), project.id, editedProject)
             .then(async(data) => {
-                if (data.error) {
+                console.log("data", data);
+                if (data.code !== 200) {
                     setError(data.error);
                     return;
                 } else {
                     onClose();
+                    // TODO reload project data without changing title
+                    if (data.url === project.url) {
+                        setProject({...project, title: editedProject.title, description: editedProject.description, goal: editedProject.goal, currency: editedProject.currency, deadlineDate: editedProject.deadlineDate});
+                    } else {
+                        navigate(`/projects/${data.url}/edit`);
+                    }
                 }
             });
     };

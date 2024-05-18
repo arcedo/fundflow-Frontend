@@ -25,6 +25,7 @@ function MdlEditCover({ onClose, project }) {
                 if (res.code === 200) {
                     console.log("Cover updated successfully.");
                     onClose();
+                    setTimeout(() => window.location.reload(), 1500);
                 } else {
                     console.error("Error updating cover.");
                 }

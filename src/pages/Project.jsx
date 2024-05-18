@@ -140,7 +140,7 @@ function Project() {
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
-                <ProjectDetails project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} refreshData={fetchData} />
+                <ProjectDetails project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} />
                 {!editMode && project && userData && project.userUrl === userData.userUrl ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed top-20 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />
