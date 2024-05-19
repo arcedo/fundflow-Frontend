@@ -21,6 +21,9 @@ export default {
       transitionDuration: {
         '2000': '2000ms',
       },
+      height: {
+        '30': '7.5em',
+      }
     },
   },
   plugins: [],

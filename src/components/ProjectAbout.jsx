@@ -1,38 +1,46 @@
 import React, { useState, useEffect } from "react";
 import WysiEditor from "./WysiEditor";
-import { Editor, EditorState, convertFromRaw, ContentState } from 'draft-js';
+import { Editor, EditorState, convertFromRaw } from 'draft-js';
+import { getProjectAbout } from "../services";
 
 function ProjectAbout({ project, editMode }) {
     const [headingList, setHeadingList] = useState([]);
+    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
-    const getSavedContent = () => {
-        const content = localStorage.getItem('content');
-        if (content) {
-            const rawContentState = JSON.parse(content);
-            const contentState = convertFromRaw(rawContentState);
-            return EditorState.createWithContent(contentState);
+    const getSavedContent = async () => {
+        if (project.id) {
+            await getProjectAbout(project.id)
+                .then((res) => {
+                    if (res.about) {
+                        const rawContentState = JSON.parse(res.about);
+                        const contentState = convertFromRaw(rawContentState);
+                        if (contentState) {
+                            setEditorState(EditorState.createWithContent(contentState));
+                        }
+                    }
+                });
         }
-        return null;
     };
 
-    const savedEditorState = getSavedContent();
-
     useEffect(() => {
-        if (!editMode && savedEditorState) {
-            const contentState = savedEditorState.getCurrentContent();
-            const blocks = contentState.getBlockMap();
-            const headings = [];
+        getSavedContent()
+            .then(() => {
+                if (!editMode && editorState) {
+                    const contentState = editorState.getCurrentContent();
+                    const blocks = contentState.getBlockMap();
+                    const headings = [];
 
-            blocks.forEach(block => {
-                const text = block.getText();
-                const type = block.getType();
-                if (type === 'header-two' || type === 'header-three') {
-                    headings.push({ text, type });
+                    blocks.forEach(block => {
+                        const text = block.getText();
+                        const type = block.getType();
+                        if (type === 'header-two' || type === 'header-three') {
+                            headings.push({ text, type });
+                        }
+                    });
+                    setHeadingList(headings);
                 }
             });
-            setHeadingList(headings);
-        }
-    }, [editMode]);
+    }, [editMode, project]);
 
     const renderHeadings = () => {
         return (
@@ -44,7 +52,7 @@ function ProjectAbout({ project, editMode }) {
                 ))}
             </ul>
         );
-    };  
+    };
 
     return (
         <div className="w-full flex gap-5 fade-in min-h-96">
@@ -65,10 +73,10 @@ function ProjectAbout({ project, editMode }) {
             <div className="bg-555 opacity-40 mx-10" style={{ width: "1px" }}></div>
             <div className="w-10/12">
                 {editMode ? (
-                    <WysiEditor />
-                ) : savedEditorState ? (
+                    <WysiEditor projectId={project.id} aboutContent={editorState} setAboutContent={setEditorState} />
+                ) : editorState ? (
                     <Editor
-                        editorState={savedEditorState}
+                        editorState={editorState}
                         wrapperClassName="wrapperClassName"
                         readOnly={true}
                         toolbarHidden={true}

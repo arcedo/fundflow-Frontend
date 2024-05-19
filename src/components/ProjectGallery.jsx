@@ -58,8 +58,8 @@ function ProjectGallery({ project, editMode, setProject }) {
     return (
         <div className="w-10/12 flex flex-col gap-3 mt-5 fade-in" style={{ animationDelay: `0.1s` }}>
             <h3 className="font-dmsans font-bold text-3xl text-black text-opacity-70">Gallery</h3>
-            <div className="w-full flex flex-col gap-3 sm:flex-row col-span-3 sm:h-full" style={{ height: '55vh' }}>
-                <div className="flex-1 relative sm:overflow-hidden rounded-md">
+            <div className="w-full flex flex-col gap-3 sm:flex-row col-span-3" style={{ height: '55vh' }}>
+                <div className="flex-1 relative sm:overflow-hidden rounded-md h-full">
                     <div className="sm:absolute inset-0">
                         {project?.imgs?.length === 0 || !hoveredImage.src ? (
                             <div className="w-full h-full bg-gray-300 flex items-center justify-center rounded-md">
@@ -70,18 +70,18 @@ function ProjectGallery({ project, editMode, setProject }) {
                         )}
                     </div>
                 </div>
-                <div className="sm:w-2/12 flex sm:flex-col gap-3">
+                <div className="sm:w-2/12 flex sm:flex-col gap-4 h-full">
                     {Array.from({ length: 4 }).map((_, index) => {
                         const image = project.imgs && project.imgs[index];
                         return (
-                            <div className={`sm:h-1/4 w-full relative ${editMode ? '' : 'overflow-hidden'} rounded-md`} key={index}>
+                            <div className={`w-full h-30 relative ${editMode ? '' : 'overflow-hidden'} rounded-md`} key={index}>
                                 {image ? (editMode ?
                                     <button onClick={() => handleDeleteImage(image._id)} className="w-full hover:bg-red-600 transition-all duration-200 group shake overflow-hidden h-full rounded-md">
                                         <img
                                             id={"projectImage" + index}
                                             src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${image._id}`}
                                             alt={`Project Image ${index}`}
-                                            className={`w-full h-14 sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300 group-hover:opacity-70`}
+                                            className={`w-full sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300 group-hover:opacity-70`}
                                             onMouseEnter={() => imageDisplayed(image, index)}
                                         />
                                     </button>
@@ -90,13 +90,13 @@ function ProjectGallery({ project, editMode, setProject }) {
                                         id={"projectImage" + index}
                                         src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${image._id}`}
                                         alt={`Project Image ${index}`}
-                                        className={`w-full h-14 sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300`}
+                                        className={`w-full h-full sm:h-full object-cover filter ${hoveredImage === image ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300`}
                                         onMouseEnter={() => imageDisplayed(image, index)}
                                     />
                                 ) : (editMode ?
                                     <div className="w-full h-full bg-gray-300 rounded-md opacity-75">
                                         <label htmlFor={`projectImageInput${index}`} className="w-full h-full flex justify-center items-center flex-col cursor-pointer">
-                                            <img className="w-10" src={plusDark} alt="add new image" />
+                                            <img className="w-10 h-full" src={plusDark} alt="add new image" />
                                         </label>
                                         <input type="file" onChange={handleImageUpload} id={`projectImageInput${index}`} name={`projectImageInput${index}`} className="hidden" accept="image/*" />
                                     </div>

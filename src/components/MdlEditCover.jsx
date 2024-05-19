@@ -23,7 +23,6 @@ function MdlEditCover({ onClose, project }) {
         await putProjectCover(localStorage.getItem('token'), project.id, coverPicture.file)
             .then((res) => {
                 if (res.code === 200) {
-                    console.log("Cover updated successfully.");
                     onClose();
                     setTimeout(() => window.location.reload(), 1500);
                 } else {

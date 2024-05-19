@@ -117,13 +117,17 @@ export async function deleteProject(token, projectId) {
 }
 
 // Project about
-
 export async function getProjectAbout(projectId) {
     return await fetchDataGet(`${server}projects/${projectId}/about`);
 }
 
-export async function updateProjectAbout(token, projectId, aboutData) {
-    return await fetchDataAuth('PUT', `${server}projects/${projectId}/about`, token, aboutData);
+export async function updateProjectAbout(token, projectId, about) {
+    return await fetchDataAuth('PUT', `${server}projects/${projectId}/about`, token, { about });
+}
+
+// Project tiers
+export async function getProjectTiers(projectId) {
+    return await fetchDataGet(`${server}projects/${projectId}/tiers`);
 }
 
 // Auth

@@ -108,10 +108,9 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                 })
         }
     }
-    // console.log(project);
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
-            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject}  projectType={projectType} project={project} />}
+            {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject} projectType={projectType} project={project} />}
             {showEditCoverModal && <MdlEditCover onClose={closeEditCoverModal} project={project} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}

@@ -35,13 +35,12 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
         });
     };
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         if (error) {
             return;
         }
         await updateProjectData(localStorage.getItem("token"), project.id, editedProject)
-            .then(async(data) => {
-                console.log("data", data);
+            .then(async (data) => {
                 if (data.code !== 200) {
                     setError(data.error);
                     return;
@@ -49,7 +48,7 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
                     onClose();
                     // TODO reload project data without changing title
                     if (data.url === project.url) {
-                        setProject({...project, title: editedProject.title, description: editedProject.description, goal: editedProject.goal, currency: editedProject.currency, deadlineDate: editedProject.deadlineDate});
+                        setProject({ ...project, title: editedProject.title, description: editedProject.description, goal: editedProject.goal, currency: editedProject.currency, deadlineDate: editedProject.deadlineDate });
                     } else {
                         navigate(`/projects/${data.url}/edit`);
                     }
