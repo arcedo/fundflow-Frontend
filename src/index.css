@@ -217,3 +217,54 @@ input:-webkit-autofill:active{
 .category-option.selected {
   opacity: 1 !important;
 }
+
+.wrapperClassName {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 0;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Editor style */
+.editorClassName {
+  min-height: 300px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+/* Toolbar style */
+.toolbarClassName {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f3f3f3;
+  margin-bottom: 10px;
+}
+
+.wrapperClassName, .DraftEditor-root {
+  font-family: 'DM Sans', sans-serif;
+}
+
+.wrapperClassName h2, .DraftEditor-root h2 {
+  font-weight: 900;
+  font-size: 2em;
+  margin: 0;
+}
+
+.wrapperClassName h2 div, .DraftEditor-root h2 div {
+  margin: 20px 0px 10px;
+}
+
+.wrapperClassName h3, .DraftEditor-root h3 {
+  font-weight: 600;
+  font-size: 1.3em;
+}
+
+.wrapperClassName h3 div, .DraftEditor-root h3 div {
+  margin: 10px 0px;
+}
+
+

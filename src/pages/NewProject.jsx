@@ -336,7 +336,7 @@ function NewProject() {
                                         <p className={`text-right font-dmsans text-md ${newProject.title.length > 30 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.title.length}/30</p>
                                     </div>
                                     <div className="flex gap-3 items-center">
-                                        <button onClick={handleNextStep} className="w-1/4 h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 bor</div>der-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                        <button onClick={handleNextStep} className="w-1/4 h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                         <p id="errorText" className="font-dmsans text-red-500"></p>
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>

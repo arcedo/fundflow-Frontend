@@ -8,7 +8,7 @@ function Help() {
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header />
             <div className="absolute w-full bottom-56 flex flex-col items-center justify-center gap-10 bg-black text-white rounded-b-full h-screen shadow-xl">
-                <div className="flex flex-col justify-center gap-10 w-6/12">
+                <div className="flex flex-col justify-center gap-10 w-6/12 fade-in">
                     <div className="flex flex-col justify-center gap-3 pt-32">
                         <h2 className="text-6xl font-dmsans font-extrabold">We are here,</h2>
                         <p className="text-6xl font-dmsans font-extrabold">do you need a hand?</p>
@@ -20,7 +20,7 @@ function Help() {
                     </div>
                 </div>
             </div>
-            <div className="w-6/12 mt-96 pt-96 mx-auto">
+            <div className="w-6/12 mt-96 pt-40 z-20 mx-auto fade-in">
                 <section className=" flex flex-col justify-center mt-10 gap-8 p-8 bg-white shadow-xl rounded-xl">
                     <div className="flex flex-col justify-center gap-4">
                         <h2 id="cookiesPolicy" className="text-6xl font-dmsans font-extrabold">Cookies Policy</h2>

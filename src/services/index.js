@@ -116,6 +116,16 @@ export async function deleteProject(token, projectId) {
     return await fetchDataAuth('DELETE', `${server}projects/${projectId}`, token);
 }
 
+// Project about
+
+export async function getProjectAbout(projectId) {
+    return await fetchDataGet(`${server}projects/${projectId}/about`);
+}
+
+export async function updateProjectAbout(token, projectId, aboutData) {
+    return await fetchDataAuth('PUT', `${server}projects/${projectId}/about`, token, aboutData);
+}
+
 // Auth
 export async function login(username, password) {
     return await fetchDataWithBody('POST', `${server}auth/login`, { username, password });
