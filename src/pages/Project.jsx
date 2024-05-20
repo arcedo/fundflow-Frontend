@@ -23,14 +23,17 @@ function Project() {
                 .then(async (data) => {
                     setProject(data);
                     if (data.id) {
+                        const tiers = [];
+                        const blogs = [];
                         await getProjectTiers(data.id)
                             .then((res) => {
-                                setProject({ ...data, tiers: res });
+                                tiers.push(...res);
                             });
                         await getProjectBlogs(data.id)
                             .then((res) => {
-                                setProject({ ...data, blogs: res });
+                                blogs.push(...res);
                             });
+                        setProject({ ...data, tiers, blogs });
                     }
                     if ((editMode && !userData) || (editMode && userData.userUrl !== data.userUrl)) {
                         navigate('/projects/' + projectUrl);
@@ -58,7 +61,6 @@ function Project() {
     useEffect(() => {
         fetchData();
     }, [projectUrl]);
-    console.log(project);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />

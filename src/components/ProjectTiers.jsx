@@ -58,7 +58,6 @@ function ProjectTiers({ project, editMode, setProject }) {
     }
 
     const hasMoreTiers = project.tiers && project.tiers.length > 3;
-    console.log(editMode);
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 py-5 min-h-56 fade-in">
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />}
