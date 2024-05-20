@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Link, useNavigate } from "react-router-dom";
 import MdlCreateProject from "./MdlCreateProject";
 import MdlLoginNeeded from "./MdlLoginNeeded";
@@ -14,6 +15,8 @@ function Header({ categoriesDisabled }) {
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(!categoriesDisabled);
     const [showCreateProjectModal, setShowCreateProjectModal] = useState(false);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchQueryBar = searchParams.get("query");
 
     useEffect(() => {
         setVisible(!categoriesDisabled);
@@ -114,7 +117,7 @@ function Header({ categoriesDisabled }) {
                             <Link to={"/help"} className="text-black font-montserrat font-semibold text-sm hover:text-secondary transition-colors duration-300">help</Link>
                         </div>
                         <div className="flex gap-2 w-6/12">
-                            <input id="searchBar" type="text" className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
+                            <input id="searchBar" type="text" value={searchQueryBar} className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200" placeholder="what are you looking for?" />
                             <button onClick={searchButton} className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         </div>
                         <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
