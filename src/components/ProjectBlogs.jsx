@@ -75,6 +75,7 @@ function BlogEntry({ blog, index, project, editMode, setProject }) {
 
     const delay = index * 0.05;
     const contentClass = isOverflowing ? "blogMask text-black font-dmsans font-normal text-opacity-70 overflow-hidden" : "text-black font-dmsans font-normal text-opacity-70 overflow-hidden";
+
     const dateObj = new Date(blog.creationDate);
     const day = dateObj.getUTCDate();
     const year = dateObj.getUTCFullYear();
