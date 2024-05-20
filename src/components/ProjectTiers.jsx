@@ -60,12 +60,12 @@ function ProjectTiers({ project, editMode, setProject }) {
     const hasMoreTiers = project.tiers && project.tiers.length > 3;
     console.log(editMode);
     return (
-        <div className="w-full flex flex-col items-center justify-between gap-5 fade-in">
+        <div className="w-full flex flex-col items-center justify-between gap-5 py-5 min-h-56 fade-in">
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}
-            <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">Pitch your grain of sand in...</h3>
+            <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">{editMode ? 'add tiers to your project' : 'pitch your grain of sand in...'}</h3>
             <div className="flex gap-5 w-full justify-center items-center">
                 {project.tiers && project.tiers.slice(0, editMode ? 2 : 3).map((tier, index) => {
                     const delay = index * 0.05;
@@ -75,7 +75,7 @@ function ProjectTiers({ project, editMode, setProject }) {
                             <div className="flex flex-col gap-2 rounded-lg shadow-md" style={{ height: '500px' }}>
                                 <div className="flex flex-col justify-between items-center relative">
                                     {editMode && (<div className="absolute top-2.5 right-2.5 flex justify-center items-center gap-5">
-                                        <button onClick={() => handleDeleteTier(tier && tier._id)} to={`/projects/${project.projectUrl}/edit`} className="bg-red-600 rounded-full group">
+                                        <button onClick={() => handleDeleteTier(tier && tier._id)} className="bg-red-600 rounded-full group">
                                             <div className="flex justify-center items-center p-2.5 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                                                 <img className="h-6 grayscale group-hover:grayscale-0 transition-all duration-200" src={cross} alt="edit button" />
                                             </div>

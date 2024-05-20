@@ -147,6 +147,27 @@ export async function deleteProjectTier(token, projectId, tierId) {
     return await fetchDataAuth('DELETE', `${server}projects/${projectId}/tiers/${tierId}`, token);
 }
 
+// Project blogs
+export async function getProjectBlogs(projectId) {
+    return await fetchDataGet(`${server}projects/${projectId}/blogs`);
+}
+
+export async function createProjectBlog(token, projectId, blogData) {
+    if (blogData.image) {
+        const formData = new FormData();
+        formData.append('image', blogData.image);
+        formData.append('title', blogData.title);
+        formData.append('content', blogData.content);
+        return await fetchDataAuth('POST', `${server}projects/${projectId}/blogs`, token, formData, true);
+    } else {
+        return await fetchDataAuth('POST', `${server}projects/${projectId}/blogs`, token, blogData);
+    }
+}
+
+export async function deleteProjectBlog(token, idProject, idBlog) {
+    return await fetchDataAuth('DELETE', `${server}projects/${idProject}/blogs/${idBlog}`, token)
+}
+
 // Auth
 export async function login(username, password) {
     return await fetchDataWithBody('POST', `${server}auth/login`, { username, password });

@@ -53,7 +53,7 @@ function MdlCreateTier({ onClose, project, setProject }) {
                     <label htmlFor="tierPrice">contribution</label>
                     <input value={newTier.price} onChange={(e) => setNewTier({ ...newTier, price: e.target.value })} className="rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200" type="number" id="tierPrice" />
                 </div>
-                <button className="w-full h-14 bg-gradient-to-r from-primary to-secondary rounded-lg text-white hover:opacity-75 transition-all duration-300">
+                <button type="submit" className="w-full h-14 bg-gradient-to-r from-primary to-secondary rounded-lg text-white hover:opacity-75 transition-all duration-300">
                     Create tier
                 </button>
             </form>

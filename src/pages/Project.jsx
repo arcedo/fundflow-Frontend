@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useLocation, useNavigate } from "react-router-dom";
-import { getFullProject, viewProject, getProjectStatsFromUser, getProjectTiers } from "../services";
+import { getFullProject, viewProject, getProjectStatsFromUser, getProjectTiers, getProjectBlogs } from "../services";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ProjectDetails from "../components/ProjectDetails";
@@ -26,6 +26,10 @@ function Project() {
                         await getProjectTiers(data.id)
                             .then((res) => {
                                 setProject({ ...data, tiers: res });
+                            });
+                        await getProjectBlogs(data.id)
+                            .then((res) => {
+                                setProject({ ...data, blogs: res });
                             });
                     }
                     if ((editMode && !userData) || (editMode && userData.userUrl !== data.userUrl)) {

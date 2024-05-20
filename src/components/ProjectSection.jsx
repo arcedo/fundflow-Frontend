@@ -56,7 +56,7 @@ function ProjectSection({ project, editMode, setProject }) {
             case "tiers":
                 return <ProjectTiers project={project} editMode={editMode} setProject={setProject} />;
             case "blog":
-                return <ProjectBlogs project={project} editMode={editMode} />;
+                return <ProjectBlogs project={project} editMode={editMode} setProject={setProject} />;
             case "feedback":
                 return (<p className="fade-in">feedback</p>);
             case "contact":
@@ -90,7 +90,7 @@ function ProjectSection({ project, editMode, setProject }) {
                             onClick={() => setActiveTab("blog")}
                             className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "blog" ? "border-black" : "border-transparent"}`}
                         >
-                            blog
+                            blogs
                         </button>
                         <button
                             onClick={() => setActiveTab("feedback")}
