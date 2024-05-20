@@ -25,18 +25,20 @@ function calculateReadingTime(wordCount) {
 function ProjectBlogs({ project, editMode, setProject }) {
     const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
     return (
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col fade-in">
             {showCreateBlogModal && <MdlCreateBlog onClose={() => setShowCreateBlogModal(false)} setProject={setProject} project={project} />}
-            <div className="flex flex-col gap-8 justify-center items-center py-5 min-h-56">
+            <h3 className="text-black font-dmsans font-bold mt-8 self-start text-2xl text-opacity-70">{editMode ? 'add blog posts to your project' : 'stay up to date...'}</h3>
+
+            <div className="flex flex-col gap-8 justify-center items-center pb-5 min-h-40">
                 {editMode && (
-                    <button onClick={() => setShowCreateBlogModal(true)} className="w-8/12 group focus:outline-none outline-none hover:shadow-lg transition-all duration-300 border-black border-opacity-50 border-2 rounded-lg py-10 border-dashed flex flex-col justify-center items-center">
+                    <button onClick={() => setShowCreateBlogModal(true)} className="w-8/12 mt-6 group focus:outline-none outline-none hover:shadow-lg transition-all duration-300 border-black border-opacity-50 border-2 rounded-lg py-10 border-dashed flex flex-col justify-center items-center">
                         <img className="w-10" src={plusDark} alt="create new blog" />
                         <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">new entry</p>
                     </button>
                 )}
                 {project.blogs && project.blogs.length > 0 ? project.blogs.map((blog, index) => (
                     <BlogEntry key={blog._id} blog={blog} index={index} project={project} editMode={editMode} setProject={setProject} />
-                )) : (!editMode && <p className="fade-in text-black font-dmsans font-bold text-lg text-opacity-70">no blogs available</p>)
+                )) : (!editMode && <p className="text-black font-dmsans font-bold text-lg text-opacity-70">no blogs available</p>)
                 }
             </div>
         </div>

@@ -65,6 +65,7 @@ function ProjectTiers({ project, editMode, setProject }) {
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}
             <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">{editMode ? 'add tiers to your project' : 'pitch your grain of sand in...'}</h3>
+            {!editMode && project.tiers && project.tiers.length === 0 && <p className="text-black font-dmsans font-bold text-lg text-opacity-70">no tiers available</p>}
             <div className="flex gap-5 w-full justify-center items-center">
                 {project.tiers && project.tiers.slice(0, editMode ? 3 : 4).map((tier, index) => {
                     const delay = index * 0.05;

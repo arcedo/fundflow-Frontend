@@ -58,7 +58,7 @@ function ProjectAbout({ project, editMode }) {
     return (
         <div className="w-full flex gap-5 fade-in min-h-96">
             <div className="w-1/12">
-                <h2 className="font-dmsans text-2xl font-bold mt-6 text-black text-opacity-75">about</h2>
+                <h2 className="font-dmsans text-2xl font-bold mt-6 text-black text-opacity-75">about...</h2>
                 {editMode ? (
                     <p className="font-dmsans text-md text-black text-opacity-75 mt-3">edit the details of your project</p>
                 ) : (
