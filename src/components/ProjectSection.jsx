@@ -54,7 +54,9 @@ function ProjectSection({ project, editMode, setProject }) {
             case "about":
                 return <ProjectAbout project={project} editMode={editMode} />;
             case "tiers":
-                return <ProjectTiers project={project} editMode={editMode} setProject={setProject} />;
+                if (project.collGoal === null) {
+                    return <ProjectTiers project={project} editMode={editMode} setProject={setProject} />;
+                }
             case "blog":
                 return <ProjectBlogs project={project} editMode={editMode} setProject={setProject} />;
             case "feedback":
@@ -80,12 +82,13 @@ function ProjectSection({ project, editMode, setProject }) {
                         >
                             about
                         </button>
+                        {project.collGoal === null &&
                         <button
                             onClick={() => setActiveTab("tiers")}
                             className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "tiers" ? "border-black" : "border-transparent"}`}
                         >
                             tiers
-                        </button>
+                        </button>}
                         <button
                             onClick={() => setActiveTab("blog")}
                             className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "blog" ? "border-black" : "border-transparent"}`}

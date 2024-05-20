@@ -67,10 +67,9 @@ function ProjectTiers({ project, editMode, setProject }) {
             {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}
             <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">{editMode ? 'add tiers to your project' : 'pitch your grain of sand in...'}</h3>
             <div className="flex gap-5 w-full justify-center items-center">
-                {project.tiers && project.tiers.slice(0, editMode ? 2 : 3).map((tier, index) => {
+                {project.tiers && project.tiers.slice(0, editMode ? 3 : 4).map((tier, index) => {
                     const delay = index * 0.05;
                     return (
-                        //TODO change currency
                         <div key={tier && tier._id} style={{ animationDelay: `${delay}s`, width: '350px', height: '100%' }} className="fade-in">
                             <div className="flex flex-col gap-2 rounded-lg shadow-md" style={{ height: '500px' }}>
                                 <div className="flex flex-col justify-between items-center relative">
@@ -87,7 +86,7 @@ function ProjectTiers({ project, editMode, setProject }) {
                                     <div className="flex flex-col gap-3 w-full p-5">
                                         <div className="flex flex-col gap-1 justify-start">
                                             <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier && tier.title}</h4>
-                                            <p className="text-black font-dmsans font-bold text-3xl">{tier && tier.price}€</p>
+                                            <p className="text-black font-dmsans font-bold text-3xl">{tier && tier.price}{project.currency}</p>
                                         </div>
                                         <button onClick={() => openProjectPurchaseModal(tier)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
                                         <p className="text-black font-dmsans font-normal text-opacity-75">{tier && tier.description}</p>
@@ -100,7 +99,7 @@ function ProjectTiers({ project, editMode, setProject }) {
                 {editMode && (
                     <button onClick={() => setShowCreateTierModal(true)} className="fade-in group border-black hover:shadow-xl border-opacity-50 transition-all focus:outline-none duration-300 border-2 border-dashed rounded-lg flex flex-col justify-center items-center" style={{ height: '500px', width: '350px' }}>
                         <img className="w-14" src={plusDark} alt="" />
-                        <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">Add tier</p>
+                        <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">add tier</p>
                     </button>
                 )}
             </div>

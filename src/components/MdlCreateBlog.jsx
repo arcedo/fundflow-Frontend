@@ -33,6 +33,7 @@ function MdlCreateBlog({ onClose, setProject, project }) {
 
     return (
         <Modal onClose={onClose}>
+            <h2 className="text-4xl font-dmsans font-bold text-black">Create a blog post</h2>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3 font-dmsans font-semibold mt-6 text-black" style={{ width: "80vh" }}>
                 <div className="flex flex-col">
                     <label htmlFor="tierName">title</label>

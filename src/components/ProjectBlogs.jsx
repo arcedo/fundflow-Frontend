@@ -31,7 +31,7 @@ function ProjectBlogs({ project, editMode, setProject }) {
                 {editMode && (
                     <button onClick={() => setShowCreateBlogModal(true)} className="w-8/12 group focus:outline-none outline-none hover:shadow-lg transition-all duration-300 border-black border-opacity-50 border-2 rounded-lg py-10 border-dashed flex flex-col justify-center items-center">
                         <img className="w-10" src={plusDark} alt="create new blog" />
-                        <p className="font-dmsans text-xl group-hover:text-secondary transition-all duration-200">new entry</p>
+                        <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">new entry</p>
                     </button>
                 )}
                 {project.blogs && project.blogs.length > 0 ? project.blogs.map((blog, index) => (

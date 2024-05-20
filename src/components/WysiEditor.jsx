@@ -12,8 +12,10 @@ function WysiEditor({ projectId, aboutContent, setAboutContent }) {
             .then((res) => {
                 if (res.code === 200) {
                     setSubmitMessage({ message: 'Changes saved', isOk: true });
+                    setTimeout(() => setSubmitMessage({ message: '', isOk: false }), 3000);
                 } else {
                     setSubmitMessage({ message: 'Error saving changes', isOk: false });
+                    setTimeout(() => setSubmitMessage({ message: '', isOk: false }), 3000);
                 }
             });
     };
@@ -42,7 +44,7 @@ function WysiEditor({ projectId, aboutContent, setAboutContent }) {
                 >
                     Submit
                 </button>
-                <p className={`font-dmsans ${submitMessage.isOk ? 'text-black' : 'text-red-600'}`}>{submitMessage.message}</p>
+                <p className={`font-dmsans ${submitMessage.isOk ? 'text-green-600' : 'text-red-600'}`}>{submitMessage.message}</p>
             </div>
         </>
     );
