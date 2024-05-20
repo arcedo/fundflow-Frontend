@@ -69,7 +69,7 @@ function ProjectSection({ project, editMode, setProject }) {
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
-            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} />}
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div id="sectionHeader" className="w-full h-16 bg-grey-300 flex justify-center items-center sticky top-40 z-10">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import plusDark from "../assets/icons/plusDark.svg";
 import MdlCreateBlog from "./MdlCreateBlog";
+import MdlReadBlog from "./MdlReadBlog";
 import cross from "../assets/icons/cross.svg"
 import { deleteProjectBlog } from "../services";
 
@@ -44,6 +45,8 @@ function ProjectBlogs({ project, editMode, setProject }) {
 
 function BlogEntry({ blog, index, project, editMode, setProject }) {
     const [isOverflowing, setIsOverflowing] = useState(false);
+    const [showReadBlogModal, setShowReadBlogModal] = useState(false);
+
     const contentRef = useRef(null);
 
     useEffect(() => {
@@ -85,7 +88,8 @@ function BlogEntry({ blog, index, project, editMode, setProject }) {
     const formattedDate = `${month} ${day}${suffix(day)} ${year}`;
     const readingTime = calculateReadingTime(blog.content.length);
     return (
-        <div style={{ animationDelay: `${delay}s` }} className="fade-in w-8/12 cursor-pointer p-6 flex flex-col gap-4 rounded-lg shadow-md border-2 border-gray-300 border-opacity-20 hover:bg-gray-400 hover:bg-opacity-30 transition-all duration-200 relative">
+        <div style={{ animationDelay: `${delay}s` }} onClick={() => setShowReadBlogModal(true)} className="fade-in w-8/12 cursor-pointer p-6 flex flex-col gap-4 rounded-lg shadow-md border-2 border-gray-300 border-opacity-20 hover:bg-gray-400 hover:bg-opacity-30 transition-all duration-200 relative">
+            {showReadBlogModal && <MdlReadBlog onClose={() => setShowReadBlogModal(false)} blog={blog} date={formattedDate} readingTime={readingTime} project={project} />}
             {editMode && (
                 <div className="absolute top-2.5 right-2.5 flex justify-center items-center gap-5">
                     <button onClick={() => handleDelete(blog._id)} className="bg-red-600 rounded-full group">

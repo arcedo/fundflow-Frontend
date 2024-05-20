@@ -13,13 +13,13 @@ function ProjectTiers({ project, editMode, setProject }) {
     const [selectedTier, setSelectedTier] = useState(null);
     const [showCreateTierModal, setShowCreateTierModal] = useState(false);
 
-    const openProjectPurchaseModal = (tier) => {
+    const openProjectPurchaseModal = (tier, project) => {
         if (!userData) {
             openLoginNeededModal();
         } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
         } else {
-            setSelectedTier(tier);
+            setSelectedTier(tier, project);
             setShowProjectPurchaseModal(true);
         }
     };
@@ -57,10 +57,10 @@ function ProjectTiers({ project, editMode, setProject }) {
             })
     }
 
-    const hasMoreTiers = project.tiers && project.tiers.length > 3;
+    const hasMoreTiers = project.tiers && project.tiers.length > 4;
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 py-5 min-h-56 fade-in">
-            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />}
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} project={project} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}
@@ -87,7 +87,7 @@ function ProjectTiers({ project, editMode, setProject }) {
                                             <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier && tier.title}</h4>
                                             <p className="text-black font-dmsans font-bold text-3xl">{tier && tier.price}{project.currency}</p>
                                         </div>
-                                        <button onClick={() => openProjectPurchaseModal(tier)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
+                                        <button onClick={() => openProjectPurchaseModal(tier, project)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
                                         <p className="text-black font-dmsans font-normal text-opacity-75">{tier && tier.description}</p>
                                     </div>
                                 </div>

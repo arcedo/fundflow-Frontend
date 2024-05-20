@@ -24,30 +24,31 @@ function ProjectAbout({ project, editMode }) {
 
     useEffect(() => {
         getSavedContent()
-            .then(() => {
-                if (!editMode && editorState) {
-                    const contentState = editorState.getCurrentContent();
-                    const blocks = contentState.getBlockMap();
-                    const headings = [];
+    }, [editMode, project]);
 
-                    blocks.forEach(block => {
-                        const text = block.getText();
-                        const type = block.getType();
-                        if (type === 'header-two' || type === 'header-three') {
-                            headings.push({ text, type });
-                        }
-                    });
-                    setHeadingList(headings);
+    useEffect(() => {
+        if (!editMode && editorState) {
+            const contentState = editorState.getCurrentContent();
+            const blocks = contentState.getBlockMap();
+            const headings = [];
+
+            blocks.forEach(block => {
+                const text = block.getText();
+                const type = block.getType();
+                if (type === 'header-two' || type === 'header-three') {
+                    headings.push({ text, type });
                 }
             });
-    }, [editMode, project]);
+            setHeadingList(headings);
+        }
+    }, [editorState]);
 
     const renderHeadings = () => {
         return (
             <ul className="flex flex-col gap-2">
                 {headingList.map((heading, index) => (
                     <li key={index} className={`font-dmsans ${heading.type === 'header-three' ? 'ml-4' : ''}`}>
-                        <a href={`#${heading.text}`}>{heading.text}</a>
+                        <p href={`#${heading.text}`}>{heading.text}</p>
                     </li>
                 ))}
             </ul>
