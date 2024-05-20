@@ -130,6 +130,23 @@ export async function getProjectTiers(projectId) {
     return await fetchDataGet(`${server}projects/${projectId}/tiers`);
 }
 
+export async function createProjectTier(token, projectId, tierData) {
+    if (tierData.image) {
+        const formData = new FormData();
+        formData.append('image', tierData.image);
+        formData.append('title', tierData.title);
+        formData.append('description', tierData.description);
+        formData.append('price', tierData.price);
+        return await fetchDataAuth('POST', `${server}projects/${projectId}/tiers`, token, formData, true);
+    } else {
+        return await fetchDataAuth('POST', `${server}projects/${projectId}/tiers`, token, tierData);
+    }
+}
+
+export async function deleteProjectTier(token, projectId, tierId) {
+    return await fetchDataAuth('DELETE', `${server}projects/${projectId}/tiers/${tierId}`, token);
+}
+
 // Auth
 export async function login(username, password) {
     return await fetchDataWithBody('POST', `${server}auth/login`, { username, password });

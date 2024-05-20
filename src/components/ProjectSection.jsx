@@ -9,12 +9,12 @@ import ProjectAbout from "./ProjectAbout";
 import ProjectTiers from "./ProjectTiers";
 import ProjectBlogs from "./ProjectBlogs";
 
-function ProjectSection({ project, editMode }) {
+function ProjectSection({ project, editMode, setProject }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
 
     const openProjectPurchaseModal = () => {
-        if (!userData){
+        if (!userData) {
             openLoginNeededModal();
         } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
@@ -28,7 +28,7 @@ function ProjectSection({ project, editMode }) {
     };
 
     const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
-    
+
     const openLoginNeededModal = () => {
         setShowLoginNeededModal(true);
     };
@@ -54,7 +54,7 @@ function ProjectSection({ project, editMode }) {
             case "about":
                 return <ProjectAbout project={project} editMode={editMode} />;
             case "tiers":
-                return <ProjectTiers project={project} editMode={editMode} />;
+                return <ProjectTiers project={project} editMode={editMode} setProject={setProject} />;
             case "blog":
                 return <ProjectBlogs project={project} editMode={editMode} />;
             case "feedback":

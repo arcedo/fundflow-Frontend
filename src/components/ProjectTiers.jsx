@@ -2,14 +2,19 @@ import React, { useState } from "react";
 import MdlProjectPurchase from "./MdlProjectPurchase";
 import MdlLoginNeeded from "./MdlLoginNeeded";
 import MdlVerifyUser from "./MdlVerifyUser";
+import plusDark from "../assets/icons/plusDark.svg";
+import MdlCreateTier from "./MdlCreateProjectTier";
+import cross from '../assets/icons/cross.svg'
+import { deleteProjectTier } from "../services";
 
-function ProjectTiers({ project }) {
+function ProjectTiers({ project, editMode, setProject }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
     const [selectedTier, setSelectedTier] = useState(null);
+    const [showCreateTierModal, setShowCreateTierModal] = useState(false);
 
     const openProjectPurchaseModal = (tier) => {
-        if (!userData){
+        if (!userData) {
             openLoginNeededModal();
         } else if (!userData.verifiedEmail) {
             openVerifyUserModal();
@@ -24,7 +29,7 @@ function ProjectTiers({ project }) {
     };
 
     const [showLoginNeededModal, setShowLoginNeededModal] = useState(false);
-    
+
     const openLoginNeededModal = () => {
         setShowLoginNeededModal(true);
     };
@@ -43,44 +48,70 @@ function ProjectTiers({ project }) {
         setShowVerifyUserModal(false);
     };
 
-    const hasMoreTiers = project.tiers.length > 3;
+    const handleDeleteTier = async (tierId) => {
+        await deleteProjectTier(localStorage.getItem('token'), project.id, tierId)
+            .then((res) => {
+                if (res.code === 200) {
+                    setProject({ ...project, tiers: project.tiers.filter(tier => tier._id !== tierId) });
+                }
+            })
+    }
 
+    const hasMoreTiers = project.tiers && project.tiers.length > 3;
+    console.log(editMode);
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 fade-in">
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
+            {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}
             <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">Pitch your grain of sand in...</h3>
             <div className="flex gap-5 w-full justify-center items-center">
-                {project.tiers.slice(0, 3).map((tier, index) => {
+                {project.tiers && project.tiers.slice(0, editMode ? 2 : 3).map((tier, index) => {
                     const delay = index * 0.05;
                     return (
-                        <div key={tier.tierId} style={{ animationDelay: `${delay}s`, width: '350px', height: '100%' }} className="fade-in">
+                        //TODO change currency
+                        <div key={tier && tier._id} style={{ animationDelay: `${delay}s`, width: '350px', height: '100%' }} className="fade-in">
                             <div className="flex flex-col gap-2 rounded-lg shadow-md" style={{ height: '500px' }}>
-                                <div className="flex flex-col justify-between items-center">
+                                <div className="flex flex-col justify-between items-center relative">
+                                    {editMode && (<div className="absolute top-2.5 right-2.5 flex justify-center items-center gap-5">
+                                        <button onClick={() => handleDeleteTier(tier && tier._id)} to={`/projects/${project.projectUrl}/edit`} className="bg-red-600 rounded-full group">
+                                            <div className="flex justify-center items-center p-2.5 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
+                                                <img className="h-6 grayscale group-hover:grayscale-0 transition-all duration-200" src={cross} alt="edit button" />
+                                            </div>
+                                        </button>
+                                    </div>)}
                                     {/* Tier image */}
-                                    <div className="rounded-t-lg" style={{ backgroundImage: `url(${tier.tierImage})`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '20vh' }}></div>
+                                    <div className="rounded-t-lg" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/tiers/${tier && tier._id}/image)`, backgroundSize: 'cover', backgroundPosition: 'center', width: '100%', height: '20vh' }}></div>
                                     {/* Tier content */}
                                     <div className="flex flex-col gap-3 w-full p-5">
                                         <div className="flex flex-col gap-1 justify-start">
-                                            <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier.tierName}</h4>
-                                            <p className="text-black font-dmsans font-bold text-3xl">{tier.tierPrice}€</p>
+                                            <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier && tier.title}</h4>
+                                            <p className="text-black font-dmsans font-bold text-3xl">{tier && tier.price}€</p>
                                         </div>
                                         <button onClick={() => openProjectPurchaseModal(tier)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
-                                        <p className="text-black font-dmsans font-normal text-opacity-75">{tier.tierDescription}</p>
+                                        <p className="text-black font-dmsans font-normal text-opacity-75">{tier && tier.description}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     );
                 })}
+                {editMode && (
+                    <button onClick={() => setShowCreateTierModal(true)} className="fade-in group border-black hover:shadow-xl border-opacity-50 transition-all focus:outline-none duration-300 border-2 border-dashed rounded-lg flex flex-col justify-center items-center" style={{ height: '500px', width: '350px' }}>
+                        <img className="w-14" src={plusDark} alt="" />
+                        <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">Add tier</p>
+                    </button>
+                )}
             </div>
-            {hasMoreTiers && (
-                <button className="py-2 px-5 font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary border-2 border-transparent hover:border-opacity-30 bg-clip-text text-transparent rounded-lg hover:border-secondary transition-all duration-200">
-                    More options
-                </button>
-            )}
-        </div>
+            {
+                hasMoreTiers && (
+                    <button className="py-2 px-5 font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary border-2 border-transparent hover:border-opacity-30 bg-clip-text text-transparent rounded-lg hover:border-secondary transition-all duration-200">
+                        More options
+                    </button>
+                )
+            }
+        </div >
     );
 }
 

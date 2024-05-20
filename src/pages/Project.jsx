@@ -71,7 +71,7 @@ function Project() {
                     </div>
                 </Link> : null}
                 <ProjectGallery project={project} editMode={editMode} setProject={setProject} />
-                <ProjectSection project={project} editMode={editMode} />
+                <ProjectSection project={project} editMode={editMode} setProject={setProject} />
             </div>
             <Footer />
         </div>
