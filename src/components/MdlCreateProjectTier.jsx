@@ -11,7 +11,7 @@ function MdlCreateTier({ onClose, project, setProject }) {
             await createProjectTier(localStorage.getItem('token'), project.id, newTier)
                 .then((res) => {
                     if (res.code === 201) {
-                        setProject({ ...project, tiers: [...project.tiers, res.result] });
+                        setProject({ ...project, tiers: [...project.tiers || [], res.result] });
                         onClose();
                     }
                 })
