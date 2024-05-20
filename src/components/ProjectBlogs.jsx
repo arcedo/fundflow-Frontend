@@ -23,7 +23,6 @@ function calculateReadingTime(wordCount) {
 
 function ProjectBlogs({ project, editMode, setProject }) {
     const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
-    console.log(editMode);
     return (
         <div className="w-full flex flex-col">
             {showCreateBlogModal && <MdlCreateBlog onClose={() => setShowCreateBlogModal(false)} setProject={setProject} project={project} />}
@@ -69,7 +68,7 @@ function BlogEntry({ blog, index, project, editMode, setProject }) {
                     }
                 });
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 

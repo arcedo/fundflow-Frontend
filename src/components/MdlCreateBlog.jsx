@@ -20,7 +20,6 @@ function MdlCreateBlog({ onClose, setProject, project }) {
         if (newBlog.title && newBlog.content) {
             await createProjectBlog(localStorage.getItem('token'), project.id, newBlog)
                 .then((res) => {
-                    console.log(res);
                     if (res.code === 201) {
                         setProject({ ...project, blogs: [...project.blogs, res.result] });
                         onClose();
@@ -28,8 +27,6 @@ function MdlCreateBlog({ onClose, setProject, project }) {
                 });
         }
     }
-
-    console.log(project);
 
     return (
         <Modal onClose={onClose}>

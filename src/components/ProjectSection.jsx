@@ -48,7 +48,6 @@ function ProjectSection({ project, editMode, setProject }) {
     };
 
     const [activeTab, setActiveTab] = useState("about");
-
     const renderSection = () => {
         switch (activeTab) {
             case "about":
