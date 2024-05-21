@@ -59,9 +59,9 @@ function MdlCreateBlog({ onClose, setProject, project }) {
                 <div>
                     <p>featured image</p>
                     <div className={`${errorStyles.previewImage} flex flex-col items-center justify-center border-555 border-dashed border-2 rounded-lg w-6/12 h-40`}>
-                        <label htmlFor="imageBlog" className="flex cursor-pointer hover:text-primary transition-colors duration-200 max-h-60 object-cover overflow-hidden flex-col items-center justify-center py-5 w-full h-full">
+                        <label htmlFor="imageBlog" className="flex cursor-pointer hover:text-primary transition-colors duration-200 max-h-60 overflow-hidden flex-col items-center justify-center py-5 w-full h-full">
                             {newBlog.previewImage ?
-                                <img src={newBlog.previewImage} alt="blog" className="w-full h-full" /> :
+                                <img src={newBlog.previewImage} alt="blog" className="w-full object-cover" /> :
                                 <div className="w-full h-full flex flex-col justify-center items-center">
                                     <img src={plusDark} alt="add image blog" />
                                     <p>add image</p>

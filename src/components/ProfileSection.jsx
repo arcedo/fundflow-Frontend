@@ -7,15 +7,15 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
     const renderSection = () => {
         switch (activeTab) {
             case "collaborating":
-                return (<GridProjectSection key="collab" projectsFound={collaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} />);
+                return (<GridProjectSection search={4} key="collab" projectsFound={collaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} />);
             case "feedback":
                 return (<p className="fade-in">wawa</p>);
             case "liked":
-                return (<GridProjectSection key="liked" projectsFound={likedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />);
+                return (<GridProjectSection search={4} key="liked" projectsFound={likedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />);
             case "disliked":
-                return (<GridProjectSection key="disliked" projectsFound={dislikedProjects} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} />);
+                return (<GridProjectSection search={4} key="disliked" projectsFound={dislikedProjects} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} />);
             default:
-                return (<GridProjectSection key="projects" projectsFound={ownerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} imageEmptyVisible={true} />);
+                return (<GridProjectSection search={4} key="projects" projectsFound={ownerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} imageEmptyVisible={true} />);
         }
     };
 

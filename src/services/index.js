@@ -277,6 +277,9 @@ export async function deleteProjectImage(token, projectId, imageId) {
 // search
 
 export async function searchProjects(query, skip, limit) {
-    console.log(`${server}search/projects?query=${query}&startIndex=${skip}&limit=${limit}`);
     return await fetchDataGet(`${server}projects/search?query=${query}&startIndex=${skip}&limit=${limit}`);
+}
+
+export async function searchUsers(query, skip, limit) {
+    return await fetchDataGet(`${server}users/search/user?search=${query}&startIndex=${skip}&limit=${limit}`);
 }

@@ -88,7 +88,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                     </div>
                 </div>
                 <div className="flex flex-col gap-1 text-right">
-                    <div className="flex justify-around w-full items-center">
+                    <div className="flex justify-end gap-3 w-full items-center">
                         <p className="font-dmsans text-black text-opacity-75 text-sm font-semibold cursor-pointer flex items-center justify-end gap-1">
                             <img className="w-5 opacity-75" src={viewsIcon} alt="Views Icon" />
                             {views}

@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import GridUserSection from "../components/GridUserSection";
 import GridProjectSection from "../components/GridProjectSection";
-import { getLatestsProjects, getCategories, searchProjects } from "../services/index";
+import { getLatestsProjects, getCategories, searchProjects, searchUsers } from "../services/index";
 
 
 function Search() {
@@ -13,8 +13,10 @@ function Search() {
     const searchQuery = searchParams.get("query");
 
     const [projectsFound, setProjectsFound] = useState([]);
+    const [usersFound, setUsersFound] = useState([]);
     const [categories, setCategories] = useState([]);
-
+    const [limitProject, setLimitProject] = useState({ skip: 0, limit: 6});
+    const [limitUser, setLimitUser] = useState({ skip: 0, limit: 6});
     useEffect(() => {
         const fetchCategories = async () => {
             await getCategories()
@@ -23,7 +25,7 @@ function Search() {
                 })
         };
         const fetchProjects = async () => {
-            await getLatestsProjects(0, 12)
+            await getLatestsProjects(0, 6)
             .then((latestProjectsData) => {
                 setProjectsFound(latestProjectsData);
             });
@@ -32,38 +34,38 @@ function Search() {
         fetchProjects();        
     }, []);
 
+    const fetchSearchProjects = async () => {
+        await searchProjects(searchQuery, limitProject.skip, limitProject.limit)
+            .then((data) => {
+                setProjectsFound(data);
+            });
+    };
+    const fetchSearchUsers = async () => {
+        await searchUsers(searchQuery, limitUser.skip, limitUser.limit)
+            .then((data) => {
+                console.log(data);
+                setUsersFound(data);
+            });
+    }
     useEffect(() => {
-        const fetchSearchProjects = async () => {
-            await searchProjects(searchQuery, 0, 12)
-                .then((data) => {
-                    console.log(data);
-                    // setProjectsFound(data);
-                });
-        };
         if (searchQuery) {
             fetchSearchProjects();
         }
-    }, [searchQuery]);
+    }, [searchQuery, limitProject]);
+
+    useEffect(() => {
+        if (searchQuery) {
+            fetchSearchUsers();
+        }
+    }, [searchQuery, limitUser]);
+
+
 
     const searchCategory = (e) => {
         const category = e.target.innerText;
         setSearchParams({ query: category });
     };
 
-    const users = [
-        {
-            id: 1,
-            user: "johndoe",
-            url: "johndoe",
-            profilePicture: "https://images.unsplash.com/photo-1715966966827-25a227141ee9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        },
-        {
-            id: 2,
-            user: "janedoe",
-            url: "johndoe",
-            profilePicture: "https://images.unsplash.com/photo-1715645944065-b1288f628a70?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        }
-    ];
 
     return (
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
@@ -125,8 +127,13 @@ function Search() {
                     </div>     
                     <div className="w-10/12 flex flex-col gap-5">
                         <h2 className="font-dmsans text-4xl font-semibold text-opacity-70 text-black">search results for <span className="text-black text-opacity-100 font-bold">{searchQuery}</span></h2>
-                        {/* <GridUserSection key={searchQuery} sectionTitle={"users"} usersFound={users} /> */}
-                        <GridProjectSection key={searchQuery} sectionTitle={"projects"} projectsFound={projectsFound} search={true}/>
+                        <GridUserSection sectionTitle={"users"} usersFound={usersFound} />
+                        <GridProjectSection sectionTitle={"projects"} projectsFound={projectsFound} search={3}/>
+                        <div className="flex justify-center items-center mt-6 gap-3">
+                            <hr className="w-6/12 border-black border-opacity-25" />
+                            <button onClick={() => setLimitProject({skip: limitProject.skip+6, limit: limitProject.limit+6})} className="font-dmsans w-6/12 sm:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">load more</button>
+                            <hr className="w-6/12 border-black border-opacity-25" />
+                        </div>
                     </div>             
                 </div>
             </div>
