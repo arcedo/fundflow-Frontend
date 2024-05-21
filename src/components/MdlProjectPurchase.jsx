@@ -29,7 +29,7 @@ function MdlProjectPurchase({ onClose, tier, project }) {
             setError('Please enter a valid contribution amount.');
             setTimeout(() => {
                 setError('');
-            }, 3000);
+            }, 2000);
             return;
         }
         setShowProcessPurchaseModal(true);

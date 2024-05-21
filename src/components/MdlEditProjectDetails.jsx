@@ -41,13 +41,14 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
         }
         await updateProjectData(localStorage.getItem("token"), project.id, editedProject)
             .then(async (data) => {
+                console.log(data);
+                console.log(project);
                 if (data.code !== 200) {
                     setError(data.error);
                     return;
                 } else {
                     onClose();
-                    // TODO reload project data without changing title
-                    if (data.url === project.url) {
+                    if (data.url === project.projectUrl) {
                         setProject({ ...project, title: editedProject.title, description: editedProject.description, goal: editedProject.goal, currency: editedProject.currency, deadlineDate: editedProject.deadlineDate });
                     } else {
                         navigate(`/projects/${data.url}/edit`);
