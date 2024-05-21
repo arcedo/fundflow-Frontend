@@ -60,7 +60,7 @@ function ProjectTiers({ project, editMode, setProject }) {
     const hasMoreTiers = project.tiers && project.tiers.length > 4;
     return (
         <div className="w-full flex flex-col items-center justify-between gap-5 py-5 min-h-56 fade-in">
-            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} project={project} />}
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} tier={selectedTier} project={project} setProject={setProject} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}

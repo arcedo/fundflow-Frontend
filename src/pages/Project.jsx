@@ -61,6 +61,8 @@ function Project() {
     useEffect(() => {
         fetchData();
     }, [projectUrl]);
+
+    console.log('Project:', project);
     return (
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
