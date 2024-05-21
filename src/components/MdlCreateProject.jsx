@@ -10,14 +10,14 @@ function MdlCreateProject({ onClose }) {
             <div className="flex flex-col gap-4">
                 <div>
                     <h2 className="text-4xl font-dmsans font-bold text-black">Create a new project</h2>
-                    <p className="text-black font-normal font-dmsans opacity-70">Start a new project and share it with the community.</p>
+                    <p className="text-black font-normal font-dmsans mt-3 md:mt-0 opacity-70">Start a new project and share it with the community.</p>
                 </div>
                 <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-dmsans font-bold text-black">What is the target?</h3>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col md:grid  md:grid-cols-2 gap-4">
                         <Link onClick={onClose} to="/new/funds" className="flex flex-col gap-3 justify-center items-center py-7 px-10 border-2 border-primary border-opacity-50 rounded-lg hover:scale-105 transition-all duration-200">
                             <div className="bg-white shadow-xl bg-opacity-40 backdrop-blur-xl p-4 rounded-full">
-                                <img className="w-16 rotate-90" src={funds} alt="" />
+                                <img className="w-10 md:w-16 rotate-90" src={funds} alt="" />
                             </div>
                             <div className="text-center">
                                 <h3 className="text-black font-bold font-dmsans text-2xl">Funding</h3>
@@ -26,7 +26,7 @@ function MdlCreateProject({ onClose }) {
                         </Link>
                         <Link onClick={onClose} to="/new/collaborators" className="flex flex-col gap-3 justify-center items-center py-7 px-10 border-2 border-secondary border-opacity-50 rounded-lg hover:scale-105 transition-all duration-200">
                             <div className="bg-white shadow-xl bg-opacity-40 backdrop-blur-xl p-4 rounded-full">
-                                <img className="w-16" src={collaborators} alt="" />
+                                <img className="w-10 md:w-16" src={collaborators} alt="" />
                             </div>
                             <div className="text-center">
                                 <h3 className="text-black font-bold font-dmsans text-2xl">Collaborators</h3>

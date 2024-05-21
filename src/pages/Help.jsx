@@ -7,20 +7,20 @@ function Help() {
     return (
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header />
-            <div className="absolute w-full bottom-56 flex flex-col items-center justify-center gap-10 bg-black text-white rounded-b-full h-screen shadow-xl">
-                <div className="flex flex-col justify-center gap-10 w-6/12 fade-in">
-                    <div className="flex flex-col justify-center gap-3 pt-32">
-                        <h2 className="text-6xl font-dmsans font-extrabold">We are here,</h2>
-                        <p className="text-6xl font-dmsans font-extrabold">do you need a hand?</p>
+            <div className="absolute w-full -top-72 md:top-auto md:bottom-56 flex flex-col items-center justify-center gap-10 bg-black text-white rounded-b-full h-screen shadow-xl">
+                <div className="flex flex-col justify-center gap-10 w-10/12 lg:w-6/12 mt-28 md:mt-0 lg:mt-20 fade-in">
+                    <div className="flex flex-col justify-center gap-3 pt-56 md:pt-32">
+                        <h2 className="text-5xl md:text-6xl font-dmsans font-extrabold">We are here,</h2>
+                        <p className="text-5xl md:text-6xl font-dmsans font-extrabold">do you need a hand?</p>
                     </div>
                     <div className="flex flex-col justify-center gap-1">
-                        <p className="font-semibold font-montserrat text-base">At the moment, we do not have a dedicated ticket system for handling issues.</p>
-                        <p className="font-semibold font-montserrat text-base">However, you can reach out to us for assistance via email at <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">help@reasonable.dev</span> or by phone at <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">123-123-123</span>.</p>
-                        <p className="font-semibold font-montserrat text-base pt-4">We are here to help and will respond promptly to your inquiries.</p>
+                        <p className="font-semibold font-montserrat text-sm md:text-base">At the moment, we do not have a dedicated ticket system for handling issues.</p>
+                        <p className="font-semibold font-montserrat text-sm md:text-base">However, you can reach out to us for assistance via email at <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">help@reasonable.dev</span> or by phone at <span className="bg-gradient-to-r from-primary to-secondary text-transparent bg-clip-text">123-123-123</span>.</p>
+                        <p className="font-semibold font-montserrat text-sm md:text-base pt-4">We are here to help and will respond promptly to your inquiries.</p>
                     </div>
                 </div>
             </div>
-            <div className="w-6/12 mt-96 pt-40 z-20 mx-auto fade-in">
+            <div className="w-10/12 lg:w-6/12 mt-96 pt-40 z-20 mx-auto fade-in">
                 <section className=" flex flex-col justify-center mt-10 gap-8 p-8 bg-white shadow-xl rounded-xl">
                     <div className="flex flex-col justify-center gap-4">
                         <h2 id="cookiesPolicy" className="text-6xl font-dmsans font-extrabold">Cookies Policy</h2>

@@ -47,7 +47,7 @@ function MdlCreateBlog({ onClose, setProject, project }) {
     return (
         <Modal onClose={onClose}>
             <h2 className="text-4xl font-dmsans font-bold text-black">Create a blog post</h2>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3 font-dmsans font-semibold mt-6 text-black" style={{ width: "80vh" }}>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 font-dmsans font-semibold mt-6 text-black" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '80vh'}` }}>
                 <div className="flex flex-col">
                     <label htmlFor="blogTitle">title</label>
                     <input value={newBlog.title} onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })} className={`${errorStyles.title} rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200`} type="text" id="blogTitle" />
@@ -58,7 +58,7 @@ function MdlCreateBlog({ onClose, setProject, project }) {
                 </div>
                 <div>
                     <p>featured image</p>
-                    <div className={`${errorStyles.previewImage} flex flex-col items-center justify-center border-555 border-dashed border-2 rounded-lg w-6/12 h-40`}>
+                    <div className={`${errorStyles.previewImage} flex flex-col items-center justify-center border-555 border-dashed border-2 rounded-lg lg:w-6/12 h-40`}>
                         <label htmlFor="imageBlog" className="flex cursor-pointer hover:text-primary transition-colors duration-200 max-h-60 overflow-hidden flex-col items-center justify-center py-5 w-full h-full">
                             {newBlog.previewImage ?
                                 <img src={newBlog.previewImage} alt="blog" className="w-full object-cover" /> :

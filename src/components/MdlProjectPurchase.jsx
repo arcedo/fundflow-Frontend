@@ -52,7 +52,7 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
     if (userData.userUrl === project.userUrl) {
         return (
             <Modal onClose={onClose}>
-                <div className="flex flex-col gap-4" style={{ width: '35vh' }}>
+                <div className="flex flex-col gap-4" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '35vh'}` }}>
                     <h2 className="text-4xl font-dmsans font-bold text-black">Contribute</h2>
                     <p className="text-black font-normal font-dmsans opacity-70">You cannot contribute to your own project.</p>
                 </div>
@@ -61,7 +61,7 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
     } else if (project.collGoal === null) {
         return (
             <Modal onClose={onClose}>
-                <div className="flex flex-col gap-4" style={{ width: '70vh' }}>
+                <div className="flex flex-col gap-4" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '70vh'}` }}>
                     {showProcessPurchaseModal && <MdlProcessPurchase onClose={closeProcessPurchaseModal} project={project} total={total} setProject={setProject} setTotal={setTotal} />}
                     <h2 className="text-4xl font-dmsans font-bold text-black">Contribute</h2>
                     <div>
@@ -77,13 +77,13 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
                         )}
                     </div>
                     {!tier && (
-                        <div className="flex justify-between items-center">
+                        <div className="flex flex-col lg:flex-row gap-3 lg:gap-0 lg:justify-between lg:items-center">
                             <div className="flex items-center gap-2">
                                 <input
                                     type="number"
                                     min={0}
                                     step={0.01}
-                                    className={`w-64 font-dmsans rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200 ${error && 'border-red-600 text-red-600 animate-shake'}`}
+                                    className={`lg:w-64 font-dmsans rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200 ${error && 'border-red-600 text-red-600 animate-shake'}`}
                                     placeholder="0.00"
                                     onChange={handleAmountChange}
                                     disabled={selectedTier !== null}
@@ -139,7 +139,7 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
     } else {
         return (
             <Modal onClose={onClose}>
-                <div className="flex flex-col gap-4" style={{ width: '70vh' }}>
+                <div className="flex flex-col gap-4" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '70vh'}` }}>
                     <h2 className="text-4xl font-dmsans font-bold text-black">Contribute</h2>
                     <p className="text-black font-normal font-dmsans text-opacity-70">
                         You are signing up to collaborate with <Link to={`/profile/${project && project.userUrl}`}>

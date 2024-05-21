@@ -40,7 +40,7 @@ function MdlEditCover({ onClose, project }) {
                     <div>
                         <div
                             className="bg-cover bg-center rounded-lg flex justify-center items-center hover:brightness-110 transition-all duration-200 cursor-pointer"
-                            style={{ backgroundImage: `url(${coverPicture.cover})`, width: '70vh', height: '32vh' }}
+                            style={{ backgroundImage: `url(${coverPicture.cover})`, width: `${window.innerWidth < 1080 ? '30vh' : '70vh'}`, height: `${window.innerWidth < 1080 ? '18vh' : '32vh'}` }}
                             onClick={() => document.getElementById('coverInput').click()}
                         >
                             <input

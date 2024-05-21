@@ -317,12 +317,12 @@ function NewProject() {
         <div className="relative w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header categoriesDisabled={true} />
             <div className="w-full min-h-screen flex flex-col justify-between items-center">
-                <div className="w-10/12 mt-56 fade-in flex">
-                    <div className="w-1/2" style={{ minHeight: '350px' }}>
+                <div className="w-10/12 mt-32 lg:mt-56 fade-in flex flex-col justify-center items-center lg:flex-row gap-10 lg:gap-0">
+                    <div className="w-11/12 lg:w-1/2">
                         <h2 className="text-4xl font-dmsans font-bold text-black mb-10">Let's start with the details</h2>
                         {currentStep === 1 && (
                             <>
-                                <div className="w-4/5 flex flex-col gap-3 fade-in">
+                                <div className="lg:w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
                                         <label htmlFor="title" className="text-black font-normal font-dmsans opacity-70">What's the desired name?</label>
                                         <input
@@ -336,7 +336,7 @@ function NewProject() {
                                         <p className={`text-right font-dmsans text-md ${newProject.title.length > 30 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.title.length}/30</p>
                                     </div>
                                     <div className="flex gap-3 items-center">
-                                        <button onClick={handleNextStep} className="w-1/4 h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                        <button onClick={handleNextStep} className="w-1/2 lg:w-1/4 h-12 bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                         <p id="errorText" className="font-dmsans text-red-500"></p>
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
@@ -345,7 +345,7 @@ function NewProject() {
                         )}
                         {currentStep === 2 && (
                             <>
-                                <div className="w-4/5 flex flex-col gap-3 fade-in">
+                                <div className="lg:w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
                                         <label htmlFor="description" className="text-black font-normal font-dmsans opacity-70">Provide a brief description. You'll be able to detail things later.</label>
                                         <textarea
@@ -359,8 +359,8 @@ function NewProject() {
                                         <p className={`text-right font-dmsans text-md ${newProject.description.length > 250 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.description.length}/250</p>
                                     </div>
                                     <div className="flex gap-3 items-center">
-                                        <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
-                                        <button onClick={handleNextStep} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                        <button onClick={handleBackStep} className="w-1/2 lg:w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
+                                        <button onClick={handleNextStep} className="w-1/2 lg:w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                         <p id="errorText" className="font-dmsans text-red-500"></p>
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
@@ -369,10 +369,10 @@ function NewProject() {
                         )}
                         {currentStep === 3 && (
                             <>
-                                <div className="w-4/5 flex flex-col gap-3 fade-in">
+                                <div className="lg:w-4/5 flex flex-col gap-3 fade-in">
                                     <div>
                                         <p className="text-black font-normal font-dmsans opacity-70">Which category does your project fit in the most?</p>
-                                        <div className="flex gap-2 mt-1">
+                                        <div className="flex flex-wrap gap-2 mt-1">
                                             {categories && categories.map((category) => (
                                                 <div
                                                     key={category.id}
@@ -384,8 +384,8 @@ function NewProject() {
                                         </div>
                                     </div>
                                     <div className="flex gap-3 items-center">
-                                        <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
-                                        <button onClick={handleNextStep} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                        <button onClick={handleBackStep} className="w-1/2 lg:w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
+                                        <button onClick={handleNextStep} className="w-1/2 lg:w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                         <p id="errorText" className="font-dmsans text-red-500"></p>
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
@@ -395,7 +395,7 @@ function NewProject() {
                         {currentStep === 4 && (
                             <>
                                 {projectType === 'funds' ? (
-                                    <div className="w-4/5 flex flex-col gap-3 fade-in">
+                                    <div className="lg:w-4/5 flex flex-col gap-3 fade-in">
                                         <div className="w-fit">
                                             <label htmlFor="goal" className="text-black font-normal font-dmsans opacity-70">What's your fund goal?</label>
                                             <div className="flex gap-2">
@@ -425,14 +425,14 @@ function NewProject() {
                                             <p className={`text-right font-dmsans text-md ${newProject.goal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.goal.length}/9</p>
                                         </div>
                                         <div className="flex gap-3 items-center">
-                                            <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
-                                            <button onClick={handleNextStep} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                            <button onClick={handleBackStep} className="w-1/2 lg:w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
+                                            <button onClick={handleNextStep} className="w-1/2 lg:w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                             <p id="errorText" className="font-dmsans text-red-500"></p>
                                         </div>
                                         <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
                                     </div>
                                 ) : (
-                                    <div className="w-4/5 flex flex-col gap-3 fade-in">
+                                    <div className="lg:w-4/5 flex flex-col gap-3 fade-in">
                                         <div className="w-fit">
                                             <label htmlFor="goal" className="text-black font-normal font-dmsans opacity-70">What's your collaborator goal?</label>
                                             <div className="flex gap-2 items-end">
@@ -450,8 +450,8 @@ function NewProject() {
                                             <p className={`text-right font-dmsans text-md ${newProject.goal.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{newProject.goal.length}/9</p>
                                         </div>
                                         <div className="flex gap-3 items-center">
-                                            <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
-                                            <button onClick={handleNextStep} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                            <button onClick={handleBackStep} className="w-1/2 lg:w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
+                                            <button onClick={handleNextStep} className="w-1/2 lg:w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                             <p id="errorText" className="font-dmsans text-red-500"></p>
                                         </div>
                                         <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
@@ -461,7 +461,7 @@ function NewProject() {
                         )}
                         {currentStep === 5 && (
                             <>
-                                <div className="w-4/5 flex flex-col gap-3 fade-in">
+                                <div className="lg:w-4/5 flex flex-col gap-3 fade-in">
                                     <div className="flex flex-col gap-3">
                                         <label htmlFor="deadlineDate" className="text-black font-normal font-dmsans opacity-70">Which should be the closing date?</label>
                                         <input
@@ -469,14 +469,14 @@ function NewProject() {
                                             name="deadlineDate"
                                             value={newProject.deadlineDate}
                                             onChange={handleInputChange}
-                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-3/5 lg:w-1/3 text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                             type="date"
                                             min={today}
                                         />
                                     </div>
                                     <div className="flex gap-3 items-center">
-                                        <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
-                                        <button onClick={handleNextStep} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
+                                        <button onClick={handleBackStep} className="w-1/2 lg:w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
+                                        <button onClick={handleNextStep} className="w-1/2 lg:w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Next</button>
                                         <p id="errorText" className="font-dmsans text-red-500"></p>
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
@@ -485,7 +485,7 @@ function NewProject() {
                         )}
                         {currentStep === 6 && (
                             <>
-                                <div className="w-4/5 flex flex-col gap-5 fade-in">
+                                <div className="lg:w-4/5 flex flex-col gap-5 fade-in">
                                     <div className="flex flex-col gap-3 w-fit">
                                         <p className="text-black font-normal font-dmsans opacity-70 w-fit">Do you want to upload a cover image? You can always do this later.</p>
                                         <label htmlFor="cover" className="bg-gradient-to-r from-primary to-secondary w-full text-center font-dmsans font-semibold py-3 transition-all duration-200 hover:shadow-none hover:opacity-75 shadow-md text-white rounded-lg">Upload Image</label>
@@ -499,8 +499,8 @@ function NewProject() {
                                         />
                                     </div>
                                     <div className="flex gap-3 items-center">
-                                        <button onClick={handleBackStep} className="w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
-                                        <button onClick={handleSubmit} className="w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Create</button>
+                                        <button onClick={handleBackStep} className="w-1/2 lg:w-1/4 h-12 border border-black border-opacity-50 hover:border-opacity-70 hover:text-opacity-70 transition-all duration-200 rounded-lg text-black text-opacity-50 font-bold font-dmsans">Back</button>
+                                        <button onClick={handleSubmit} className="w-1/2 lg:w-1/4 h-12 font-dmsans bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none bg-opacity-50 rounded-lg text-white font-bold">Create</button>
                                         {errorSubmit && (<p className="font-dmsans text-red-500">{errorSubmit}</p>)}
                                     </div>
                                     <p className="fade-in font-dmsans text-black text-opacity-70">{currentStep}/{totalSteps}</p>
@@ -508,8 +508,8 @@ function NewProject() {
                             </>
                         )}
                     </div>
-                    <div className="w-1/2 flex gap-5 items-start justify-center fade-in">
-                        <div id="details" className="w-3/5 min-w-96">
+                    <div className="w-full lg:w-1/2 flex gap-5 items-start justify-center fade-in">
+                        <div id="details" className="w-full md:w-3/5 md:min-w-96">
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">details preview</p>
                             <div className="w-full p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4">
                                 <div className="flex flex-col gap-2">
@@ -532,8 +532,8 @@ function NewProject() {
                                             <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">0</span> collaborators of a <span className="text-black text-opacity-100 font-semibold">{newProject.goal}</span> goal</p>
                                         </>
                                     )}
-                                    <div className="flex items-center justify-between">
-                                        <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{newProject.hoursLeft}</span> hours left</p>
+                                    <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                                        <p className="font-dmsans text-black text-opacity-70 mb-4 md:mb-0"><span className="font-montserrat font-bold text-4xl">{newProject.hoursLeft}</span> hours left</p>
                                         <div className="flex gap-5">
                                             <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />0</p>
                                             <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40 group-hover:opacity-100" src={like} alt="" />0</button>
@@ -544,9 +544,9 @@ function NewProject() {
                                 <button className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold cursor-default">Help this project</button>
                             </div>
                         </div>
-                        <div id="thumbnail" className="w-3/5 hidden">
+                        <div id="thumbnail" className="w-full md:w-4/5 lg:w-3/5 hidden">
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">thumbnail preview</p>
-                            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-11/12 rounded-md">
+                            <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 md:h-60 w-11/12 rounded-md">
                                 <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName}</p>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
                                     <img id="coverPreview" src={coverPicture && coverPicture.cover ? coverPicture.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />

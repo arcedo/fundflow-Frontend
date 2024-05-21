@@ -25,23 +25,23 @@ function RandomProject({ project }) {
     }
     return (
         <>
-            <div className="w-full flex gap-3 flex-col sm:flex-row col-span-3 sm:h-full">
-                <div className="flex-1 relative sm:overflow-hidden rounded-md">
-                    <div className="sm:absolute inset-0">
-                        <img src={hoveredImage && hoveredImage.src ? `${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}` : `${import.meta.env.VITE_API_URL}projects/${project.id}/cover`} alt="" className="w-full h-60 rounded-md sm:h-full object-cover" />
+            <div className="w-full flex gap-3 flex-col lg:flex-row col-span-3 lg:h-full">
+                <div className="flex-1 relative lg:overflow-hidden rounded-md">
+                    <div className="lg:absolute inset-0">
+                        <img src={hoveredImage && hoveredImage.src ? `${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}` : `${import.meta.env.VITE_API_URL}projects/${project.id}/cover`} alt="" className="w-full h-60 rounded-md md:h-32 lg:h-full object-cover" />
                     </div>
                 </div>
-                <div className="sm:w-2/12 flex sm:flex-col gap-3">
+                <div className="lg:w-2/12 flex lg:flex-col gap-3">
                 {Array.from({ length: 4 }).map((_, index) => {
                     const image = project.imgs && project.imgs[index];
                     return (
-                        <div className="sm:h-24 w-full relative overflow-hidden rounded-md" key={index}>
+                        <div className="lg:h-24 w-full relative overflow-hidden rounded-md" key={index}>
                             {image ? (
                                 <img
                                     id={`projectImage${index}`}
                                     src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${image._id}`}
                                     alt={`Project Image ${index}`}
-                                    className={`w-full h-14 sm:h-full object-cover filter ${index === 0 ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300`}
+                                    className={`w-full h-14 lg:h-full object-cover filter ${index === 0 ? 'brightness-90' : 'brightness-75'} hover:brightness-90 transition-all duration-300`}
                                     onMouseEnter={() => imageDisplayed(image, index)}
                                 />
                             ) : (
@@ -54,7 +54,7 @@ function RandomProject({ project }) {
 
                 </div>
             </div>
-            <div className="w-full h-full flex col-span-2 flex-col justify-between">
+            <div className="w-full h-full flex col-span-2 flex-col overflow-auto justify-between">
                 <div className="flex flex-col gap-3.5">
                     <div className="w-full flex flex-col gap-2">
                         <Link to={`/projects/${project.projectUrl}`} className="w-fit font-dmsans text-5xl font-bold text-black text-opacity-75 hover:text-secondary transition-all duration-300">{project.title}</Link>
@@ -62,16 +62,16 @@ function RandomProject({ project }) {
                     </div>
                     <p className="w-full font-dmsans text-black text-normal font-medium opacity-75 select-none">{project.description}</p>
                     <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
-                    {/* <div className="flex justify-center sm:justify-normal py-3 sm:py-0 items-center gap-6"> */}
+                    {/* <div className="flex justify-center lg:justify-normal py-3 lg:py-0 items-center gap-6"> */}
                         <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" /></button>
                         {/* <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 opacity-40 -rotate-180 group-hover:opacity-100" src={like} alt="" /></button> */}
                     {/* </div> */}
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 justify-between w-full">
+                <div className="flex flex-col lg:flex-row gap-4 lg:gap-10 mt-4 lg:mt-0 justify-between w-full">
                     <div className="w-fit">
                         <p className="font-dmsans py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full select-none lowercase">{project.category}</p>
                     </div>
-                    <div className="flex gap-7">
+                    <div className="flex gap-7 justify-center lg:justify-normal">
                         <p className="font-dmsans text-black text-normal font-medium opacity-75 flex gap-2 items-end select-none"><span className="font-bold">{project.fundedPercentage ?? 0}%</span>funded</p>
                         <p className="font-dmsans text-black text-normal font-medium opacity-75 flex gap-2 items-end select-none"><img className="w-7" src={views} alt="" />{project.stats.views ?? "-"}</p>
                         <p className="font-dmsans text-black text-normal font-medium opacity-75 flex gap-2 items-end select-none"><img className="w-7" src={like} alt="" />{project.stats.likes ?? "-"}</p>

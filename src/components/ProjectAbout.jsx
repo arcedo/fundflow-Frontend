@@ -56,23 +56,23 @@ function ProjectAbout({ project, editMode }) {
     };
 
     return (
-        <div className="w-full flex gap-5 fade-in min-h-96">
-            <div className="w-1/12">
+        <div className="w-full flex flex-col lg:flex-row gap-5 fade-in min-h-96">
+            <div className="w-full lg:w-1/12">
                 <h2 className="font-dmsans text-2xl font-bold mt-6 text-black text-opacity-75">about...</h2>
                 {editMode ? (
                     <p className="font-dmsans text-md text-black text-opacity-75 mt-3">edit the details of your project</p>
                 ) : (
                     <>
                         {!editMode && headingList.length > 0 && (
-                            <div className="mt-3">
+                            <div className="mt-3 hidden lg:block">
                                 {renderHeadings()}
                             </div>
                         )}
                     </>
                 )}
             </div>
-            <div className="bg-555 opacity-40 mx-10" style={{ width: "1px" }}></div>
-            <div className="w-10/12">
+            <div className="bg-555 opacity-40 hidden lg:block mx-10" style={{ width: "1px" }}></div>
+            <div className="w-full lg:w-10/12">
                 {editMode ? (
                     <WysiEditor projectId={project.id} aboutContent={editorState} setAboutContent={setEditorState} />
                 ) : editorState ? (

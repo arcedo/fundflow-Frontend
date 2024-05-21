@@ -37,7 +37,7 @@ function MdlProcessPurchase({ onClose, project, total, setProject, setTotal }) {
 
     return (
         <Modal onClose={onClose}>
-            <div className="flex flex-col gap-4 justify-center items-center" style={{ width: '45vh', height: "25vh" }}>
+            <div className="flex flex-col gap-4 justify-center items-center" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '45vh'}`, height: `${window.innerWidth < 1080 ? '30vh' : '25vh'}` }}>
                 {processing ? (
                     <>
                         <p className="text-black font-normal font-dmsans opacity-70">Processing your purchase, please wait...</p>

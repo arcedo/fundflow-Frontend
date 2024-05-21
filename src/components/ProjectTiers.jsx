@@ -66,11 +66,11 @@ function ProjectTiers({ project, editMode, setProject }) {
             {showCreateTierModal && <MdlCreateTier onClose={() => setShowCreateTierModal(false)} project={project} setProject={setProject} />}
             <h3 className="text-black font-dmsans font-bold py-2 self-start text-2xl text-opacity-70">{editMode ? 'add tiers to your project' : 'pitch your grain of sand in...'}</h3>
             {!editMode && project.tiers && project.tiers.length === 0 && <p className="text-black font-dmsans font-bold text-lg text-opacity-70">no tiers available</p>}
-            <div className="flex gap-5 w-full justify-center items-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex gap-3 sm:gap-8 lg:gap-5 w-full justify-center items-center">
                 {project.tiers && project.tiers.slice(0, editMode ? 3 : 4).map((tier, index) => {
                     const delay = index * 0.05;
                     return (
-                        <div key={tier && tier._id} style={{ animationDelay: `${delay}s`, width: '350px', height: '100%' }} className="fade-in">
+                        <div key={tier && tier._id} style={{ animationDelay: `${delay}s`, width: '325px', height: '100%' }} className="fade-in">
                             <div className="flex flex-col gap-2 rounded-lg shadow-md" style={{ height: '500px' }}>
                                 <div className="flex flex-col justify-between items-center relative">
                                     {editMode && (<div className="absolute top-2.5 right-2.5 flex justify-center items-center gap-5">
@@ -97,7 +97,7 @@ function ProjectTiers({ project, editMode, setProject }) {
                     );
                 })}
                 {editMode && (
-                    <button onClick={() => setShowCreateTierModal(true)} className="fade-in group border-black hover:shadow-xl border-opacity-50 transition-all focus:outline-none duration-300 border-2 border-dashed rounded-lg flex flex-col justify-center items-center" style={{ height: '500px', width: '350px' }}>
+                    <button onClick={() => setShowCreateTierModal(true)} className="fade-in group border-black hover:shadow-xl border-opacity-50 transition-all focus:outline-none duration-300 border-2 border-dashed rounded-lg flex flex-col justify-center items-center" style={{ height: '500px', width: '325px' }}>
                         <img className="w-14" src={plusDark} alt="" />
                         <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">add tier</p>
                     </button>

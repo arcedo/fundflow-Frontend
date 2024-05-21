@@ -56,11 +56,11 @@ function ProjectGallery({ project, editMode, setProject }) {
     };
 
     return (
-        <div className="w-10/12 flex flex-col gap-3 mt-5 fade-in" style={{ animationDelay: `0.1s` }}>
+        <div className="w-10/12 flex flex-col gap-3 mt-96 lg:mt-5 fade-in" style={{ animationDelay: `0.1s` }}>
             <h3 className="font-dmsans font-bold text-3xl text-black text-opacity-70">Gallery</h3>
-            <div className="w-full flex flex-col gap-3 sm:flex-row col-span-3" style={{ height: '55vh' }}>
-                <div className="flex-1 relative sm:overflow-hidden rounded-md h-full">
-                    <div className="sm:absolute inset-0">
+            <div className="w-full flex flex-col gap-3 md:flex-row col-span-3" style={{ height: `${window.innerWidth < 680 ? 'auto' : '50vh'}` }}>
+                <div className="flex-1 relative overflow-hidden rounded-md h-full">
+                    <div className="h-72 sm:h-auto sm:absolute inset-0">
                         {project?.imgs?.length === 0 || !hoveredImage.src ? (
                             <div className="w-full h-full bg-gray-300 flex items-center justify-center rounded-md">
                                 <p className="text-black font-dmsans font-semibold text-2xl text-opacity-75">{editMode ? 'upload some images' : 'no images available'}</p>
@@ -70,11 +70,11 @@ function ProjectGallery({ project, editMode, setProject }) {
                         )}
                     </div>
                 </div>
-                <div className="sm:w-2/12 flex sm:flex-col gap-4 h-full">
+                <div className="sm:w-2/12 flex sm:flex-col gap-2 sm:gap-4 h-full">
                     {Array.from({ length: 4 }).map((_, index) => {
                         const image = project.imgs && project.imgs[index];
                         return (
-                            <div className={`w-full h-30 relative ${editMode ? '' : 'overflow-hidden'} rounded-md`} key={index}>
+                            <div className={`w-full h-20 md:h-30 relative ${editMode ? '' : 'overflow-hidden'} rounded-md`} key={index}>
                                 {image ? (editMode ?
                                     <button onClick={() => handleDeleteImage(image._id)} className="w-full hover:bg-red-600 transition-all duration-200 group shake overflow-hidden h-full rounded-md">
                                         <img

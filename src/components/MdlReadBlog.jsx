@@ -4,9 +4,9 @@ import Modal from "./Modal";
 function MdlReadBlog({ onClose, blog, date, readingTime, project }) {
     return (
         <Modal onClose={onClose}>
-            <div className="flex flex-col" style={{ width: '70vh' }}>
+            <div className="flex flex-col" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '70vh'}` }}>
                 <p className="text-black font-dmsans font-normal text-opacity-70">{date}</p>
-                <div className="flex gap-2 items-end">
+                <div className="flex flex-col lg:flex-row lg:gap-2 lg:items-end">
                     <h3 className="text-black font-dmsans font-bold text-4xl">{blog.title}</h3>
                     <p className="text-black font-dmsans font-normal text-opacity-70 pb-0.5">/ {`${readingTime.minutes ? readingTime.minutes + ' minutes' : readingTime.seconds + ' seconds'}`} read</p>
                 </div>

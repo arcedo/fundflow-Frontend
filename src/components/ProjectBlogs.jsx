@@ -27,11 +27,11 @@ function ProjectBlogs({ project, editMode, setProject }) {
     return (
         <div className="w-full flex flex-col fade-in">
             {showCreateBlogModal && <MdlCreateBlog onClose={() => setShowCreateBlogModal(false)} setProject={setProject} project={project} />}
-            <h3 className="text-black font-dmsans font-bold mt-8 self-start text-2xl text-opacity-70">{editMode ? 'add blog posts to your project' : 'stay up to date...'}</h3>
+            <h3 className="text-black font-dmsans font-bold mt-8 mb-4 self-start text-2xl text-opacity-70">{editMode ? 'add blog posts to your project' : 'stay up to date...'}</h3>
 
             <div className="flex flex-col gap-8 justify-center items-center pb-5 min-h-40">
                 {editMode && (
-                    <button onClick={() => setShowCreateBlogModal(true)} className="w-8/12 mt-6 group focus:outline-none outline-none hover:shadow-lg transition-all duration-300 border-black border-opacity-50 border-2 rounded-lg py-10 border-dashed flex flex-col justify-center items-center">
+                    <button onClick={() => setShowCreateBlogModal(true)} className="w-full lg:w-8/12 mt-6 group focus:outline-none outline-none hover:shadow-lg transition-all duration-300 border-black border-opacity-50 border-2 rounded-lg py-10 border-dashed flex flex-col justify-center items-center">
                         <img className="w-10" src={plusDark} alt="create new blog" />
                         <p className="font-dmsans font-semibold group-hover:text-secondary transition-all duration-200">new entry</p>
                     </button>
@@ -90,7 +90,7 @@ function BlogEntry({ blog, index, project, editMode, setProject }) {
     const formattedDate = `${month} ${day}${suffix(day)} ${year}`;
     const readingTime = calculateReadingTime(blog.content.length);
     return (
-        <div style={{ animationDelay: `${delay}s` }} onClick={() => setShowReadBlogModal(true)} className="fade-in w-8/12 cursor-pointer p-6 flex flex-col gap-4 rounded-lg shadow-md border-2 border-gray-300 border-opacity-20 hover:bg-gray-400 hover:bg-opacity-30 transition-all duration-200 relative">
+        <div style={{ animationDelay: `${delay}s` }} onClick={() => setShowReadBlogModal(true)} className="fade-in w-full lg:w-8/12 cursor-pointer p-6 flex flex-col gap-4 rounded-lg shadow-md border-2 border-gray-300 border-opacity-20 hover:bg-gray-400 hover:bg-opacity-30 transition-all duration-200 relative">
             {showReadBlogModal && <MdlReadBlog onClose={() => setShowReadBlogModal(false)} blog={blog} date={formattedDate} readingTime={readingTime} project={project} />}
             {editMode && (
                 <div className="absolute top-2.5 right-2.5 flex justify-center items-center gap-5">

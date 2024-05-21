@@ -48,7 +48,7 @@ function MdlCreateTier({ onClose, project, setProject }) {
     return (
         <Modal onClose={onClose}>
             <h2 className="text-4xl font-dmsans font-bold text-black">Add a tier</h2>
-            <form onSubmit={handleCreateTier} className="flex flex-col gap-3 font-dmsans font-semibold mt-6 text-black" style={{ width: "50vh" }}>
+            <form onSubmit={handleCreateTier} className="flex flex-col gap-3 font-dmsans font-semibold mt-6 text-black" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '50vh'}` }}>
                 <div className={`${errorStyles.previewImage} flex flex-col items-center justify-center border-555 border-dashed border-2 rounded-lg`}>
                     <label htmlFor="imageTier" className="flex cursor-pointer hover:text-primary transition-colors duration-200 max-h-32 object-cover overflow-hidden flex-col items-center justify-center py-5 w-full h-full">
                         {newTier.previewImage ?

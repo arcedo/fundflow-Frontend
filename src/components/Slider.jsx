@@ -31,7 +31,7 @@ function Slider() {
 
     return (
         <section className='mt-30 bg-black'>
-            <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '40vh' : '70vh'}` }}>
+            <div className="relative w-full" style={{ height: `${window.innerWidth < 1080 ? '40vh' : '70vh'}` }}>
                 {items.map((item, index) => (
                     <div key={index} className="absolute inset-0">
                         <img

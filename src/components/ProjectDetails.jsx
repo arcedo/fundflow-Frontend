@@ -105,7 +105,7 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
         }
     }
     return (
-        <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
+        <div className="relative w-full" style={{ height: `${window.innerWidth < 1080 ? '35vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject} projectType={projectType} project={project} />}
             {showEditCoverModal && <MdlEditCover onClose={closeEditCoverModal} project={project} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} setProject={setProject} />}
@@ -113,14 +113,14 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
                 {editMode && (
-                    <div onClick={openEditCoverModal} className="absolute bottom-0 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full cursor-pointer group">
+                    <div onClick={openEditCoverModal} className="absolute top-0 left-0 lg:bottom-0 lg:right-0 lg:top-auto lg:left-auto m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full cursor-pointer group">
                         <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                             <img className="h-8" src={image} alt="save button" />
                         </div>
                     </div>
                 )}
-                <div className="w-10/12 grid grid-cols-2 gap-20">
-                    <div className="w-10/12 p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
+                <div className="relative w-10/12 flex justify-center items-center lg:grid lg:grid-cols-2 gap-20">
+                    <div className="absolute lg:static -top-2 md:top-20 w-full p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
                         <div className="flex flex-col gap-2">
                             <h2 className="font-dmsans font-bold text-5xl">{project && project.title}</h2>
                             <Link to={`/profile/${project && project.userUrl}`} className="w-fit font-dmsans text-black text-opacity-70 group">by <span className="group-hover:text-secondary font-semibold transition-colors duration-200">{project.userUrl}</span></Link>
@@ -134,9 +134,9 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                             {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p>
                                 : <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.currentProgress ? project.currentProgress : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>}
                             {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.stats ? project.stats.funders : '0'}</span> funders</p> : null}
-                            <div className="flex items-center justify-between">
-                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
-                                <div className="flex gap-5">
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+                                <p className="font-dmsans text-black text-opacity-70 mb-6 md:mb-0"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
+                                <div className="flex gap-5 justify-end">
                                     <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />{project && project.stats && project.stats.views ? project.stats.views : 0}</p>
                                     <button onClick={() => evaluateProject('likes')} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
                                     <button onClick={() => evaluateProject('dislikes')} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.dislike ? '' : 'opacity-40 group-hover:opacity-100'} -rotate-180`} src={dislike} alt="dislikes" />{project && project.stats && project.stats.dislikes ? project.stats.dislikes : 0}</button>

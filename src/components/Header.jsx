@@ -103,18 +103,18 @@ function Header({ categoriesDisabled }) {
     };
 
     return (
-        <div className="flex flex-col justify-center w-screen sm:w-full items-center fixed z-40" onMouseLeave={handleMouseLeave}>
+        <div className="flex flex-col justify-center w-screen lg:w-full items-center fixed z-40" onMouseLeave={handleMouseLeave}>
             {showCreateProjectModal && <MdlCreateProject onClose={closeCreateProjectModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             <div className="flex w-full shadow-md z-30" onMouseEnter={handleMouseEnter}>
                 <div className="flex justify-center items-center w-full bg-white">
-                    <div className="flex justify-between items-center w-10/12 sm:w-11/12 h-20 bg-white">
+                    <div className="flex justify-between items-center w-10/12 gap-5 lg:gap-0 lg:w-11/12 h-20 bg-white">
                         <Link to={"/home"} className="group flex justify-center items-center gap-4">
-                            <img className="w-10 rounded-md" src={fundLogo} alt="" />
-                            <h1 className='font-montserrat text-black group-hover:bg-gradient-to-r from-primary to-secondary hidden sm:inline-block group-hover:text-transparent bg-clip-text text-3xl font-bold transition-all duration-500' >fundflow.</h1>
+                            <img className="w-14 md:w-10 rounded-md" src={fundLogo} alt="" />
+                            <h1 className='font-montserrat text-black group-hover:bg-gradient-to-r from-primary to-secondary hidden lg:inline-block group-hover:text-transparent bg-clip-text text-3xl font-bold transition-all duration-500' >fundflow.</h1>
                         </Link>
-                        <div className="hidden sm:flex gap-16">
+                        <div className="hidden lg:flex gap-16">
                             <Link to={"/about"} className="text-black font-montserrat font-semibold text-sm hover:text-secondary transition-colors duration-300">who we are</Link>
                             <Link to={"/help"} className="text-black font-montserrat font-semibold text-sm hover:text-secondary transition-colors duration-300">help</Link>
                         </div>
@@ -125,16 +125,19 @@ function Header({ categoriesDisabled }) {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                className="hidden sm:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                className="hidden lg:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                 placeholder="what are you looking for?"
                             />
-                            <button onClick={searchButton} className="hidden sm:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
+                            <button onClick={searchButton} className="hidden lg:block h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `1.5rem 1.5rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
                         </div>
-                        <button onClick={openCreateProjectModal} className="hidden sm:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
+                        <button onClick={openCreateProjectModal} className="hidden lg:flex justify-center items-center gap-2.5 h-11 w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
                             <img src={plus} alt="" />
                             new
                         </button>
-                        <button className="block sm:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
+                        <button onClick={searchButton} className="block lg:hidden h-11 w-11 rounded-full bg-white" style={{ backgroundImage: `url(${search})`, backgroundSize: `2rem 2rem`, backgroundPosition: `center`, backgroundRepeat: `no-repeat` }}></button>
+                        <button onClick={openCreateProjectModal} className="block lg:hidden justify-center items-center rounded-full p-1 font-dmsans font-semibold text-xl text-white bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
+                            <img className="w-12 md:w-9" src={plus} alt="" />
+                        </button>
                         <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black overflow-hidden'} h-11 w-11 shadow-md group flex justify-center items-center rounded-full`}>
                             {userData ? <div className="relative">
                                 {userData.verifiedEmail ? null : <div className="bg-white absolute z-30 -top-2 -right-2 rounded-full"><img src={alert} alt="" className="w-7" /></div>}
@@ -148,7 +151,7 @@ function Header({ categoriesDisabled }) {
                     </div>
                 </div>
             </div>
-            <div className={`hidden sm:flex shadow-md font-montserrat font-semibold justify-center items-center h-9 w-full gap-24 bg-gradient-to-r from-primary to-secondary ${visible ? '' : 'headerCategories'} absolute -bottom-9 transition-all duration-200 z-20 delay-100`}>
+            <div className={`hidden lg:flex shadow-md font-montserrat font-semibold justify-center items-center h-9 w-full gap-24 bg-gradient-to-r from-primary to-secondary ${visible ? '' : 'headerCategories'} absolute -bottom-9 transition-all duration-200 z-20 delay-100`}>
                 <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=art"}>art</Link>
                 <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=dev"}>dev</Link>
                 <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=games"}>games</Link>

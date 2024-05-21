@@ -59,7 +59,7 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
 
     return (
         <Modal onClose={onClose}>
-            <div className="flex flex-col gap-4" style={{ width: "50vh" }}>
+            <div className="flex flex-col gap-4" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '50vh'}` }}>
                 <h2 className="text-4xl font-dmsans font-bold text-black">Edit project</h2>
                 <div className="flex flex-col">
                     <div className="flex flex-col gap-2">
@@ -89,9 +89,9 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
                     <div className="w-full grid grid-cols-2 gap-4">
                         {projectType === "funds" && (
                             <div className="flex flex-col">
+                                <label htmlFor="goal" className="w-fit text-lg font-dmsans font-semibold text-black">fund goal</label>
                                 <div className="flex gap-2">
-                                    <div className="w-9/12">
-                                        <label htmlFor="goal" className="w-fit text-lg font-dmsans font-semibold text-black">fund goal</label>
+                                    <div className="w-6/12 lg:w-9/12">
                                         <input
                                             type="number"
                                             id="goal"
@@ -101,13 +101,13 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
                                             onChange={handleInputChange}
                                         />
                                     </div>
-                                    <div className="w-3/12">
+                                    <div className="w-2/12 lg:w-3/12">
                                         <select
                                             id="currency"
                                             name="currency"
                                             value={editedProject.currency}
                                             onChange={handleInputChange}
-                                            className="p-2 mt-7 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/8 text-black outline-none focus:border-opacity-80 transition-all duration-200"
+                                            className="p-2 bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 w-1/8 text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                         >
                                             {['€', '$', '£', '¥'].map(currency => (
                                                 <option key={currency} value={currency}>{currency}</option>

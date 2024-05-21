@@ -252,7 +252,7 @@ function Settings() {
                         <div className="relative">
                             {currentUser && currentUser.googleAccount ?
                                 <div className="absolute w-full h-full z-30 flex justify-center items-center">
-                                    <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                    <div className="w-full lg:w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
                                         {recoverEmailSent ?
                                             <div className="flex flex-col gap-4 justify-center">
                                                 <h2 className="text-4xl font-dmsans font-bold text-black">Email sent</h2>
@@ -278,7 +278,7 @@ function Settings() {
                                 </div> : ''}
                             {currentUser && !currentUser.verifiedEmail ?
                                 <div className="absolute w-full h-full z-30 flex justify-center items-center">
-                                    <div className="w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
+                                    <div className="w-full lg:w-4/12 bg-white backdrop-blur-xl bg-opacity-90 rounded-lg px-8 py-7 shadow-xl">
                                         {emailSent ? <div>
                                             <h2 className="text-4xl font-dmsans font-bold text-black">Email sent</h2>
                                             <p className="text-black font-normal font-dmsans opacity-70">Check your inbox for a verification email. Make sure to check your spam folder.</p>
@@ -300,7 +300,7 @@ function Settings() {
                                     </div>
                                 </div> : ''}
                             {/* el form coge la variable del blur. everything else is the same as before */}
-                            <form className={`grid grid-cols-2 gap-x-14 ${googleUserFormStyle}`} onSubmit={handleSaveChanges}>
+                            <form className={`lg:grid lg:grid-cols-2 lg:gap-x-14 ${googleUserFormStyle}`} onSubmit={handleSaveChanges}>
                                 <div className="flex flex-col gap-4">
                                     <div className="grid grid-cols-2 gap-3">
                                         <div className="flex flex-col gap-2">
@@ -345,7 +345,7 @@ function Settings() {
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col gap-2">
                                         <div className="flex gap-5 items-center">
-                                            <h3 className="font-dmsans text-lg font-semibold text-black text-opacity-70">profile picture</h3>
+                                            <h3 className="font-dmsans mt-5 lg:mt-0 text-lg font-semibold text-black text-opacity-70">profile picture</h3>
                                             {profileImage && profileImage.message ? <p className="font-dmsans text-md text-black">{profileImage.message}</p> : ''}
                                         </div>
                                         <div className="flex flex-col gap-2 justify-center items-center">
@@ -389,7 +389,7 @@ function Settings() {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-end gap-5">
-                                        <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Save changes</button>
+                                        <button type="submit" className="py-3.5 w-6/12 md:w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Save changes</button>
                                         <p className="font-dmsans text-lg text-red-600">* required values</p>
                                     </div>
                                     <p className={`${saveChangesMessage && saveChangesMessage.success ? 'text-green-600' : 'text-red-400'} font-dmsans`}>{saveChangesMessage && saveChangesMessage.message ? saveChangesMessage.message : ''}</p>
@@ -399,7 +399,7 @@ function Settings() {
                     </div>
                     <h2 className="font-dmsans text-3xl font-semibold text-opacity-75 text-black mt-10">account security</h2>
                     <hr className="w-full h-0.5 mb-5 bg-555 bg-opacity-50 rounded-full" />
-                    <div className="grid grid-cols-2 gap-x-14">
+                    <div className="lg:grid lg:grid-cols-2 lg:gap-x-14">
                         {currentUser && !currentUser.googleAccount ?
                             <form onSubmit={handleChangePassword} className="flex flex-col  gap-8">
                                 <div className="flex flex-col gap-4">
@@ -418,7 +418,7 @@ function Settings() {
                                 </div>
                                 <div className="flex flex-col gap-4">
                                     <div className="flex items-end gap-5">
-                                        <button type="submit" className="py-3.5 w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Change password</button>
+                                        <button type="submit" className="py-3.5 w-6/12 lg:w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Change password</button>
                                         <p className="font-dmsans text-lg text-red-600">* required values</p>
                                     </div>
                                     <p className={`${changePasswordMessage && changePasswordMessage.success ? 'text-green-600' : 'text-red-400'} font-dmsans`}>{changePasswordMessage && changePasswordMessage.message ? changePasswordMessage.message : ''}</p>
@@ -427,7 +427,7 @@ function Settings() {
                         }
                         <div className="flex flex-col gap-4">
                             <div className="flex flex-col gap-2">
-                                <h3 className="font-dmsans text-lg text-black text-opacity-70 font-semibold w-fit">account deletion</h3>
+                                <h3 className="font-dmsans text-lg mt-5 lg:mt-0 text-black text-opacity-70 font-semibold w-fit">account deletion</h3>
                                 <p className="font-dmsans text-md text-black text-opacity-70">If you don't wish to keep using our services, you can request that we <span className="text-red-600 font-semibold">delete your account</span>.<br /></p>
                                 <ul className="list-disc pl-5 opacity-70">
                                     <li className="font-dmsans text-md text-black">Your profile will become inaccessible</li>
@@ -436,7 +436,7 @@ function Settings() {
                                 </ul>
                                 <p className="font-dmsans text-md text-black text-opacity-70">Once you delete your account, <span className="text-red-600 font-semibold">there is no going back</span>. Please be certain.</p>
                             </div>
-                            <button onClick={openDeleteUserModal} className="h-12 w-3/12 border-2 border-red-600 rounded-md text-red-600 hover:bg-red-600 hover:text-white font-semibold font-dmsans transition-all duration-200">Delete account</button>
+                            <button onClick={openDeleteUserModal} className="h-12 w-6/12 lg:w-3/12 border-2 border-red-600 rounded-md text-red-600 hover:bg-red-600 hover:text-white font-semibold font-dmsans transition-all duration-200">Delete account</button>
                         </div>
                     </div>
                 </div>
