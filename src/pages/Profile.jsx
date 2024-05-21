@@ -61,11 +61,11 @@ function Profile() {
                                 .then(projects => {
                                     setDislikedProjects(projects);
                                 });
-                            await getProjectsByUserStatus(localStorage.getItem('token'), 'both', skip, limit)
-                                .then(projects => {
-                                    setCollaboratingProjects(projects);
-                                });
                         }
+                        await getProjectsByUserStatus(localStorage.getItem('token'), 'both', skip, limit, data[0].id)
+                            .then(projects => {
+                                setCollaboratingProjects(projects);
+                            });
                     }
                 });
         }

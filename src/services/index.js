@@ -85,8 +85,8 @@ export async function updateProjectData(token, projectId, projectData) {
     return await fetchDataAuth('PUT', `${server}projects/${projectId}`, token, projectData);
 }
 
-export async function getProjectsByUserStatus(token, evaluation, skip, limit) {
-    return await fetchDataAuth('GET', `${server}projects/byEvaluation/?evaluation=${evaluation}&startIndex=${skip}&limit=${limit}`, token);
+export async function getProjectsByUserStatus(token, evaluation, skip, limit, userId) {
+    return await fetchDataAuth('GET', `${server}projects/byEvaluation/?evaluation=${evaluation}&startIndex=${skip}&limit=${limit}${userId ? `&userId=${userId}` : ''}`, token);
 }
 
 // Project stats
