@@ -61,11 +61,11 @@ function Profile() {
                                 .then(projects => {
                                     setDislikedProjects(projects);
                                 });
+                            await getProjectsByUserStatus(localStorage.getItem('token'), 'both', skip, limit)
+                                .then(projects => {
+                                    setCollaboratingProjects(projects);
+                                });
                         }
-                        // await getProjectsByUserStatus(localStorage.getItem('token'), 'collaborating', skip, limit)
-                        //     .then(projects => {
-                        //         setCollaboratingProjects(projects);
-                        //     });
                     }
                 });
         }
@@ -209,7 +209,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} likedProjects={likedProjects} dislikedProjects={dislikedProjects} />
+            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} likedProjects={likedProjects} dislikedProjects={dislikedProjects} collaboratingProjects={collaboratingProjects} />
             <Footer />
         </div >
     );
