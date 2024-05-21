@@ -1,21 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import purchaseCheck from "../assets/icons/purchaseCheck.svg";
+import { statsInteraction, getProjectStats } from "../services";
 
-function MdlProcessPurchase({ onClose, project, total }) {
+function MdlProcessPurchase({ onClose, project, total, setProject, setTotal }) {
     const [processing, setProcessing] = useState(true);
 
     useEffect(() => {
         console.log(total);
-        const timer = setTimeout(() => {
-            setProcessing(false);
-            setTimeout(() => {
-                onClose();
-                window.location.reload();
-            }, 2000);
-        }, 2000);
-        return () => clearTimeout(timer);
-    }, [onClose]);
+        const purchase = async () => {
+            await statsInteraction(localStorage.getItem('token'), project.id, null, null, total, null)
+                .then(async (res) => {
+                    setTotal(0);
+                    if (res.code === 200) {
+                        await getProjectStats(project.id)
+                            .then((stats) => {
+                                setProject({ ...project, stats, percentageDone: (stats.funded / project.priceGoal) * 100 });
+                                setProcessing(false);
+                                setTimeout(() => {
+                                    onClose();
+                                }, 2000);
+                            });
+                    }
+                });
+        };
+        // const timer = setTimeout(() => {
+        //     setProcessing(false);
+        //     setTimeout(() => {
+        //         onClose();
+        //         window.location.reload();
+        //     }, 2000);
+        // }, 2000);
+        //return () => clearTimeout(timer);
+        purchase();
+    }, []);
 
     return (
         <Modal onClose={onClose}>

@@ -26,7 +26,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, loggedUserId
                                     projectCategory={project.category}
                                     likes={project.stats.likes ?? 0}
                                     dislikes={project.stats.dislikes ?? 0}
-                                    fundedPercentage={project.fundedPercentage ?? 0}
+                                    fundedPercentage={project.percentageDone ?? 0}
                                     views={project.stats.views ?? 0}
                                     belongingUser={loggedUserId === project.creator ? project.creator : null}
                                 />

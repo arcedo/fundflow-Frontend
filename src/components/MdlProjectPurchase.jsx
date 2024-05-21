@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import MdlProcessPurchase from "./MdlProcessingPurchase";
 import { Link } from "react-router-dom";
 
-function MdlProjectPurchase({ onClose, tier, project }) {
+function MdlProjectPurchase({ onClose, tier, project, setProject }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProcessPurchaseModal, setShowProcessPurchaseModal] = useState(false);
     const [total, setTotal] = useState(0);
@@ -62,7 +62,7 @@ function MdlProjectPurchase({ onClose, tier, project }) {
         return (
             <Modal onClose={onClose}>
                 <div className="flex flex-col gap-4" style={{ width: '70vh' }}>
-                    {showProcessPurchaseModal && <MdlProcessPurchase onClose={closeProcessPurchaseModal} project={project} total={total} />}
+                    {showProcessPurchaseModal && <MdlProcessPurchase onClose={closeProcessPurchaseModal} project={project} total={total} setProject={setProject} setTotal={setTotal} />}
                     <h2 className="text-4xl font-dmsans font-bold text-black">Contribute</h2>
                     <div>
                         <p className="text-black font-normal font-dmsans opacity-70">

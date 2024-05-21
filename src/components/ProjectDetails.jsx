@@ -78,12 +78,8 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
         setShowEditCoverModal(false);
     };
 
-    const formattedCurrentFunding = project && project.currentFunding ? project.currentFunding.toLocaleString('de-DE') : 0;
+    const formattedCurrentFunding = project && project.stats && project.stats.funded ? project.stats.funded.toLocaleString('de-DE') : 0;
     const formattedGoalFunding = project && project.priceGoal ? project.priceGoal.toLocaleString('de-DE') : 0;
-
-    if (formattedCurrentFunding === 0) {
-        project.fundedPercentage = 0;
-    }
 
     const evaluateProject = async (evaluation) => {
         if (!userData) {
@@ -112,7 +108,7 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
         <div className="relative w-full" style={{ height: `${window.innerWidth < 640 ? '35vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject} projectType={projectType} project={project} />}
             {showEditCoverModal && <MdlEditCover onClose={closeEditCoverModal} project={project} />}
-            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} />}
+            {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} setProject={setProject} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
             <div className="w-full h-full bg-cover bg-center flex justify-center items-center" style={{ backgroundImage: `url(${import.meta.env.VITE_API_URL}projects/${project.id}/cover)` }}>
@@ -132,12 +128,12 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                         <p className="font-dmsans">{project && project.description}</p>
                         <div className="flex flex-col gap-3">
                             <div className="bg-gray-300 h-3 rounded-full w-full">
-                                <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full" style={{ width: `${project.fundedPercentage}%` }}>
+                                <div className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full max-w-full" style={{ width: `${project.percentageDone}%` }}>
                                 </div>
                             </div>
                             {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p>
                                 : <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.currentProgress ? project.currentProgress : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>}
-                            {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.sponsors ? project.sponsors : '0'}</span> funders</p> : null}
+                            {projectType === 'funds' ? <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.stats ? project.stats.funders : '0'}</span> funders</p> : null}
                             <div className="flex items-center justify-between">
                                 <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
                                 <div className="flex gap-5">
