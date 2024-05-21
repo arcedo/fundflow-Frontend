@@ -273,3 +273,10 @@ export async function getProjectImages(projectId) {
 export async function deleteProjectImage(token, projectId, imageId) {
     return await fetchDataAuth('DELETE', `${server}projects/${projectId}/image/${imageId}`, token);
 }
+
+// search
+
+export async function searchProjects(query, skip, limit) {
+    console.log(`${server}search/projects?query=${query}&startIndex=${skip}&limit=${limit}`);
+    return await fetchDataGet(`${server}projects/search?query=${query}&startIndex=${skip}&limit=${limit}`);
+}

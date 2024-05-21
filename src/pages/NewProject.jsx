@@ -513,7 +513,7 @@ function NewProject() {
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">details preview</p>
                             <div className="w-full p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4">
                                 <div className="flex flex-col gap-2">
-                                    <h2 className="font-dmsans font-bold text-5xl">{newProject.title}</h2>
+                                    <h2 className="font-dmsans font-bold text-5xl overflow-hidden pb-2">{newProject.title}</h2>
                                     <p className="font-dmsans text-black text-opacity-70">by {userData.userUrl}</p>
                                 </div>
                                 <p className="max-w-full font-dmsans overflow-auto">{newProject.description}</p>
