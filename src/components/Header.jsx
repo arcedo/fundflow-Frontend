@@ -60,13 +60,15 @@ function Header({ categoriesDisabled }) {
         if (e.key === "Enter") {
             searchButton();
         }
-    };
+        if (e.key === "Delete") {
+            setSearchQuery(searchQuery.slice(0, -1));
+            searchButton();
+        }
+    }
 
     function searchButton() {
-        if (searchQuery !== "") {
-            setSearchParams({ query: searchQuery });
-            navigate(`/search?query=${searchQuery}`);
-        }
+        setSearchParams({ query: searchQuery });
+        navigate(`/search?query=${searchQuery}`);
     }
 
     const [showVerifyUserModal, setShowVerifyUserModal] = useState(false);

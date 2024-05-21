@@ -8,18 +8,7 @@ import games from "../assets/pictures/games.webp";
 import innove from "../assets/pictures/innove.webp";
 import music from "../assets/pictures/music.webp";
 
-const artPercentage = 10;
-const booksPercentage = 33;
-const devPercentage = 7;
-const gamesPercentage = 14;
-const innovePercentage = 21;
-const musicPercentage = 15;
-
-const server = import.meta.env.VITE_API_URL;
-
-async function getCategories() {
-    return await (await fetch(`${server}categories`)).json();
-}
+//TODO: random size grid
 //const categories = await getCategories();
 function CategorySlider() {
     return (

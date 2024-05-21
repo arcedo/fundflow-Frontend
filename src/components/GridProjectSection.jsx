@@ -5,15 +5,14 @@ import ProjectThumb from "./ProjectThumb";
 
 function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, loggedUserId, onEmptyMessage, imageEmptyVisible }) {
     const numberOfColumns = search;
-    console.log(search);
     const placeholdersCount = projectsFound ? projectsFound.length % numberOfColumns : 0;
     const placeholdersNeeded = placeholdersCount > 0 ? numberOfColumns - placeholdersCount : 0;
     return (
         <section className="flex justify-center items-center fade-in w-full">
             <div className="w-full">
                 <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4 fade-in">{sectionTitle}</h3>
-                <div className={`grid grid-cols-1 sm:grid-cols-${search} gap-6 w-full`}>
-                    {projectsFound && !projectsFound.message ? projectsFound.map((project, index) => {
+                <div className={`grid grid-cols-1 sm:grid-cols-2 ${search == 3 ? 'md:grid-cols-3' : 'md:grid-cols-4'} gap-6 w-full`}>
+                    {projectsFound && !projectsFound.message && projectsFound.length > 0 ? projectsFound.map((project, index) => {
                         const delay = index * 0.05;
                         return (
                             <div key={project.id + '-' + project.projectUrl} style={{ animationDelay: `${delay}s` }} className="fade-in">
@@ -63,7 +62,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, logg
                     </div>
                 )}
             </div>
-        </section>
+        </section >
     );
 }
 
