@@ -21,35 +21,37 @@ function ProjectFeedback({ project }) {
                     </div>
                 </div>
             </div>
-            <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
-                <div className="w-11/12 mx-auto">
-                    <h2 className="font-dmsans font-bold text-2xl opacity-60">write your review</h2>
-                    <div className="flex gap-5 justify-center py-5">
-                        <div className="rounded-full w-16 h-16 flex justify-center items-center overflow-hidden shadow-md">
-                            <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="user image" className="w-full h-full" />
-                        </div>
-                        <div className="w-11/12 flex flex-col justify-center gap-4 font-dmsans">
-                            <textarea name="" id="" placeholder="what do you think of this project?" className="p-3 resize-none w-full rounded-md border border-black border-opacity-20" rows={5}></textarea>
-                            <div className="flex justify-between items-center">
-                                <div className="flex items-center gap-8">
-                                    <p className="font-medium">How would you rate this project?</p>
-                                    <div className="flex gap-3">
-                                        <button className="flex justify-center items-center border border-black px-1 rounded-md pr-3">
-                                            <img src={positiveReview} alt="" className="w-10 h-10" />
-                                            Positive
-                                        </button>
-                                        <button className="flex justify-center items-center border border-black px-1 rounded-md pr-3">
-                                            <img src={negativeReview} alt="" className="w-10 h-10 rotate-180" />
-                                            Negative
-                                        </button>
+            {
+                userData && <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
+                    <div className="w-11/12 mx-auto">
+                        <h2 className="font-dmsans font-bold text-2xl opacity-60">write your review</h2>
+                        <div className="flex gap-5 justify-center py-5">
+                            <div className="rounded-full w-16 h-16 flex justify-center items-center overflow-hidden shadow-md">
+                                <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="user image" className="w-full h-full" />
+                            </div>
+                            <div className="w-11/12 flex flex-col justify-center gap-4 font-dmsans">
+                                <textarea name="" id="" placeholder="what do you think of this project?" className="p-3 resize-none w-full rounded-md border border-black border-opacity-20" rows={5}></textarea>
+                                <div className="flex justify-between items-center">
+                                    <div className="flex items-center gap-8">
+                                        <p className="font-medium">How would you rate this project?</p>
+                                        <div className="flex gap-3">
+                                            <button className="flex justify-center items-center border border-black px-1 rounded-md pr-3">
+                                                <img src={positiveReview} alt="" className="w-10 h-10" />
+                                                Positive
+                                            </button>
+                                            <button className="flex justify-center items-center border border-black px-1 rounded-md pr-3">
+                                                <img src={negativeReview} alt="" className="w-10 h-10 rotate-180" />
+                                                Negative
+                                            </button>
+                                        </div>
                                     </div>
+                                    <button className="flex justify-center items-center font-semibold text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none h-11 w-2/12">Post review</button>
                                 </div>
-                                <button className="flex justify-center items-center font-semibold text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none h-11 w-2/12">Post review</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
             <div className="w-full">
                 <h2 className="font-dmsans font-bold text-2xl opacity-60">reviews</h2>
                 <div className="w-full flex flex-col items-center gap-6 pt-8">
