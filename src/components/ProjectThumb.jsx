@@ -57,7 +57,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
         <div className="flex flex-col group/project" ref={optionsRef}>
             {showDeleteProjectModal && <MdlDeleteProject onClose={closeDeleteProjectModal} projectName={projectName} projectId={projectId} />}
             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
-                <p className="flex gap-0.5 items-center absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory} <hr className="rotate-90 w-4" /> <img className={`w-5 inline-block ${projectType === "fund" ? 'rotate-90' : ''}`} src={projectType === "fund" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></p>
+                <div className="flex gap-0.5 items-center absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory} <hr className="rotate-90 w-4" /> <img className={`w-5 inline-block ${projectType === "fund" ? 'rotate-90' : ''}`} src={projectType === "fund" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></div>
                 {/* <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory}</p> */}
                 {/* <p className="absolute font-dmsans bottom-3 right-3 z-30 p-2 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase"><img className={`w-6 inline-block ${projectType === "fund" ? 'rotate-90' : ''}`} src={projectType === "fund" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></p> */}
                 {userData && userData.userUrl === projectCreator ? (
@@ -79,7 +79,6 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                     <img className="h-full w-full rounded-md object-cover" src={`${import.meta.env.VITE_API_URL}projects/${projectId}/cover`} alt={`Project ${projectName} Cover Image`} />
                 </Link>
             </div>
-            {/* TODO: add icon of collaborator/fund to thumbnail */}
             <div className="flex items-center justify-between gap-3 pt-3">
                 <div className="flex items-center justify-between gap-3">
                     <Link to={`/profile/${creatorUrl}`} className="h-12 w-12 rounded-full flex justify-center items-center overflow-hidden bg-gradient-to-r from-primary to-secondary group">

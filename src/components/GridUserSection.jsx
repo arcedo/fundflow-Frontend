@@ -12,7 +12,7 @@ function GridUserSection({ sectionTitle, usersFound, seeMore, onEmptyMessage, im
         <section className="flex justify-center items-center fade-in w-full">
             <div className="w-full">
                 <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4 fade-in">{sectionTitle}</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 w-full">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-6 w-full">
                     {usersFound && !usersFound.message && usersFound.length > 0 ? usersFound.map((user, index) => {
                         const delay = index * 0.05;
                         return (

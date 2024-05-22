@@ -538,8 +538,8 @@ function NewProject() {
                                         <p className="font-dmsans text-black text-opacity-70 mb-4 md:mb-0"><span className="font-montserrat font-bold text-4xl">{newProject.hoursLeft}</span> hours left</p>
                                         <div className="flex gap-5">
                                             <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />0</p>
-                                            <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40 group-hover:opacity-100" src={like} alt="" />0</button>
-                                            <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40 group-hover:opacity-100 -rotate-180" src={like} alt="" />0</button>
+                                            <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group cursor-default"><img className="h-7 transition-all duration-300 opacity-40" src={like} alt="" />0</button>
+                                            <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group cursor-default"><img className="h-7 transition-all duration-300 opacity-40 -rotate-180" src={like} alt="" />0</button>
                                         </div>
                                     </div>
                                 </div>
@@ -549,7 +549,7 @@ function NewProject() {
                         <div id="thumbnail" className="w-full md:w-4/5 lg:w-3/5 hidden">
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">thumbnail preview</p>
                             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 md:h-60 w-11/12 rounded-md">
-                                <p className="flex gap-0.5 items-center absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName} <hr className="rotate-90 w-4" /> <img className={`w-5 inline-block ${newProject.typeGoal === "funds" ? 'rotate-90' : ''}`} src={newProject.typeGoal === "funds" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></p>
+                                <div className="flex gap-0.5 items-center absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName} <hr className="rotate-90 w-4" /> <img className={`w-5 inline-block ${newProject.typeGoal === "funds" ? 'rotate-90' : ''}`} src={newProject.typeGoal === "funds" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></div>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
                                     <img id="coverPreview" src={coverPicture && coverPicture.cover ? coverPicture.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
                                 </div>
