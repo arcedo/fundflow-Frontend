@@ -253,7 +253,7 @@ function Search() {
                             <GridUserSection sectionTitle={"users"} usersFound={usersFound} />
                         )}
                         <GridProjectSection sectionTitle={"projects"} projectsFound={projectsFound} search={3} />
-                        {projectsFound && projectsFound.length > 0 && !limitProject.noMore && projectsFound.length % 3 === 0 ? (
+                        {projectsFound && projectsFound.length > 0 && !limitProject.noMore && projectsFound.length % 6 === 0 ? (
                             <div className="flex justify-center items-center mt-6 gap-3 fade-in">
                                 <hr className="w-6/12 border-black border-opacity-25" />
                                 <button onClick={() => {
