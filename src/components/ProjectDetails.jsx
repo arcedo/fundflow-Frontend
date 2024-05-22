@@ -11,6 +11,7 @@ import dislike from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
 import { statsInteraction, getProjectStats, getProjectStatsFromUser } from "../services";
 import image from "../assets/icons/image.svg";
+import evaluateProject from "../helpers/evaluateProject";
 
 function ProjectDetails({ project, editMode, setProject, userStats, setUserStats }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -81,29 +82,6 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
     const formattedCurrentFunding = project && project.stats && project.stats.funded ? project.stats.funded.toLocaleString('de-DE') : 0;
     const formattedGoalFunding = project && project.priceGoal ? project.priceGoal.toLocaleString('de-DE') : 0;
 
-    const evaluateProject = async (evaluation) => {
-        if (!userData) {
-            openLoginNeededModal();
-        } else if (!userData.verifiedEmail) {
-            openVerifyUserModal();
-        } else {
-            let evaluationStatus = false;
-            if (evaluation === 'likes') {
-                evaluationStatus = !userStats.like;
-            } else {
-                evaluationStatus = !userStats.dislike;
-            }
-            await statsInteraction(localStorage.getItem('token'), project.id, evaluation, evaluationStatus);
-            await getProjectStats(project.id)
-                .then((response) => {
-                    setProject({ ...project, stats: response });
-                })
-            await getProjectStatsFromUser(localStorage.getItem('token'), project.id)
-                .then((response) => {
-                    setUserStats(response);
-                })
-        }
-    }
     return (
         <div className="relative w-full" style={{ height: `${window.innerWidth < 1080 ? '35vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject} projectType={projectType} project={project} />}
@@ -138,8 +116,8 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                                 <p className="font-dmsans text-black text-opacity-70 mb-6 md:mb-0"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
                                 <div className="flex gap-5 justify-end">
                                     <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />{project && project.stats && project.stats.views ? project.stats.views : 0}</p>
-                                    <button onClick={() => evaluateProject('likes')} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
-                                    <button onClick={() => evaluateProject('dislikes')} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.dislike ? '' : 'opacity-40 group-hover:opacity-100'} -rotate-180`} src={dislike} alt="dislikes" />{project && project.stats && project.stats.dislikes ? project.stats.dislikes : 0}</button>
+                                    <button onClick={() => evaluateProject('likes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
+                                    <button onClick={() => evaluateProject('dislikes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.dislike ? '' : 'opacity-40 group-hover:opacity-100'} -rotate-180`} src={dislike} alt="dislikes" />{project && project.stats && project.stats.dislikes ? project.stats.dislikes : 0}</button>
                                 </div>
                             </div>
                         </div>

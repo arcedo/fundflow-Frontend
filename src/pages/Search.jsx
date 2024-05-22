@@ -55,7 +55,7 @@ function Search() {
                     }
                 })
         } else {
-            await getLatestsProjects(limitProject.skip, limitProject.limit)
+            await getLatestsProjects(limitProject.skip, limitProject.limit, categoryQuery ? categoryQuery : null)
                 .then((data) => {
                     if (!data.message) {
                         if (limitProject.seeMore) {
@@ -116,7 +116,7 @@ function Search() {
 
     const searchCategory = (e) => {
         const categorySearch = e.target.innerText.charAt(0).toUpperCase() + e.target.innerText.slice(1);
-        setSearchParams({ query: searchQuery, category: categories.find(category => category.name === categorySearch).id});
+        setSearchParams({ query: searchQuery, category: categories.find(category => category.name === categorySearch).id });
     };
 
     return (
@@ -128,9 +128,8 @@ function Search() {
                         <div className="flex flex-col gap-2">
                             <h3 className="font-dmsans text-2xl font-semibold text-opacity-70 text-black">categories</h3>
                             <ul className="flex flex-col gap-2">
-                                {/* TODO: add by category search for latest projects */}
                                 {categories.map((category) => (
-                                    <li key={category.id} onClick={searchCategory} className={`w-fit lowercase font-dmsans cursor-pointer hover:text-opacity-100 transition-colors duration-200 ${category.id === Number(categoryQuery) ? 'font-bold text-black text-opacity-100' : 'text-black text-opacity-75 ' }`}>{category.name}</li>
+                                    <li key={category.id} onClick={searchCategory} className={`w-fit lowercase font-dmsans cursor-pointer hover:text-opacity-100 transition-colors duration-200 ${category.id === Number(categoryQuery) ? 'font-bold text-black text-opacity-100' : 'text-black text-opacity-75 '}`}>{category.name}</li>
                                 ))}
                             </ul>
                             <h3 className="mt-3 font-dmsans text-2xl font-semibold text-opacity-70 text-black">filter by</h3>
@@ -168,7 +167,7 @@ function Search() {
                                 </div>
                                 <div className="flex gap-2.5 items-center">
                                     <label className="container w-fit">
-                                        <input id="finishedCheckbox" type="checkbox" checked={finishedChecked} onChange={handleFinishedChange}/>
+                                        <input id="finishedCheckbox" type="checkbox" checked={finishedChecked} onChange={handleFinishedChange} />
                                         <svg viewBox="0 0 64 64" height="1.3em" width="1.3em">
                                             <path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" className="path"></path>
                                         </svg>

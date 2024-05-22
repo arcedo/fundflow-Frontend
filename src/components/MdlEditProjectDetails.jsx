@@ -41,8 +41,6 @@ function MdlEditProject({ onClose, setProject, project, projectType }) {
         }
         await updateProjectData(localStorage.getItem("token"), project.id, editedProject)
             .then(async (data) => {
-                console.log(data);
-                console.log(project);
                 if (data.code !== 200) {
                     setError(data.error);
                     return;

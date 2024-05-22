@@ -19,7 +19,7 @@ function RandomSection() {
         } else {
             projectsData = await getRandomProjects(0, 1);
         }
-        setProjects(projectsData);
+        setProjects(projectsData[0]);
     };
 
 
@@ -40,7 +40,7 @@ function RandomSection() {
                 <div className={`flip-card`}>
                     <div className={`flip-card-inner  ${flipped ? 'flipped' : ''}`}>
                         <section id="randomProject" className={`flip-card-front w-full overflow-hidden py-5 px-5 sm:py-10 sm:px-10 shadow-xl border-2 border-gray-200 border-opacity-50 bg-gray-100 backdrop-blur-md gap-10 rounded-md flex flex-col lg:grid lg:grid-cols-5 `}>
-                            <RandomProject key={projects[0]?.id} project={projects[0]} />
+                            <RandomProject key={projects.id} project={projects} setProject={setProjects} />
                         </section>
                         <section className={`flip-card-back w-full overflow-hidden py-5 px-5 sm:py-10 sm:px-10 shadow-xl border-2 border-gray-200 border-opacity-50 bg-gray-100 backdrop-blur-md gap-10 rounded-md flex flex-col justify-center items-center`}>
                             <div className='flex gap-8 justify-center items-center'>

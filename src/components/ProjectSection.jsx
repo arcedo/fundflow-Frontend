@@ -8,8 +8,9 @@ import dislike from "../assets/icons/like.svg";
 import ProjectAbout from "./ProjectAbout";
 import ProjectTiers from "./ProjectTiers";
 import ProjectBlogs from "./ProjectBlogs";
+import evaluateProject from "../helpers/evaluateProject";
 
-function ProjectSection({ project, editMode, setProject }) {
+function ProjectSection({ project, editMode, setProject, userStats, setUserStats }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
 
@@ -69,7 +70,6 @@ function ProjectSection({ project, editMode, setProject }) {
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
-            {/* TODO: handle likes from this component */}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
@@ -83,12 +83,12 @@ function ProjectSection({ project, editMode, setProject }) {
                             about
                         </button>
                         {project.collGoal === null &&
-                        <button
-                            onClick={() => setActiveTab("tiers")}
-                            className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "tiers" ? "border-black" : "border-transparent"}`}
-                        >
-                            tiers
-                        </button>}
+                            <button
+                                onClick={() => setActiveTab("tiers")}
+                                className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "tiers" ? "border-black" : "border-transparent"}`}
+                            >
+                                tiers
+                            </button>}
                         <button
                             onClick={() => setActiveTab("blog")}
                             className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "blog" ? "border-black" : "border-transparent"}`}
@@ -111,8 +111,8 @@ function ProjectSection({ project, editMode, setProject }) {
                     <div className="w-4/12 hidden sm:flex justify-end gap-8">
                         <button onClick={openProjectPurchaseModal} className="py-1 px-4 h-8 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Contribute</button>
                         <div className="flex gap-6">
-                            <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 grayscale group-hover:grayscale-0" src={likeInteract} alt="" />{project.likes}</button>
-                            <button className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40 group-hover:opacity-100 -rotate-180" src={dislike} alt="" />{project.dislikes}</button>
+                            <button onClick={() => evaluateProject('likes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
+                            <button onClick={() => evaluateProject('dislikes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.dislike ? '' : 'opacity-40 group-hover:opacity-100'} -rotate-180`} src={dislike} alt="dislikes" />{project && project.stats && project.stats.dislikes ? project.stats.dislikes : 0}</button>
                         </div>
                     </div>
                 </div>
