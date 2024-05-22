@@ -152,12 +152,12 @@ function Header({ categoriesDisabled }) {
                 </div>
             </div>
             <div className={`hidden lg:flex shadow-md font-montserrat font-semibold justify-center items-center h-9 w-full gap-24 bg-gradient-to-r from-primary to-secondary ${visible ? '' : 'headerCategories'} absolute -bottom-9 transition-all duration-200 z-20 delay-100`}>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=art"}>art</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=dev"}>dev</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=games"}>games</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=music"}>music</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=books"}>books</Link>
-                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=innove"}>innove</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=&category=1"}>art</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=&category=6"}>dev</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=&category=4"}>games</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=&category=2"}>music</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=&category=3"}>books</Link>
+                <Link className=" text-white border-b-2 border-transparent hover:border-white transition-all duration-200" to={"/search?query=&category=5"}>innove</Link>
             </div>
         </div>
     );
