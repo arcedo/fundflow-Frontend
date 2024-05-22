@@ -2,10 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MdlDeleteProject from "./MdlDeleteProject";
 import like from "../assets/icons/like.svg";
+import fundsWhite from "../assets/icons/fundsWhite.svg";
+import collaboratorsWhite from "../assets/icons/collaboratorsWhite.svg";
 import viewsIcon from "../assets/icons/views.svg";
 import projectSettings from "../assets/icons/projectSettings.svg";
 
-function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, creatorUrl, projectCategory, likes, dislikes, fundedPercentage, views }) {
+function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, creatorUrl, projectCategory, projectType, likes, dislikes, fundedPercentage, views }) {
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem("userData"));
     const [showOptionsMenu, setShowOptionsMenu] = useState(false);
@@ -55,7 +57,9 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
         <div className="flex flex-col group/project" ref={optionsRef}>
             {showDeleteProjectModal && <MdlDeleteProject onClose={closeDeleteProjectModal} projectName={projectName} projectId={projectId} />}
             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 sm:h-60 w-full rounded-md">
-                <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory}</p>
+                <p className="flex gap-0.5 items-center absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory} <hr className="rotate-90 w-4" /> <img className={`w-5 inline-block ${projectType === "fund" ? 'rotate-90' : ''}`} src={projectType === "fund" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></p>
+                {/* <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase">{projectCategory}</p> */}
+                {/* <p className="absolute font-dmsans bottom-3 right-3 z-30 p-2 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200 lowercase"><img className={`w-6 inline-block ${projectType === "fund" ? 'rotate-90' : ''}`} src={projectType === "fund" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></p> */}
                 {userData && userData.userUrl === projectCreator ? (
                     <div>
                         <div className="absolute flex items-center justify-center font-dmsans top-3 left-3 z-30 p-1 bg-white rounded-full cursor-pointer group-hover/project:translate-x-1.5 group-hover/project:-translate-y-1.5 transition-all duration-200">

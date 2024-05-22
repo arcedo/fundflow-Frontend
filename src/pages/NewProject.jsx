@@ -6,6 +6,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import like from "../assets/icons/like.svg";
 import views from "../assets/icons/views.svg";
+import fundsWhite from "../assets/icons/fundsWhite.svg";
+import collaboratorsWhite from "../assets/icons/collaboratorsWhite.svg";
 
 function NewProject() {
     let navigate = useNavigate();
@@ -317,7 +319,7 @@ function NewProject() {
         <div className="relative w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header categoriesDisabled={true} />
             <div className="w-full min-h-screen flex flex-col justify-between items-center">
-                <div className="w-10/12 mt-32 lg:mt-56 fade-in flex flex-col justify-center items-center lg:flex-row gap-10 lg:gap-0">
+                <div className="w-10/12 mt-32 lg:mt-56 fade-in flex flex-col justify-center items-center lg:justify-normal lg:items-start lg:flex-row gap-10 lg:gap-0">
                     <div className="w-11/12 lg:w-1/2">
                         <h2 className="text-4xl font-dmsans font-bold text-black mb-10">Let's start with the details</h2>
                         {currentStep === 1 && (
@@ -547,7 +549,7 @@ function NewProject() {
                         <div id="thumbnail" className="w-full md:w-4/5 lg:w-3/5 hidden">
                             <p className="font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text text-xl">thumbnail preview</p>
                             <div className="relative flex flex-col justify-center items-center bg-gradient-to-r from-primary to-secondary h-44 md:h-60 w-11/12 rounded-md">
-                                <p className="absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName}</p>
+                                <p className="flex gap-0.5 items-center absolute font-dmsans top-3 right-3 z-30 py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full lowercase">{newProject.categoryName} <hr className="rotate-90 w-4" /> <img className={`w-5 inline-block ${newProject.typeGoal === "funds" ? 'rotate-90' : ''}`} src={newProject.typeGoal === "funds" ? fundsWhite : collaboratorsWhite} alt="Project Type Icon" /></p>
                                 <div className="flex flex-col justify-center items-center h-full w-full bg-gray-300 rounded-md filter brightness-75">
                                     <img id="coverPreview" src={coverPicture && coverPicture.cover ? coverPicture.cover : `${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profileBanner`} className="h-full w-full rounded-md object-cover bg-555" />
                                 </div>

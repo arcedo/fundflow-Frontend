@@ -23,6 +23,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, logg
                                     projectCreator={project.creator}
                                     creatorUrl={project.userUrl}
                                     projectCategory={project.category}
+                                    projectType={project.collGoal ? 'collab' : 'fund'}
                                     likes={project.stats.likes ?? 0}
                                     dislikes={project.stats.dislikes ?? 0}
                                     fundedPercentage={project.percentageDone ?? 0}
