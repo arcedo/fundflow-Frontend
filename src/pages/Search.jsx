@@ -133,7 +133,7 @@ function Search() {
     useEffect(() => {
         setLimitProject({ skip: 0, limit: 6, seeMore: false, noMore: false });
         setLimitUser({ skip: 0, limit: 6, seeMore: false, noMore: false });
-    }, [searchQuery]);
+    }, [searchQuery, categoryQuery, statusQuery]);
 
     const searchCategory = (e) => {
         const categorySearch = e.target.innerText.charAt(0).toUpperCase() + e.target.innerText.slice(1);
