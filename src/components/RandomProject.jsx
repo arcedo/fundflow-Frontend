@@ -81,7 +81,7 @@ function RandomProject({ project, setProject }) {
                 </div>
                 <div className="flex flex-col lg:flex-row gap-4 lg:gap-10 mt-4 lg:mt-0 justify-between w-full">
                     <div className="w-fit">
-                        <p className="font-dmsans py-2 px-3 bg-gray-500 bg-opacity-75 text-white text-sm font-bold rounded-full select-none lowercase">{project.category}</p>
+                        <p className="font-dmsans py-2 px-3 bg-555/55 backdrop-blur-md text-white text-sm font-bold rounded-full select-none lowercase">{project.category}</p>
                     </div>
                     <div className="flex gap-7 justify-center lg:justify-normal">
                         <p className="font-dmsans text-black text-normal font-medium opacity-75 flex gap-2 items-end select-none"><span className="font-bold">{project ? project.percentageDone : '0'}%</span>funded</p>

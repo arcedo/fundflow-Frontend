@@ -9,6 +9,7 @@ import ProjectAbout from "./ProjectAbout";
 import ProjectTiers from "./ProjectTiers";
 import ProjectBlogs from "./ProjectBlogs";
 import evaluateProject from "../helpers/evaluateProject";
+import ProjectFeedback from "./ProjectFeedback";
 
 function ProjectSection({ project, editMode, setProject, userStats, setUserStats }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -60,11 +61,11 @@ function ProjectSection({ project, editMode, setProject, userStats, setUserStats
             case "blog":
                 return <ProjectBlogs project={project} editMode={editMode} setProject={setProject} />;
             case "feedback":
-                return (<p className="fade-in">feedback</p>);
-            case "contact":
-                return (<p className="fade-in">contact</p>);
+                return <ProjectFeedback project={project} editMode={editMode} setProject={setProject} />;
+            // case "contact":
+            //     return (<p className="fade-in">contact</p>);
             default:
-                return (<p className="fade-in">que</p>);
+                return (<p className="fade-in"></p>);
         }
     };
 
@@ -101,12 +102,12 @@ function ProjectSection({ project, editMode, setProject, userStats, setUserStats
                         >
                             feedback
                         </button>
-                        <button
+                        {/* <button
                             onClick={() => setActiveTab("contact")}
                             className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "contact" ? "border-black" : "border-transparent"}`}
                         >
                             contact
-                        </button>
+                        </button> */}
                     </div>
                     <div className="w-4/12 hidden sm:flex justify-end gap-8">
                         <button onClick={openProjectPurchaseModal} className="py-1 px-4 h-8 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Contribute</button>
