@@ -10,7 +10,9 @@ import { getLatestsProjects, getCategories, searchProjects, searchUsers } from "
 
 function Search() {
     const [searchParams, setSearchParams] = useSearchParams();
-    const searchQuery = searchParams.get("query");
+    const searchQuery = searchParams.get("query").replace(/\s/g, "_");
+    const categoryQuery = searchParams.get("category");
+    const statusQuery = searchParams.get("ended");
 
     const [categories, setCategories] = useState([]);
     const [projectsFound, setProjectsFound] = useState([]);
@@ -18,11 +20,27 @@ function Search() {
     const [limitProject, setLimitProject] = useState({ skip: 0, limit: 6, seeMore: false, noMore: false });
     const [limitUser, setLimitUser] = useState({ skip: 0, limit: 6, seeMore: false, noMore: false });
 
+    const [openChecked, setOpenChecked] = useState(false);
+    const [finishedChecked, setFinishedChecked] = useState(false);
+
+    const handleOpenChange = () => {
+        setOpenChecked(!openChecked);
+        setFinishedChecked(false);
+        setSearchParams({ ...searchParams, ended: "false" });
+    };
+
+    const handleFinishedChange = () => {
+        setFinishedChecked(!finishedChecked);
+        setOpenChecked(false);
+        setSearchParams({ ...searchParams, ended: "true" });
+    };
+
+    // TODO: ended check
     const fetchSearchProjects = async () => {
         if (limitProject.noMore) return;
 
         if (searchQuery) {
-            await searchProjects(searchQuery, limitProject.skip, limitProject.limit)
+            await searchProjects(searchQuery, limitProject.skip, limitProject.limit, categoryQuery ? categoryQuery : null, statusQuery ? statusQuery : null)
                 .then((data) => {
                     if (!data.message) {
                         if (limitProject.seeMore) {
@@ -85,7 +103,7 @@ function Search() {
 
     useEffect(() => {
         fetchSearchProjects();
-    }, [searchQuery, limitProject]);
+    }, [searchQuery, limitProject, categoryQuery, statusQuery]);
 
     useEffect(() => {
         fetchSearchUsers();
@@ -97,8 +115,8 @@ function Search() {
     }, [searchQuery]);
 
     const searchCategory = (e) => {
-        const category = e.target.innerText;
-        setSearchParams({ query: category });
+        const categorySearch = e.target.innerText.charAt(0).toUpperCase() + e.target.innerText.slice(1);
+        setSearchParams({ query: searchQuery, category: categories.find(category => category.name === categorySearch).id});
     };
 
     return (
@@ -110,12 +128,13 @@ function Search() {
                         <div className="flex flex-col gap-2">
                             <h3 className="font-dmsans text-2xl font-semibold text-opacity-70 text-black">categories</h3>
                             <ul className="flex flex-col gap-2">
+                                {/* TODO: add by category search for latest projects */}
                                 {categories.map((category) => (
-                                    <li key={category.id} onClick={searchCategory} className="w-fit lowercase font-dmsans text-black text-opacity-75 cursor-pointer hover:text-opacity-100 transition-colors duration-200">{category.name}</li>
+                                    <li key={category.id} onClick={searchCategory} className={`w-fit lowercase font-dmsans cursor-pointer hover:text-opacity-100 transition-colors duration-200 ${category.id === Number(categoryQuery) ? 'font-bold text-black text-opacity-100' : 'text-black text-opacity-75 ' }`}>{category.name}</li>
                                 ))}
                             </ul>
                             <h3 className="mt-3 font-dmsans text-2xl font-semibold text-opacity-70 text-black">filter by</h3>
-                            <p className="font-dmsans font-semibold text-black text-opacity-75">needs</p>
+                            {/* <p className="font-dmsans font-semibold text-black text-opacity-75">needs</p>
                             <div className="flex flex-col gap-2">
                                 <div className="flex gap-2.5 items-center">
                                     <label className="container w-fit">
@@ -135,12 +154,12 @@ function Search() {
                                     </label>
                                     <label htmlFor="collCheckbox" className="font-dmsans text-black text-opacity-75">collaborators</label>
                                 </div>
-                            </div>
+                            </div> */}
                             <p className="font-dmsans font-semibold text-black text-opacity-75">status</p>
                             <div className="flex flex-col gap-2">
                                 <div className="flex gap-2.5 items-center">
                                     <label className="container w-fit">
-                                        <input id="openCheckbox" type="checkbox" />
+                                        <input id="openCheckbox" type="checkbox" checked={openChecked} onChange={handleOpenChange} />
                                         <svg viewBox="0 0 64 64" height="1.3em" width="1.3em">
                                             <path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" className="path"></path>
                                         </svg>
@@ -149,7 +168,7 @@ function Search() {
                                 </div>
                                 <div className="flex gap-2.5 items-center">
                                     <label className="container w-fit">
-                                        <input id="finishedCheckbox" type="checkbox" />
+                                        <input id="finishedCheckbox" type="checkbox" checked={finishedChecked} onChange={handleFinishedChange}/>
                                         <svg viewBox="0 0 64 64" height="1.3em" width="1.3em">
                                             <path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" className="path"></path>
                                         </svg>
@@ -160,7 +179,16 @@ function Search() {
                         </div>
                     </div>
                     <div className="w-10/12 flex flex-col gap-5">
-                        <h2 className="font-dmsans text-4xl font-semibold text-opacity-70 text-black">search results for <span className="text-black text-opacity-100 font-bold">{searchQuery}</span></h2>
+                        <h2 className="font-dmsans text-4xl font-semibold text-opacity-70 text-black">
+                            search <span className={searchQuery === '' ? 'hidden' : ''}>
+                                results for <span className="text-black text-opacity-100 font-bold">{searchQuery.replace(/_/g, " ")}</span>
+                            </span>
+                            {categories.length > 0 && categoryQuery && (
+                                <span> in the <span className="text-black text-opacity-100 font-bold">
+                                    {categories.find(category => category.id === Number(categoryQuery)).name.toLowerCase()}
+                                </span> category</span>
+                            )}
+                        </h2>
                         <GridUserSection sectionTitle={"users"} usersFound={usersFound} />
                         <GridProjectSection sectionTitle={"projects"} projectsFound={projectsFound} search={3} />
                         {projectsFound && projectsFound.length > 0 && !limitProject.noMore && projectsFound.length % 3 === 0 ? (

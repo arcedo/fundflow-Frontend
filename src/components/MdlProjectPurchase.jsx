@@ -4,6 +4,7 @@ import MdlProcessPurchase from "./MdlProcessingPurchase";
 import { Link } from "react-router-dom";
 
 function MdlProjectPurchase({ onClose, tier, project, setProject }) {
+    // TODO handle collaborator application
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProcessPurchaseModal, setShowProcessPurchaseModal] = useState(false);
     const [total, setTotal] = useState(0);

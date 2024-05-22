@@ -75,6 +75,7 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
                     <img className="h-full w-full rounded-md object-cover" src={`${import.meta.env.VITE_API_URL}projects/${projectId}/cover`} alt={`Project ${projectName} Cover Image`} />
                 </Link>
             </div>
+            {/* TODO: add icon of collaborator/fund to thumbnail */}
             <div className="flex items-center justify-between gap-3 pt-3">
                 <div className="flex items-center justify-between gap-3">
                     <Link to={`/profile/${creatorUrl}`} className="h-12 w-12 rounded-full flex justify-center items-center overflow-hidden bg-gradient-to-r from-primary to-secondary group">

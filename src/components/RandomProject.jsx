@@ -25,6 +25,7 @@ function RandomProject({ project }) {
     }
     return (
         <>
+            {/* TODO: handle likes from this component */}
             <div className="w-full flex gap-3 flex-col lg:flex-row col-span-3 lg:h-full">
                 <div className="flex-1 relative lg:overflow-hidden rounded-md">
                     <div className="lg:absolute inset-0">

@@ -69,6 +69,7 @@ function ProjectSection({ project, editMode, setProject }) {
 
     return (
         <div className="flex flex-col justify-center items-center w-full">
+            {/* TODO: handle likes from this component */}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} />}
             {showLoginNeededModal && <MdlLoginNeeded onClose={closeLoginNeededModal} />}
             {showVerifyUserModal && <MdlVerifyUser onClose={closeVerifyUserModal} />}
