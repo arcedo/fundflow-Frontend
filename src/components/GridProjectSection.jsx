@@ -57,7 +57,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, logg
                 {seeMore && (
                     <div className="flex justify-center items-center mt-6 gap-3">
                         <hr className="w-6/12 border-black border-opacity-25" />
-                        <Link to={"/search"} className="font-dmsans w-6/12 md:w-2/12 lg:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">see more</Link>
+                        <Link to={"/search?query="} className="font-dmsans w-6/12 md:w-2/12 lg:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">see more</Link>
                         <hr className="w-6/12 border-black border-opacity-25" />
                     </div>
                 )}

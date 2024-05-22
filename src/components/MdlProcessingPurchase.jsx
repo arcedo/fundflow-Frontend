@@ -7,7 +7,6 @@ function MdlProcessPurchase({ onClose, project, total, setProject, setTotal }) {
     const [processing, setProcessing] = useState(true);
 
     useEffect(() => {
-        console.log(total);
         const purchase = async () => {
             await statsInteraction(localStorage.getItem('token'), project.id, null, null, total, null)
                 .then(async (res) => {
