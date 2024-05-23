@@ -15,6 +15,7 @@ import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import NewProject from "./pages/NewProject";
 import Project from "./pages/Project";
+import AdminPanel from "./pages/AdminPanel";
 
 export default function App() {
   return (
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/verifyEmail/:code" element={<Verify />} />
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="*" element={<Error404 />} />
+          <Route path="/wp-admin" element={<AdminPanel />} />
         </Routes>
       </Router>
     </>

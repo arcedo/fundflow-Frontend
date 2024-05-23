@@ -287,3 +287,18 @@ export async function searchProjects(query, skip, limit, category, ended) {
 export async function searchUsers(query, skip, limit) {
     return await fetchDataGet(`${server}users/search/user?search=${query}&startIndex=${skip}&limit=${limit}`);
 }
+
+// reviews
+
+export async function getProjectReviews(projectId) {
+    return await fetchDataGet(`${server}projects/${projectId}/reviews`);
+}
+
+export async function postReview(projectId, token, body, rating, userUrl, username, idCreator, projectUrl) {
+    console.log(rating);
+    return await fetchDataAuth('POST', `${server}projects/${projectId}/reviews`, token, { body, "rating": rating, userUrl, username, idCreator, projectUrl });
+}
+
+export async function deleteReview(token, projectId, reviewId) {
+    return await fetchDataAuth('DELETE', `${server}projects/${projectId}/reviews/${reviewId}`, token);
+}
