@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import GridProjectSection from "./GridProjectSection";
 import ProfileFeedback from "./ProfileFeedback";
 
-function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects }) {
+function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects, user }) {
     const [activeTab, setActiveTab] = useState("projects");
 
     const renderSection = () => {
@@ -10,7 +10,7 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
             case "collaborating":
                 return (<GridProjectSection search={4} key="collab" projectsFound={collaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} />);
             case "feedback":
-                return (<ProfileFeedback key="feedback" />);
+                return (<ProfileFeedback key={'feedback'} user={user} />);
             case "liked":
                 return (<GridProjectSection search={4} key="liked" projectsFound={likedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />);
             case "disliked":

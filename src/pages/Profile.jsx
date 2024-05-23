@@ -209,7 +209,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} likedProjects={likedProjects} dislikedProjects={dislikedProjects} collaboratingProjects={collaboratingProjects} />
+            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} likedProjects={likedProjects} dislikedProjects={dislikedProjects} collaboratingProjects={collaboratingProjects} user={user} />
             <Footer />
         </div >
     );

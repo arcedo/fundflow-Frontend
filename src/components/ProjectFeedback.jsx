@@ -18,15 +18,13 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
             .then((data) => {
                 if (data) {
                     setReviews(data);
-                    console.log('reviews', data);
                 }
             })
     }
 
     const handlePostReview = async () => {
-        await postReview(project.id, localStorage.getItem('token'), newReview.content, newReview.evaluation, userData.userUrl, project.creator, project.idUser, project.projectUrl)
+        await postReview(project.id, localStorage.getItem('token'), newReview.content, newReview.evaluation, userData.userUrl, project.title, project.idUser, project.projectUrl)
             .then((data) => {
-                console.log(data);
                 if (data._id) {
                     setNewReview({ evaluation: '', content: '' });
                     setReviews([...reviews, data]);
@@ -105,7 +103,7 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                         <div key={review._id} className={`flex gap-2.5 items-end w-full ${reviews.length - 1 === index ? 'border-none' : 'border-b-2'} border-555/55 pb-6 font-dmsans`}>
                             <img src={review.rating ? positiveReview : negativeReview} alt="" className={`w-12 h-12 rounded-full object-contain ${review.rating ? 'rotate-0' : 'rotate-180'}`} />
                             <div className="flex flex-col gap-1 w-11/12">
-                                <Link to={`/profile/${review.userUrl}`} className="text-black opacity-75 font-medium hover:text-secondary transition-colors duration-200 w-fit">{review.userUrl}</Link>
+                                <Link to={`/profile/${review.userUrl}`} className="text-black opacity-75 font-medium hover:text-secondary transition-colors duration-200 w-fit">@{review.userUrl}</Link>
                                 <p className="font-normal text-black">{review.body}</p>
                             </div>
                             {review.userUrl === userData.userUrl &&

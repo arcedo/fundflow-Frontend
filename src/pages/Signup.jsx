@@ -80,7 +80,7 @@ function Signup() {
 
             if (userResponse && userResponse.token) {
                 localStorage.setItem('token', userResponse.token);
-                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail }));
+                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail, role: userResponse.role }));
                 navigate('/');
             }
             if (userResponse && userResponse.message) {
@@ -109,7 +109,7 @@ function Signup() {
                     const userResponse = await loginGoogle(codeResponse.access_token);
                     if (userResponse && userResponse.token) {
                         localStorage.setItem('token', userResponse.token);
-                        localStorage.setItem('userData', JSON.stringify(userResponse));
+                        localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail, role: userResponse.role }));
                         navigate('/');
                     }
                     if (userResponse && userResponse.message) {

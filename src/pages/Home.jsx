@@ -21,7 +21,7 @@ function Home() {
             if (userData) {
                 byInterestProjectsData = await getProjectsByInterest(localStorage.getItem('token'), 0, 4);
             }
-            if (byInterestProjectsData.length === 0) {
+            if (byInterestProjectsData.length === 0 || byInterestProjectsData.message) {
                 byInterestProjectsData = await getRandomProjects(0, 4);
             }
             const popularProjectsData = await getRandomProjects(0, 4);
@@ -33,7 +33,6 @@ function Home() {
 
         fetchProjects();
     }, []);
-
     return (
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header />

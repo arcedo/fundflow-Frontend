@@ -6,30 +6,46 @@ import Footer from "../components/Footer";
 import wordpress from "../assets/icons/wordpress.svg";
 import logoLight from "../assets/icons/logoLight.png";
 import cross from "../assets/icons/cross.svg";
-import { getUsersAdmin } from "../services";
+import { getUsersAdmin, getProjectsAdmin, deleteProject, deleteUserAdmin } from "../services";
 
 function AdminPanel() {
+    let navigate = useNavigate();
+    const userData = JSON.parse(localStorage.getItem('userData'));
     const [users, setUsers] = useState([]);
+    const [projects, setProjects] = useState([]);
 
-    let Navigate = useNavigate();
 
     useEffect(() => {
-        getUsers();
+        if (!userData || !userData.role) {
+            navigate('/');
+        } else {
+            getUsers();
+        }
     }, []);
 
     const getUsers = async () => {
         await getUsersAdmin(localStorage.getItem("token"), 0, 100)
-        .then((data) => {
-            console.log(data);
-            if (data.length > 0){
-                setUsers(data);
-            }
-        })
+            .then((data) => {
+                if (data.length > 0) {
+                    setUsers(data);
+                } else if (data.message === "Not allowed") {
+                    navigate('/');
+                }
+            });
+        await getProjectsAdmin(localStorage.getItem("token"), 0, 100)
+            .then((data) => {
+                if (data.length > 0) {
+                    setProjects(data);
+                } else if (data.message === "Unauthorized") {
+                    navigate('/');
+                }
+            });
     }
-
+    console.log(users);
+    console.log(projects);
     return (
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
-            <Header categoriesDisabled={true}/>
+            <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center gap-10 pt-28 fade-in">
                 <div className="w-full flex flex-col items-center justify-center mt-10 gap-5">
                     <div className="w-2/3 flex gap-2 items-center justify-start">
@@ -60,7 +76,7 @@ function AdminPanel() {
                                                     <td className="py-2 px-4">{user.username}</td>
                                                     <td className="py-2 px-4">{user.email}</td>
                                                     <td className="py-2 px-4">
-                                                        <button className="bg-red-500 text-white rounded-lg px-2 py-1">Delete</button>
+                                                        <button className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white rounded-lg px-2 py-1">Delete</button>
                                                     </td>
                                                 </tr>
                                             );

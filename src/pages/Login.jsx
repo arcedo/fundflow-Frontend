@@ -43,7 +43,7 @@ function Login() {
             const userResponse = await login(username.value, password.value);
             if (userResponse && userResponse.token) {
                 localStorage.setItem('token', userResponse.token);
-                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail }));
+                localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail, role: userResponse.role }));
                 navigate('/');
             }
             setUser(userResponse); // Update the user state
@@ -69,7 +69,7 @@ function Login() {
                     const userResponse = await loginGoogle(codeResponse.access_token);
                     if (userResponse && userResponse.token) {
                         localStorage.setItem('token', userResponse.token);
-                        localStorage.setItem('userData', JSON.stringify(userResponse));
+                        localStorage.setItem('userData', JSON.stringify({ userUrl: userResponse.userUrl, verifiedEmail: userResponse.verifiedEmail, role: userResponse.role }));
                         navigate('/');
                     }
                     setUser(userResponse); // Update the user state

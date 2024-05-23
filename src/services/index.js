@@ -294,21 +294,31 @@ export async function getProjectReviews(projectId) {
     return await fetchDataGet(`${server}projects/${projectId}/reviews`);
 }
 
-export async function postReview(projectId, token, body, rating, userUrl, username, idCreator, projectUrl) {
-    console.log(rating);
-    return await fetchDataAuth('POST', `${server}projects/${projectId}/reviews`, token, { body, "rating": rating, userUrl, username, idCreator, projectUrl });
+export async function postReview(projectId, token, body, rating, userUrl, projectName, idCreator, projectUrl) {
+    return await fetchDataAuth('POST', `${server}projects/${projectId}/reviews`, token, { body, rating, userUrl, projectName, idCreator, projectUrl });
 }
 
 export async function deleteReview(token, projectId, reviewId) {
     return await fetchDataAuth('DELETE', `${server}projects/${projectId}/reviews/${reviewId}`, token);
 }
 
-export async function getReviewsByUser(token) {
-    return await fetchDataAuth('GET', `${server}projects/byUser/reviewing`, token);
+export async function getReviewsByUser(idUser) {
+    return await fetchDataGet(`${server}projects/reviewing/byUser/${idUser}`);
+}
+
+export async function getReviewsToUser(idUser) {
+    return await fetchDataGet(`${server}projects/reviewed/byUser/${idUser}`);
 }
 
 // admin
-
 export async function getUsersAdmin(token, skip, limit) {
     return await fetchDataAuth('GET', `${server}users/admin/panel?startIndex=${skip}&limit=${limit}`, token);
+}
+
+export async function getProjectsAdmin(token, skip, limit) {
+    return await fetchDataAuth('GET', `${server}projects/admin/panel?startIndex=${skip}&limit=${limit}`, token);
+}
+
+export async function deleteUserAdmin(token, userId) {
+    return await fetchDataAuth('DELETE', `${server}users/${userId}`, token);
 }
