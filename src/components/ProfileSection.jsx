@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GridProjectSection from "./GridProjectSection";
+import ProfileFeedback from "./ProfileFeedback";
 
 function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects }) {
     const [activeTab, setActiveTab] = useState("projects");
@@ -9,7 +10,7 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
             case "collaborating":
                 return (<GridProjectSection search={4} key="collab" projectsFound={collaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} />);
             case "feedback":
-                return (<p className="fade-in">wawa</p>);
+                return (<ProfileFeedback key="feedback" />);
             case "liked":
                 return (<GridProjectSection search={4} key="liked" projectsFound={likedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />);
             case "disliked":

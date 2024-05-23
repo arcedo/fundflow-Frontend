@@ -5,13 +5,13 @@ import negativeReview from "../assets/icons/negativeReview.svg";
 import { getProjectReviews, postReview, deleteReview } from "../services";
 import cross from "../assets/icons/cross.svg";
 
-function ProjectFeedback({ project, userStats, userData }) {
+function ProjectFeedback({ project, userStats, userData, setProject }) {
     const [newReview, setNewReview] = useState({ evaluation: '', content: '' });
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
         fetchReviews();
-    }, [project]);
+    }, [project, setProject]);
 
     const fetchReviews = async () => {
         await getProjectReviews(project.id)
@@ -105,7 +105,7 @@ function ProjectFeedback({ project, userStats, userData }) {
                         <div key={review._id} className={`flex gap-2.5 items-end w-full ${reviews.length - 1 === index ? 'border-none' : 'border-b-2'} border-555/55 pb-6 font-dmsans`}>
                             <img src={review.rating ? positiveReview : negativeReview} alt="" className={`w-12 h-12 rounded-full object-contain ${review.rating ? 'rotate-0' : 'rotate-180'}`} />
                             <div className="flex flex-col gap-1 w-11/12">
-                                <Link to="." className="text-black opacity-75 font-medium hover:text-secondary transition-colors duration-200 w-fit">{review.userUrl}</Link>
+                                <Link to={`/profile/${review.userUrl}`} className="text-black opacity-75 font-medium hover:text-secondary transition-colors duration-200 w-fit">{review.userUrl}</Link>
                                 <p className="font-normal text-black">{review.body}</p>
                             </div>
                             {review.userUrl === userData.userUrl &&

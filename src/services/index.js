@@ -303,6 +303,10 @@ export async function deleteReview(token, projectId, reviewId) {
     return await fetchDataAuth('DELETE', `${server}projects/${projectId}/reviews/${reviewId}`, token);
 }
 
+export async function getReviewsByUser(token) {
+    return await fetchDataAuth('GET', `${server}projects/byUser/reviewing`, token);
+}
+
 // admin
 
 export async function getUsersAdmin(token, skip, limit) {
