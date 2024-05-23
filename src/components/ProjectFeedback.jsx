@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import positiveReview from "../assets/icons/positiveReview.svg";
 import negativeReview from "../assets/icons/negativeReview.svg";
 
-function ProjectFeedback({ project }) {
-    const userData = JSON.parse(localStorage.getItem('userData'));
+function ProjectFeedback({ project, userStats, userData }) {
     return (
         <section className="w-full flex flex-col gap-16 justify-center items-center min-h-56 py-5 fade-in">
             <div className="w-full">
@@ -22,7 +21,7 @@ function ProjectFeedback({ project }) {
                 </div>
             </div>
             {
-                userData && <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
+                userData && userStats && (userStats.funded || userStats.collaborator) && <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
                     <div className="w-11/12 mx-auto">
                         <h2 className="font-dmsans font-bold text-2xl opacity-60">write your review</h2>
                         <div className="flex gap-5 justify-center py-5">
@@ -35,11 +34,11 @@ function ProjectFeedback({ project }) {
                                     <div className="flex items-center gap-8">
                                         <p className="font-medium">How would you rate this project?</p>
                                         <div className="flex gap-3">
-                                            <button className="flex justify-center items-center border border-black px-1 rounded-md pr-3">
+                                            <button className="flex justify-center items-center px-1 rounded-md pr-3">
                                                 <img src={positiveReview} alt="" className="w-10 h-10" />
                                                 Positive
                                             </button>
-                                            <button className="flex justify-center items-center border border-black px-1 rounded-md pr-3">
+                                            <button className="flex justify-center items-center px-1 rounded-md pr-3">
                                                 <img src={negativeReview} alt="" className="w-10 h-10 rotate-180" />
                                                 Negative
                                             </button>

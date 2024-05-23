@@ -61,7 +61,7 @@ function ProjectSection({ project, editMode, setProject, userStats, setUserStats
             case "blog":
                 return <ProjectBlogs project={project} editMode={editMode} setProject={setProject} />;
             case "feedback":
-                return <ProjectFeedback project={project} editMode={editMode} setProject={setProject} />;
+                return <ProjectFeedback project={project} editMode={editMode} setProject={setProject} userStats={userStats} userData={userData} />;
             // case "contact":
             //     return (<p className="fade-in">contact</p>);
             default:
