@@ -11,40 +11,38 @@ function ProjectFeedback({ project, userStats, userData }) {
 
     useEffect(() => {
         fetchReviews();
-    }, [project, setNewReview]);
+    }, [project]);
 
     const fetchReviews = async () => {
         await getProjectReviews(project.id)
-        .then((data) => {
-            if (data) {
-                setReviews(data);
-                console.log('reviews',data);
-            }
-        })
+            .then((data) => {
+                if (data) {
+                    setReviews(data);
+                    console.log('reviews', data);
+                }
+            })
     }
 
     const handlePostReview = async () => {
         await postReview(project.id, localStorage.getItem('token'), newReview.content, newReview.evaluation, userData.userUrl, project.creator, project.idUser, project.projectUrl)
-        .then((data) => {
-            console.log(data);
-            if (data) {
-                setNewReview({ evaluation: '', content: '' });
-                console.log('Review posted successfully');
-            }
-        })
+            .then((data) => {
+                console.log(data);
+                if (data._id) {
+                    setNewReview({ evaluation: '', content: '' });
+                    setReviews([...reviews, data]);
+                }
+            })
     }
 
     const handleDeleteReview = async (reviewId) => {
         await deleteReview(localStorage.getItem('token'), project.id, reviewId)
-        .then((data) => {
-            console.log(data);
-            if (data) {
-                console.log('Review deleted successfully');
-                fetchReviews();
-            }
-        })
+            .then((data) => {
+                if (data.code === 200) {
+                    setReviews(reviews.filter(review => review._id !== reviewId));
+                }
+            })
     }
-            
+    //TODO collaborate and try to review with out reloading the page
     return (
         <section className="w-full flex flex-col gap-16 justify-center items-center min-h-56 py-5 fade-in">
             <div className="w-full">
@@ -52,12 +50,16 @@ function ProjectFeedback({ project, userStats, userData }) {
                 <div className="flex items-center gap-12 pt-8">
                     <div>
                         <p className="text-black text-xl font-dmsans font-semibold">Positive</p>
-                        <p className="font-montserrat text-lg font-medium">123</p>
+                        <p className="font-montserrat text-lg font-medium">
+                            {reviews ? reviews.filter(review => review.rating === true).length : 0}
+                        </p>
                     </div>
                     <hr className="rotate-90 border-black w-12" />
                     <div >
                         <p className="text-black text-xl font-dmsans font-semibold">Negative</p>
-                        <p className="font-montserrat text-lg font-medium">123</p>
+                        <p className="font-montserrat text-lg font-medium">
+                            {reviews ? reviews.filter(review => review.rating === false).length : 0}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -98,15 +100,19 @@ function ProjectFeedback({ project, userStats, userData }) {
             }
             <div className="w-full">
                 <h2 className="font-dmsans font-bold text-2xl opacity-60">reviews</h2>
-                <div className="w-full flex flex-col items-center gap-6 pt-8">
-                    {reviews.length > 0 ? reviews.map((review) => (
-                        <div key={review._id} className="relative flex gap-2.5 items-end w-full border-b-2 border-555/55 pb-6 font-dmsans">
-                            {review.userUrl === userData.userUrl && <button onClick={() => handleDeleteReview(review._id)} className="absolute top-0 right-0 flex justify-center items-center w-8 h-8 rounded-full bg-red-600 hover:bg-red-700 transition-all duration-200"><img src={cross} alt="" className="w-4 h-4" /></button>}
+                <div className="w-full flex flex-col justify-around items-center gap-6 pt-8">
+                    {reviews.length > 0 ? reviews.map((review, index) => (
+                        <div key={review._id} className={`flex gap-2.5 items-end w-full ${reviews.length - 1 === index ? 'border-none' : 'border-b-2'} border-555/55 pb-6 font-dmsans`}>
                             <img src={review.rating ? positiveReview : negativeReview} alt="" className={`w-12 h-12 rounded-full object-contain ${review.rating ? 'rotate-0' : 'rotate-180'}`} />
-                            <div className="flex flex-col gap-1">
+                            <div className="flex flex-col gap-1 w-11/12">
                                 <Link to="." className="text-black opacity-75 font-medium hover:text-secondary transition-colors duration-200 w-fit">{review.userUrl}</Link>
                                 <p className="font-normal text-black">{review.body}</p>
                             </div>
+                            {review.userUrl === userData.userUrl &&
+                                <button onClick={() => handleDeleteReview(review._id)} className="flex justify-center items-center w-8 h-8 rounded-full bg-white/55 shadow-md border-black/5 border hover:bg-red-600 transition-all duration-200 group">
+                                    <img src={cross} alt="" className="w-4 h-4 grayscale-0 group-hover:grayscale" />
+                                </button>
+                            }
                         </div>
                     )) : <p className="font-dmsans text-black opacity-75">no reviews yet</p>}
                 </div>
