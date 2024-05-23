@@ -65,6 +65,10 @@ export async function getLatestsProjects(skip, limit, category, ended) {
     return await fetchDataGet(`${server}projects?startIndex=${skip}&limit=${limit}${category ? `&category=${category}` : ''}${ended ? `&ended=${ended}` : ''}`);
 }
 
+export async function getProjectsByInterest(token, skip, limit) {
+    return await fetchDataAuth('GET', `${server}projects/byInterests?startIndex=${skip}&limit=${limit}`, token);
+}
+
 export async function getRandomProjects(skip, limit, lastId) {
     return await fetchDataGet(`${server}projects/random?startIndex=${skip}&limit=${limit}${lastId ? `&lastId=${lastId}` : ''}`);
 }
