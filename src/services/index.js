@@ -302,3 +302,9 @@ export async function postReview(projectId, token, body, rating, userUrl, userna
 export async function deleteReview(token, projectId, reviewId) {
     return await fetchDataAuth('DELETE', `${server}projects/${projectId}/reviews/${reviewId}`, token);
 }
+
+// admin
+
+export async function getUsersAdmin(token, skip, limit) {
+    return await fetchDataAuth('GET', `${server}users/admin/panel?startIndex=${skip}&limit=${limit}`, token);
+}
