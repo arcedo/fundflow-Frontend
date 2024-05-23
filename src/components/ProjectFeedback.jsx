@@ -4,6 +4,7 @@ import positiveReview from "../assets/icons/positiveReview.svg";
 import negativeReview from "../assets/icons/negativeReview.svg";
 
 function ProjectFeedback({ project, userStats, userData }) {
+    const [newReview, setNewReview] = useState({ evaluation: '', content: '' });
     return (
         <section className="w-full flex flex-col gap-16 justify-center items-center min-h-56 py-5 fade-in">
             <div className="w-full">
@@ -29,16 +30,17 @@ function ProjectFeedback({ project, userStats, userData }) {
                                 <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="user image" className="w-full h-full" />
                             </div>
                             <div className="w-11/12 flex flex-col justify-center gap-4 font-dmsans">
-                                <textarea name="" id="" placeholder="what do you think of this project?" className="p-3 resize-none w-full rounded-md border border-black border-opacity-20" rows={5}></textarea>
+                                <label className="hidden" htmlFor="newReview">Review content</label>
+                                <textarea name="newReview" id="newReview" placeholder="what do you think of this project?" value={newReview.content} onChange={(e) => setNewReview({ ...newReview, content: e.target.value })} className="p-3 resize-none w-full rounded-md border border-black border-opacity-20" rows={5}></textarea>
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-8">
                                         <p className="font-medium">How would you rate this project?</p>
                                         <div className="flex gap-3">
-                                            <button className="flex justify-center items-center px-1 rounded-md pr-3">
+                                            <button onClick={() => setNewReview({ ...newReview, evaluation: true })} className={`flex justify-center border-2 ${newReview.evaluation === true ? ' border-green-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3`}>
                                                 <img src={positiveReview} alt="" className="w-10 h-10" />
                                                 Positive
                                             </button>
-                                            <button className="flex justify-center items-center px-1 rounded-md pr-3">
+                                            <button onClick={() => setNewReview({ ...newReview, evaluation: false })} className={`flex justify-center border-2 ${newReview.evaluation === false ? ' border-red-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3`}>
                                                 <img src={negativeReview} alt="" className="w-10 h-10 rotate-180" />
                                                 Negative
                                             </button>
