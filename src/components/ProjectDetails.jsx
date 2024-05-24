@@ -114,7 +114,7 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                                 <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.stats ? project.stats.collaborators : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>
                             }
                             {projectType === 'funds' ?
-                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.stats ? project.stats.funders : '0'}</span> funders</p>
+                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.stats ? project.stats.funders : '0'}</span> funders{userStats && userStats.funded ? <span>, including <span className="font-bold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">you</span> with a <span className="font-bold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{userStats.funded}{project.currency}</span> total.</span> : null}</p>
                                 :
                                 null
                             }
@@ -136,12 +136,18 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                             </button>
                         ) : (
                             remainingHours > 0 ? (
-                                <button
-                                    onClick={openProjectPurchaseModal}
-                                    className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
-                                >
-                                    Help this project
-                                </button>
+                                userStats && userStats.collaborator ? (
+                                    <button className="mt-2 h-12 bg-gray-300 border-none rounded-lg text-black font-dmsans font-bold cursor-not-allowed">
+                                        You are already involved in this project
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={openProjectPurchaseModal}
+                                        className="mt-2 h-12 bg-gradient-to-r from-primary to-secondary border-none hover:opacity-75 transition-all duration-200 rounded-lg text-white font-dmsans font-bold"
+                                    >
+                                        Help this project
+                                    </button>
+                                )
                             ) : (
                                 <button className="mt-2 h-12 bg-gray-300 border-none rounded-lg text-black font-dmsans font-bold cursor-not-allowed">
                                     Project ended

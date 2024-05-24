@@ -15,7 +15,7 @@ function MdlProcessPurchase({ onClose, project, total, setProject, setTotal, use
                         await getProjectStats(project.id)
                             .then((stats) => {
                                 setProject({ ...project, stats, percentageDone: (stats.funded / project.priceGoal) * 100 });
-                                setUserStats({ ...userStats, funded: userStats.funded + total });
+                                setUserStats({ ...userStats, funded: userStats.funded + Number(total) });
                                 setProcessing(false);
                                 setTimeout(() => {
                                     onClose();
