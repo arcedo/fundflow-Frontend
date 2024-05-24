@@ -40,7 +40,6 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                 }
             })
     }
-    //TODO collaborate and try to review with out reloading the page
     return (
         <section className="w-full flex flex-col gap-16 justify-center items-center min-h-56 py-5 fade-in">
             <div className="w-full">
