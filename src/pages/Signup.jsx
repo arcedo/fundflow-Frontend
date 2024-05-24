@@ -15,6 +15,7 @@ function Signup() {
         if (localStorage.getItem('token')) {
             navigate('/');
         }
+        document.title = 'sign up · fundflow';
     }, []);
 
     //TODO: Optimize this function

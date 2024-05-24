@@ -33,7 +33,8 @@ function Project() {
                             .then((res) => {
                                 blogs.push(...res);
                             });
-                        setProject({ ...data, tiers, blogs });
+                        setProject({ ...data, tiers, blogs });                        
+                        document.title = (data.title ?? 'unknown project') + ' · fundflow';
                     }
                     if ((editMode && !userData) || (editMode && userData.userUrl !== data.userUrl)) {
                         navigate('/projects/' + projectUrl);

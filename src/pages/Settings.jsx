@@ -41,6 +41,7 @@ function Settings() {
 
     const [currentUser, setCurrentUser] = useState({ username: '', email: '', biography: '' });
     useEffect(() => {
+        document.title = 'settings · fundflow';
         const fetchUser = async () => {
             await getLoggedUser(localStorage.getItem('token'))
                 .then(user => {
