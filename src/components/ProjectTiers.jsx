@@ -89,7 +89,9 @@ function ProjectTiers({ project, editMode, setProject }) {
                                             <p className="text-black font-dmsans font-bold text-3xl">{tier && tier.price}{project.currency}</p>
                                         </div>
                                         <button onClick={() => openProjectPurchaseModal(tier, project)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
-                                        <p className="text-black font-dmsans font-normal text-opacity-75">{tier && tier.description}</p>
+                                        <div className="h-36 overflow-y-auto">
+                                            <p className="text-black font-dmsans font-normal text-opacity-75">{tier && tier.description}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

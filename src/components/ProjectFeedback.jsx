@@ -8,6 +8,7 @@ import cross from "../assets/icons/cross.svg";
 function ProjectFeedback({ project, userStats, userData, setProject }) {
     const [newReview, setNewReview] = useState({ evaluation: '', content: '' });
     const [reviews, setReviews] = useState([]);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         fetchReviews();
@@ -23,6 +24,21 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
     }
 
     const handlePostReview = async () => {
+        if (!newReview.content.trim()) {
+            setError("Review content cannot be empty.");
+            setTimeout(() => {
+                setError("");
+            }, 2000);
+            return;
+        }
+        if (newReview.evaluation === '') {
+            setError("Please select an evaluation.");
+            setTimeout(() => {
+                setError("");
+            }, 2000);
+            return;
+        }
+        setError("");
         await postReview(project.id, localStorage.getItem('token'), newReview.content, newReview.evaluation, userData.userUrl, project.title, project.idUser, project.projectUrl)
             .then((data) => {
                 if (data._id) {
@@ -52,7 +68,7 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                         </p>
                     </div>
                     <hr className="rotate-90 border-black w-12" />
-                    <div >
+                    <div>
                         <p className="text-black text-xl font-dmsans font-semibold">Negative</p>
                         <p className="font-montserrat text-lg font-medium">
                             {reviews && reviews.length > 0 ? reviews.filter(review => review.rating === false).length : 0}
@@ -61,21 +77,22 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                 </div>
             </div>
             {
-                userData && userStats && (userStats.funded || userStats.collaborator) && reviews && reviews.filter(review => review.userUrl === userData.userUrl).length === 0 && <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
+                userData && userStats && (userStats.funded || userStats.collaborator) && reviews && reviews.filter(review => review.userUrl === userData.userUrl).length === 0 &&
+                <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
                     <div className="w-11/12 mx-auto">
                         <h2 className="font-dmsans font-bold text-2xl opacity-60">write your review</h2>
-                        <div className="flex gap-5 justify-center py-5">
+                        <div className="flex flex-col lg:flex-row gap-5 justify-center py-5">
                             <div className="rounded-full w-16 h-16 flex justify-center items-center overflow-hidden shadow-md">
                                 <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="user image" className="w-full h-full" />
                             </div>
-                            <div className="w-11/12 flex flex-col justify-center gap-4 font-dmsans">
+                            <div className="w-full lg:w-11/12 flex flex-col justify-center gap-4 font-dmsans">
                                 <div className="">
                                     <label className="hidden" htmlFor="newReview">Review content</label>
                                     <textarea name="newReview" id="newReview" placeholder="what do you think of this project?" value={newReview.content} onChange={(e) => setNewReview({ ...newReview, content: e.target.value })} className="p-3 resize-none w-full rounded-md border border-black border-opacity-20" rows={5}></textarea>
                                     <p className="font-medium text-black opacity-60">You can only post one review per project</p>
                                 </div>
-                                <div className="flex justify-between items-center">
-                                    <div className="flex items-center gap-8">
+                                <div className="flex flex-col lg:flex-row justify-between items-center">
+                                    <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-8">
                                         <p className="font-medium">How would you rate this project?</p>
                                         <div className="flex gap-3">
                                             <button onClick={() => setNewReview({ ...newReview, evaluation: true })} className={`flex justify-center border-2 ${newReview.evaluation === true ? ' border-green-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3`}>
@@ -88,8 +105,9 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                                             </button>
                                         </div>
                                     </div>
-                                    <button onClick={handlePostReview} className="flex justify-center items-center font-semibold text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none h-11 w-2/12">Post review</button>
+                                    <button onClick={handlePostReview} className="flex justify-center items-center font-semibold text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none h-11 w-full mt-4 lg:mt-0 lg:w-2/12">Post review</button>
                                 </div>
+                                {error && <p className="text-red-500">{error}</p>}
                             </div>
                         </div>
                     </div>
@@ -105,7 +123,7 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                                 <Link to={`/profile/${review.userUrl}`} className="text-black opacity-75 font-medium hover:text-secondary transition-colors duration-200 w-fit">@{review.userUrl}</Link>
                                 <p className="font-normal text-black">{review.body}</p>
                             </div>
-                            {review.userUrl === userData.userUrl &&
+                            {userData && review.userUrl === userData.userUrl &&
                                 <button onClick={() => handleDeleteReview(review._id)} className="flex justify-center items-center w-8 h-8 rounded-full bg-white/55 shadow-md border-black/5 border hover:bg-red-600 transition-all duration-200 group">
                                     <img src={cross} alt="" className="w-4 h-4 grayscale-0 group-hover:grayscale" />
                                 </button>
