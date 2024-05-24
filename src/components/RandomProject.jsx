@@ -26,6 +26,7 @@ function RandomProject({ project, setProject }) {
             const response = await likeProject(localStorage.getItem('token'), project.id, project.idCategory);
             if (response.code !== 404) {
                 setUserStats(response);
+                setProject({ ...project, stats: { ...project.stats, likes: project.stats.likes + 1 } });
             }
         }
     }
