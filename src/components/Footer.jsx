@@ -8,11 +8,11 @@ import Background from '../assets/animateFooter.svg';
 
 function Footer() {  
     return (
-        <div className="flex flex-col justify-center items-center w-full py-5 text-black" style={{ backgroundImage: `url(${Background})`, backgroundSize: 'cover' }}>
+        <div className="font-dmsans flex flex-col justify-center items-center w-full py-5 text-black" style={{ backgroundImage: `url(${Background})`, backgroundSize: 'cover' }}>
             <div className="flex flex-col sm:flex-row w-10/12 py-8 justify-between items-center">
                 <div className="grid grid-cols-2 sm:w-1/2 w-full">
                     <div className="flex flex-col gap-3 sm:w-1/2">
-                        <h3 className="font-dmsans text-2xl font-bold">about</h3>
+                        <h3 className="text-2xl font-bold">about</h3>
                         <Link className="text-black text-opacity-75 font-normal hover:font-semibold transition-all duration-200 w-fit" to={"/about"}>about us</Link>
                         <Link className="text-black text-opacity-75 font-normal hover:font-semibold transition-all duration-200 w-fit" to={"/about"}>our mission</Link>
                     </div>
@@ -27,7 +27,7 @@ function Footer() {
                         <div className="flex gap-3 py-8 sm:py-0 justify-center sm:justify-end">
                             <Link to={"https://www.facebook.com"} className="w-8 h-8rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={facebook}></img></Link>
                             <Link to={"https://www.twitter.com"} className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={twitter}></img></Link>
-                            <Link to={"https://www.youtube.com"} className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={youtube}></img></Link>
+                            <Link to={"https://www.youtube.com/watch?v=jWwb-LJAAoM"} className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={youtube}></img></Link>
                             <Link to={"https://www.instagram.com"} className="w-8 h-8 rounded-full grayscale hover:-translate-y-1 hover:grayscale-0 transition-all duration-300"><img className="w-full" src={instagram}></img></Link>
                         </div>
                         <div className="text-center sm:text-right">

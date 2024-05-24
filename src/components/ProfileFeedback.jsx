@@ -29,7 +29,7 @@ function ProfileFeedback({ user }) {
 
     return (
         <section className="w-full flex flex-col gap-16 justify-center items-center min-h-56 py-5 fade-in">
-            <div className="flex w-full gap-48">
+            <div className="flex flex-col lg:flex-row w-full gap-16 lg:gap-48">
                 <div className="w-fit">
                     <h2 className="font-dmsans font-bold text-2xl opacity-60">others' ratings</h2>
                     <div className="flex items-center gap-12 pt-8">

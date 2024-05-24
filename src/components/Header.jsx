@@ -138,7 +138,7 @@ function Header({ categoriesDisabled }) {
                         <button onClick={openCreateProjectModal} className="block lg:hidden justify-center items-center rounded-full p-1 font-dmsans font-semibold text-xl text-white bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
                             <img className="w-12 md:w-9" src={plus} alt="" />
                         </button>
-                        <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black overflow-hidden'} h-11 w-11 shadow-md group flex justify-center items-center rounded-full`}>
+                        <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black overflow-hidden w-auto h-auto lg:w-11 lg:h-11 px-0.5'} h-11 w-11 shadow-md group flex justify-center items-center rounded-full`}>
                             {userData ? <div className="relative">
                                 {userData.verifiedEmail ? null : <div className="bg-white absolute z-30 -top-2 -right-2 rounded-full"><img src={alert} alt="" className="w-7" /></div>}
                                 <div className="h-11 w-11 overflow-hidden rounded-full">

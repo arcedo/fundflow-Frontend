@@ -22,7 +22,7 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
 
     return (
         <div className="flex flex-col justify-center items-center w-full gap-5 mt-7 fade-in" style={{ animationDelay: `0.15s` }}>
-            <div className="flex justify-start items-end gap-8 w-10/12 overflow-auto mb-2.5">
+            <div className="flex justify-start items-end gap-8 w-10/12 overflow-auto pb-1.5">
                 <button
                     onClick={() => setActiveTab("projects")}
                     className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "projects" ? "border-black" : "border-transparent"}`}
