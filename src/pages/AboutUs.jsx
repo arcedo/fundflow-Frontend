@@ -1,10 +1,15 @@
 import React from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import coolImage from "../assets/pictures/cool-image.webp";
 
 function AboutUs() {
+    useEffect(() => {
+        document.title = 'about us · fundflow';
+    }, []);
+
     return (
         <div className="w-full bg-white min-h-screen overflow-hidden h-fit flex flex-col gap-16">
             <Header />

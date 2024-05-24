@@ -59,8 +59,8 @@ function Search() {
 
     const fetchSearchProjects = async () => {
         if (limitProject.noMore) return;
-
         if (searchQuery) {
+            document.title = `search results for ${searchQuery.replace(/_/g, " ")} · fundflow`;
             await searchProjects(searchQuery, limitProject.skip, limitProject.limit, categoryQuery ? categoryQuery : null, statusQuery ? statusQuery : null)
                 .then((data) => {
                     if (!data.message) {
@@ -76,6 +76,7 @@ function Search() {
                     }
                 })
         } else {
+            document.title = `search · fundflow`;
             await getLatestsProjects(limitProject.skip, limitProject.limit, categoryQuery ? categoryQuery : null, statusQuery ? statusQuery : null)
                 .then((data) => {
                     if (!data.message) {

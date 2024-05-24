@@ -15,6 +15,7 @@ function Home() {
     const [popularProjects, setPopularProjects] = useState([]);
 
     useEffect(() => {
+        document.title = "home · fundflow";
         const fetchProjects = async () => {
             const latestProjectsData = await getLatestsProjects(0, 4);
             let byInterestProjectsData = [];

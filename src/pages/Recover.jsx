@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import UserMain from '../components/UserMain';
 import { recoverPassword } from '../services/index';
@@ -17,9 +17,13 @@ function Recover() {
                         setRecoverEmailSent(data);
                     }
                 });
-        }
-
+        }       
     }
+
+    useEffect(() => {
+        document.title = "recover · fundflow";
+    }, []);
+
     return (
         <UserMain>
             <form className="flex flex-col w-64 gap-4" onSubmit={sendRecoverPasswordEmail}>

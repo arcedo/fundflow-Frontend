@@ -49,6 +49,7 @@ function NewProject() {
     const [coverPicture, setCoverPicture] = useState({ file: null, cover: '' });
 
     useEffect(() => {
+        document.title = 'new project · fundflow';
         const fetchCategories = async () => {
             await getCategories()
                 .then((data) => {

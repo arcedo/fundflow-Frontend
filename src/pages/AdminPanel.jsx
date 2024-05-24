@@ -23,6 +23,7 @@ function AdminPanel() {
             navigate('/');
         } else {
             fetchData();
+            document.title = "wp admin · fundflow";
         }
     }, []);
 

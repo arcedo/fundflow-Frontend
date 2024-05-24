@@ -72,6 +72,10 @@ function Profile() {
         fetchUserAndProjects();
     }, [userUrl, isFollowing]);
 
+    useEffect(() => {
+        document.title = (user ? user.username : '') + "'s profile · fundflow";
+    }, [user]);    
+
     const logoutUser = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('userData');

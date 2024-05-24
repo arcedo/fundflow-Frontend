@@ -10,6 +10,7 @@ function Verify() {
     let redirect = true;
     const [verification, setVerification] = useState(null);
     useEffect(() => {
+        document.title = 'verify · fundflow';
         const userData = JSON.parse(localStorage.getItem('userData'));
         const verify = async () => {
             const response = await endVerificationEmail(code);

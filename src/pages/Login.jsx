@@ -11,6 +11,7 @@ function Login() {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
+        document.title = 'login · fundflow';
         if (localStorage.getItem('token')) {
             navigate('/');
         }
