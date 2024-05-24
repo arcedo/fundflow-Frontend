@@ -49,20 +49,20 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                     <div>
                         <p className="text-black text-xl font-dmsans font-semibold">Positive</p>
                         <p className="font-montserrat text-lg font-medium">
-                            {reviews ? reviews.filter(review => review.rating === true).length : 0}
+                            {reviews && reviews.length > 0 ? reviews.filter(review => review.rating === true).length : 0}
                         </p>
                     </div>
                     <hr className="rotate-90 border-black w-12" />
                     <div >
                         <p className="text-black text-xl font-dmsans font-semibold">Negative</p>
                         <p className="font-montserrat text-lg font-medium">
-                            {reviews ? reviews.filter(review => review.rating === false).length : 0}
+                            {reviews && reviews.length > 0 ? reviews.filter(review => review.rating === false).length : 0}
                         </p>
                     </div>
                 </div>
             </div>
             {
-                userData && userStats && (userStats.funded || userStats.collaborator) && reviews.filter(review => review.userUrl === userData.userUrl).length === 0 && <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
+                userData && userStats && (userStats.funded || userStats.collaborator) && reviews && reviews.filter(review => review.userUrl === userData.userUrl).length === 0 && <div className="w-full shadow-xl bg-white/65 backdrop-blur-md py-5 rounded-md">
                     <div className="w-11/12 mx-auto">
                         <h2 className="font-dmsans font-bold text-2xl opacity-60">write your review</h2>
                         <div className="flex gap-5 justify-center py-5">
