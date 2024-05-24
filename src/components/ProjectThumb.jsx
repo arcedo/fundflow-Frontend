@@ -86,11 +86,11 @@ function ProjectThumb({ projectId, projectName, projectUrl, projectCreator, crea
             <div className="flex items-center justify-between gap-3 pt-3">
                 <div className="flex items-center justify-between gap-3">
                     <Link to={`/profile/${creatorUrl}`} className="h-12 w-12 rounded-full flex justify-center items-center overflow-hidden bg-gradient-to-r from-primary to-secondary group">
-                        <img src={`${import.meta.env.VITE_API_URL}users/${creatorUrl}/profilePicture`} alt={`Project ${projectName} Cover Image`} className="group-hover:scale-110 w-full h-full transition-all duration-150" />
+                        <img src={`${import.meta.env.VITE_API_URL}users/${creatorUrl}/profilePicture`} alt={`Project ${projectName} Cover Image`} className="group-hover:scale-110 w-full h-full object-cover transition-all duration-150" />
                     </Link>
                     <div className="flex flex-col">
                         <Link to={`/projects/${projectUrl}`} className="font-dmsans text-2xl font-bold text-black group-hover/project:text-secondary transition duration-300 text-opacity-75 cursor-pointer">
-                            {projectName.length > 16 ? `${projectName.slice(0, 16)}...` : projectName}
+                            {projectName.length > 14 ? `${projectName.slice(0, 14)}...` : projectName}
                         </Link>
                         <Link to={`/profile/${creatorUrl}`} className="font-dmsans text-black transition duration-300 text-opacity-75 text-sm cursor-pointer group/user">by <span className="group-hover/user:text-primary hover:border-b hover:border-b-black transition duration-300">{projectCreator}</span></Link>
                     </div>

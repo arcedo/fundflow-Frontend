@@ -82,7 +82,7 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
     const formattedCurrentFunding = project && project.stats && project.stats.funded ? project.stats.funded.toLocaleString('de-DE') : 0;
     const formattedGoalFunding = project && project.priceGoal ? project.priceGoal.toLocaleString('de-DE') : 0;
     return (
-        <div className="relative w-full" style={{ height: `${window.innerWidth < 1080 ? '35vh' : '65vh'}` }}>
+        <div className="relative w-full" style={{ height: `${window.innerWidth < 1080 ? '45vh' : '65vh'}` }}>
             {showEditProjectDetailsModal && <MdlEditProjectDetails onClose={closeEditProjectDetailsModal} setProject={setProject} projectType={projectType} project={project} />}
             {showEditCoverModal && <MdlEditCover onClose={closeEditCoverModal} project={project} />}
             {showProjectPurchaseModal && <MdlProjectPurchase onClose={closeProjectPurchaseModal} project={project} setProject={setProject} userStats={userStats} setUserStats={setUserStats} />}

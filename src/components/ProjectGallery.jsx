@@ -56,7 +56,7 @@ function ProjectGallery({ project, editMode, setProject }) {
     };
 
     return (
-        <div className="w-10/12 flex flex-col gap-3 mt-96 lg:mt-5 fade-in" style={{ animationDelay: `0.1s` }}>
+        <div className="w-10/12 flex flex-col gap-3 mt-96 pt-16 lg:pt-0 lg:mt-5 fade-in" style={{ animationDelay: `0.1s` }}>
             <h3 className="font-dmsans font-bold text-3xl text-black text-opacity-70">Gallery</h3>
             <div className="w-full flex flex-col gap-3 md:flex-row col-span-3" style={{ height: `${window.innerWidth < 680 ? 'auto' : '50vh'}` }}>
                 <div className="flex-1 relative overflow-hidden rounded-md h-full">
