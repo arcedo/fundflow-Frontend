@@ -99,7 +99,7 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                 <div className="relative w-10/12 flex justify-center items-center lg:grid lg:grid-cols-2 gap-20">
                     <div className="absolute lg:static -top-2 md:top-20 w-full p-8 bg-white rounded-lg shadow-xl border border-gray-200 border-opacity-60 bg-opacity-90 backdrop-blur-md flex flex-col gap-4 fade-in">
                         <div className="flex flex-col gap-2">
-                            <h2 className="font-dmsans font-bold text-5xl">{project && project.title}</h2>
+                            <h2 className="font-dmsans font-bold text-4xl lg:text-5xl">{project && project.title}</h2>
                             <Link to={`/profile/${project && project.userUrl}`} className="w-fit font-dmsans text-black text-opacity-70 group">by <span className="group-hover:text-secondary font-semibold transition-colors duration-200">{project.userUrl}</span></Link>
                         </div>
                         <p className="font-dmsans">{project && project.description}</p>
@@ -109,17 +109,17 @@ function ProjectDetails({ project, editMode, setProject, userStats, setUserStats
                                 </div>
                             </div>
                             {projectType === 'funds' ?
-                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p>
+                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-3xl lg:text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{formattedCurrentFunding}{project.currency}</span> funded of a <span className="font-semibold">{formattedGoalFunding}{project.currency}</span> goal</p>
                                 :
-                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.stats ? project.stats.collaborators : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>
+                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-3xl lg:text-4xl bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{project && project.stats ? project.stats.collaborators : 0}</span> collaborators of a <span className="font-semibold">{project.collGoal}</span> goal</p>
                             }
                             {projectType === 'funds' ?
-                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-4xl">{project && project.stats ? project.stats.funders : '0'}</span> funders{userStats && userStats.funded ? <span>, including <span className="font-bold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">you</span> with a <span className="font-bold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{userStats.funded}{project.currency}</span> total.</span> : null}</p>
+                                <p className="font-dmsans text-black text-opacity-70"><span className="font-montserrat font-bold text-3xl lg:text-4xl">{project && project.stats ? project.stats.funders : '0'}</span> funders{userStats && userStats.funded ? <span>, including <span className="font-bold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">you</span> with a <span className="font-bold bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">{userStats.funded}{project.currency}</span> total.</span> : null}</p>
                                 :
                                 null
                             }
                             <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                                <p className="font-dmsans text-black text-opacity-70 mb-6 md:mb-0"><span className="font-montserrat font-bold text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
+                                <p className="font-dmsans text-black text-opacity-70 mb-6 md:mb-0"><span className="font-montserrat font-bold text-3xl lg:text-4xl">{project && remainingHours ? remainingHours : '0'}</span> hours left</p>
                                 <div className="flex gap-5 justify-end">
                                     <p className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className="h-7 transition-all duration-300 opacity-40" src={views} alt="" />{project && project.stats && project.stats.views ? project.stats.views : 0}</p>
                                     <button onClick={() => evaluateProject('likes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
