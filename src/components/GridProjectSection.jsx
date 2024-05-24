@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import noDataFound from "../assets/icons/no_data_found.svg";
 import ProjectThumb from "./ProjectThumb";
-
+//TODO: load more liked and disliked
 function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, loggedUserId, onEmptyMessage, imageEmptyVisible }) {
     const numberOfColumns = search;
     const placeholdersCount = projectsFound ? projectsFound.length % numberOfColumns : 0;

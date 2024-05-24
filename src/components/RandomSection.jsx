@@ -11,7 +11,7 @@ function RandomSection() {
     useEffect(() => {
         fetchProjects();
     }, []);
-
+    //TODO: not random at all
     const fetchProjects = async () => {
         let projectsData;
         if (projects && projects[0] && projects[0].id) {
