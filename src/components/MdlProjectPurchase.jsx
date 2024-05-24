@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { statsInteraction, getProjectStats } from "../services";
 
 function MdlProjectPurchase({ onClose, tier, project, setProject, userStats, setUserStats }) {
-    // TODO handle collaborator application
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProcessPurchaseModal, setShowProcessPurchaseModal] = useState(false);
     const [total, setTotal] = useState(0);
