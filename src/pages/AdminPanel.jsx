@@ -13,6 +13,8 @@ function AdminPanel() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
+    const [limitProjects, setLimitProjects] = useState({ start: 0, end: 8 });
+    const [limitUsers, setLimitUsers] = useState({ start: 0, end: 8 });
 
 
     useEffect(() => {
@@ -32,7 +34,7 @@ function AdminPanel() {
                     navigate('/');
                 }
             });
-        await getProjectsAdmin(localStorage.getItem("token"), 0, 100)
+        await getProjectsAdmin(localStorage.getItem("token"), 0, 8)
             .then((data) => {
                 if (data.length > 0) {
                     setProjects(data);
@@ -47,6 +49,15 @@ function AdminPanel() {
             .then((data) => {
                 if (data.code === 200) {
                     setProjects(projects.filter(project => project.id !== id));
+                }
+            });
+    }
+
+    const handleDeleteUser = async (id) => {
+        await deleteUserAdmin(localStorage.getItem("token"), id)
+            .then((data) => {
+                if (data.id) {
+                    setUsers(users.filter(user => user.id !== id));
                 }
             });
     }
@@ -84,7 +95,7 @@ function AdminPanel() {
                                                         <td className="py-2 px-4"><Link className="underline" target="_blank" to={'/profile/' + user.url}>{user.username}</Link></td>
                                                         <td className="py-2 px-4">{user.email}</td>
                                                         <td className="py-2 px-4">
-                                                            <button className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white rounded-lg px-2 py-1" >Delete</button>
+                                                            <button className="bg-red-600 hover:bg-red-700 transition-all duration-300 text-white rounded-lg px-2 py-1" onClick={() => handleDeleteUser(user.id)} >Delete</button>
                                                         </td>
                                                     </tr>
                                                 );
