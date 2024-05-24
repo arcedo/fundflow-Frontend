@@ -9,6 +9,7 @@ import { getProjectStatsFromUser } from "../services/index";
 import evaluateProject from "../helpers/evaluateProject";
 
 function RandomProject({ project, setProject }) {
+    //TODO: count as view when project displayed in random because the user doesn't have the stats created yet
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [userStats, setUserStats] = useState({});
     useEffect(() => {

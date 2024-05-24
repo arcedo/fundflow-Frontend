@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Modal from "./Modal";
 import MdlProcessPurchase from "./MdlProcessingPurchase";
 import { Link } from "react-router-dom";
+import { statsInteraction, getProjectStats } from "../services";
 
-function MdlProjectPurchase({ onClose, tier, project, setProject }) {
+function MdlProjectPurchase({ onClose, tier, project, setProject, userStats, setUserStats }) {
     // TODO handle collaborator application
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProcessPurchaseModal, setShowProcessPurchaseModal] = useState(false);
@@ -50,6 +51,21 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
         setSelectedTier(null);
     }
 
+    const handleCollaboratorApplication = async () => {
+        await statsInteraction(localStorage.getItem('token'), project.id, null, null, null, true)
+            .then(async (res) => {
+                if (res.code === 200) {
+                    await getProjectStats(project.id)
+                        .then((stats) => {
+                            setProject({ ...project, stats, percentageDone: (stats.collaborators / project.collGoal) * 100 });
+                            setUserStats({ ...userStats, collaborator: true });
+                            setTimeout(() => {
+                                onClose();
+                            }, 2000);
+                        });
+                }
+            });
+    }
     if (userData.userUrl === project.userUrl) {
         return (
             <Modal onClose={onClose}>
@@ -63,7 +79,7 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
         return (
             <Modal onClose={onClose}>
                 <div className="flex flex-col gap-4" style={{ width: `${window.innerWidth < 1080 ? '30vh' : '70vh'}` }}>
-                    {showProcessPurchaseModal && <MdlProcessPurchase onClose={closeProcessPurchaseModal} project={project} total={total} setProject={setProject} setTotal={setTotal} />}
+                    {showProcessPurchaseModal && <MdlProcessPurchase onClose={closeProcessPurchaseModal} project={project} total={total} setProject={setProject} userStats={userStats} setUserStats={setUserStats} setTotal={setTotal} />}
                     <h2 className="text-4xl font-dmsans font-bold text-black">Contribute</h2>
                     <div>
                         <p className="text-black font-normal font-dmsans opacity-70">
@@ -154,7 +170,9 @@ function MdlProjectPurchase({ onClose, tier, project, setProject }) {
                         This declaration is final and cannot be canceled unless the owner of this project removes you from the collaborators list.
                         <span className="text-black font-semibold text-opacity-100"> Be sure you want to commit before applying. </span>
                     </p>
-                    <button className="p-3 font-dmsans bg-gradient-to-r from-primary to-secondary border-none rounded-lg text-white font-bold hover:opacity-75 transition-all duration-200">Apply as collaborator</button>
+                    <button
+                        onClick={handleCollaboratorApplication}
+                        className="p-3 font-dmsans bg-gradient-to-r from-primary to-secondary border-none rounded-lg text-white font-bold hover:opacity-75 transition-all duration-200">Apply as collaborator</button>
                 </div>
             </Modal>
         );

@@ -11,22 +11,23 @@ import { getUsersAdmin, getProjectsAdmin, deleteProject, deleteUserAdmin } from 
 function AdminPanel() {
     let navigate = useNavigate();
     const userData = JSON.parse(localStorage.getItem('userData'));
+    const startIndex = 8;
     const [users, setUsers] = useState([]);
     const [projects, setProjects] = useState([]);
-    const [limitProjects, setLimitProjects] = useState({ start: 0, end: 8 });
-    const [limitUsers, setLimitUsers] = useState({ start: 0, end: 8 });
+    const [limitProjects, setLimitProjects] = useState({ start: 0, end: startIndex });
+    const [limitUsers, setLimitUsers] = useState({ start: 0, end: startIndex });
 
 
     useEffect(() => {
         if (!userData || !userData.role) {
             navigate('/');
         } else {
-            getUsers();
+            fetchData();
         }
     }, []);
 
-    const getUsers = async () => {
-        await getUsersAdmin(localStorage.getItem("token"), 0, 100)
+    const fetchData = async () => {
+        await getUsersAdmin(localStorage.getItem("token"), limitUsers.start, limitUsers.end)
             .then((data) => {
                 if (data.length > 0) {
                     setUsers(data);
@@ -34,7 +35,7 @@ function AdminPanel() {
                     navigate('/');
                 }
             });
-        await getProjectsAdmin(localStorage.getItem("token"), 0, 8)
+        await getProjectsAdmin(localStorage.getItem("token"), limitProjects.start, limitProjects.end)
             .then((data) => {
                 if (data.length > 0) {
                     setProjects(data);
@@ -58,6 +59,26 @@ function AdminPanel() {
             .then((data) => {
                 if (data.id) {
                     setUsers(users.filter(user => user.id !== id));
+                }
+            });
+    }
+
+    const handleLoadMoreProjects = async () => {
+        setLimitProjects({ start: limitProjects.start, end: limitProjects.end + 8 })
+        await getProjectsAdmin(localStorage.getItem("token"), limitProjects.start, limitProjects.end + 8)
+            .then((data) => {
+                if (data.length > 0) {
+                    setProjects({ ...projects, data });
+                }
+            });
+    }
+
+    const handleLoadMoreUsers = async () => {
+        setLimitUsers({ start: limitUsers.start, end: limitUsers.end + 8 })
+        await getUsersAdmin(localStorage.getItem("token"), limitUsers.start, limitUsers.end + 8)
+            .then((data) => {
+                if (data.length > 0) {
+                    setUsers({ ...users, data });
                 }
             });
     }
@@ -104,6 +125,9 @@ function AdminPanel() {
                                     </tbody>
                                 </table>
                             </div>
+                            {users && users.length % startIndex === 0 && (<div className="w-full flex justify-end">
+                                <button className="bg-gray-200 hover:bg-gray-300 font-dmsans transition-all duration-300 text-black rounded-lg px-2 py-1" onClick={() => handleLoadMoreUsers}>Load more</button>
+                            </div>)}
                         </div>
                         <div className="w-full flex flex-col items-start justify-center gap-3">
                             <h3 className="font-dmsans font-bold text-xl lg:text-2xl text-center">Manage Projects</h3>
@@ -132,12 +156,15 @@ function AdminPanel() {
                                     </tbody>
                                 </table>
                             </div>
+                            {projects && projects.length % startIndex === 0 && (<div className="w-full flex justify-end">
+                                <button className="bg-gray-200 hover:bg-gray-300 font-dmsans transition-all duration-300 text-black rounded-lg px-2 py-1" onClick={() => handleLoadMoreProjects()}>Load more</button>
+                            </div>)}
                         </div>
                     </div>
                 </div>
             </div>
             <Footer />
-        </div>
+        </div >
     );
 }
 

@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import purchaseCheck from "../assets/icons/purchaseCheck.svg";
 import { statsInteraction, getProjectStats } from "../services";
 
-function MdlProcessPurchase({ onClose, project, total, setProject, setTotal }) {
+function MdlProcessPurchase({ onClose, project, total, setProject, setTotal, userStats, setUserStats }) {
     const [processing, setProcessing] = useState(true);
 
     useEffect(() => {
@@ -15,6 +15,7 @@ function MdlProcessPurchase({ onClose, project, total, setProject, setTotal }) {
                         await getProjectStats(project.id)
                             .then((stats) => {
                                 setProject({ ...project, stats, percentageDone: (stats.funded / project.priceGoal) * 100 });
+                                setUserStats({ ...userStats, funded: userStats.funded + total });
                                 setProcessing(false);
                                 setTimeout(() => {
                                     onClose();
