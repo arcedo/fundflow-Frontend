@@ -5,28 +5,37 @@ import likeInteract from "../assets/icons/likeInteract.svg";
 import views from "../assets/icons/views.svg";
 import link from "../assets/icons/link.svg";
 import logo from "../assets/icons/logoLight.png";
-import { getProjectStatsFromUser } from "../services/index";
+import { getProjectStatsFromUser, likeProject } from "../services/index";
 import evaluateProject from "../helpers/evaluateProject";
 
 function RandomProject({ project, setProject }) {
-    //TODO: count as view when project displayed in random because the user doesn't have the stats created yet
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [userStats, setUserStats] = useState({});
     useEffect(() => {
         if (userData && project) {
             getProjectStatsFromUser(localStorage.getItem('token'), project.id)
                 .then((response) => {
-                    setUserStats(response);
+                    if (response) {
+                        setUserStats(response);
+                    }
                 });
         }
     }, []);
+    const createStatsByLike = async () => {
+        if (userData && project && (userStats.message || !userStats)) {
+            const response = await likeProject(localStorage.getItem('token'), project.id, project.idCategory);
+            if (response.code !== 404) {
+                setUserStats(response);
+            }
+        }
+    }
+
     if (!project) {
         return <div className="col-span-5 flex justify-center flex-col items-center w-full h-full gap-5">
             <img src={logo} alt="" className='w-24 h-24 rounded-md' />
             <p className="text-2xl font-dmsans font-semibold">Loading...</p>
         </div>;
     }
-
     const [hoveredImage, setHoveredImage] = useState({ src: '', index: 0 });
 
     function imageDisplayed(image, index) {
@@ -76,7 +85,12 @@ function RandomProject({ project, setProject }) {
                     <p className="w-full font-dmsans text-black text-normal font-medium opacity-75 select-none">{project.description}</p>
                     <Link to={`/projects/${project.projectUrl}`} className="font-dmsans text-black text-lg font-bold flex gap-0.5 items-center select-none group w-fit">read more<img className="transition-all duration-300 w-8 group-hover:-translate-y-1 group-hover:translate-x-1 grayscale group-hover:grayscale-0" src={link} alt="" /></Link>
                     {/* <div className="flex justify-center lg:justify-normal py-3 lg:py-0 items-center gap-6"> */}
-                    <button onClick={() => { userData ? evaluateProject('likes', null, null, setProject, project, setUserStats, userData, userStats) : null }} className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className={`w-7/12 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale'} group-hover:grayscale-0`} src={likeInteract} alt="" /></button>
+                    <button onClick={() => {
+                        userData && userStats && !userStats.message ?
+                            evaluateProject('likes', null, null, setProject, project, setUserStats, userData, userStats)
+                            :
+                            createStatsByLike()
+                    }} className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className={`w-7/12 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale'} group-hover:grayscale-0`} src={likeInteract} alt="" /></button>
                     {/* <button className="w-12 h-12 bg-gray-300 shadow-md bg-opacity-50 backdrop-blur-lg rounded-full flex justify-center items-center group"><img className="w-7/12 transition-all duration-300 opacity-40 -rotate-180 group-hover:opacity-100" src={like} alt="" /></button> */}
                     {/* </div> */}
                 </div>

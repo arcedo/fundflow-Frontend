@@ -111,6 +111,10 @@ export async function statsInteraction(token, idProject, evaluation, evaluationS
     return await fetchDataAuth('PUT', `${server}projects/${idProject}/stats`, token, { evaluation, fund, collaboration, evaluationStatus });
 }
 
+export async function likeProject(token, idProject, idCategory) {
+    return await fetchDataAuth('POST', `${server}projects/${idProject}/stats/like`, token, { idCategory });
+}
+
 // Project creation
 export async function createProject(token, projectData) {
     return await fetchDataAuth('POST', `${server}projects/`, token, projectData);
