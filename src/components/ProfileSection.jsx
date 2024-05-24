@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import GridProjectSection from "./GridProjectSection";
 import ProfileFeedback from "./ProfileFeedback";
 
 function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects, user }) {
     const [activeTab, setActiveTab] = useState("projects");
+    const location = useLocation();
+
+    useEffect(() => {
+        setActiveTab("projects");
+    }, [location.pathname]);
 
     const renderSection = () => {
         switch (activeTab) {
