@@ -11,7 +11,7 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, logg
         <section className="flex justify-center items-center fade-in w-full">
             <div className="w-full">
                 <h3 className="text-black text-2xl font-dmsans font-bold text-opacity-75 mb-4 fade-in">{sectionTitle}</h3>
-                <div className={`grid grid-cols-1 sm:grid-cols-2 ${search == 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'} gap-6 w-full`}>
+                <div className={`grid grid-cols-1 md:grid-cols-2 ${search == 3 ? 'lg:grid-cols-3' : 'xl:grid-cols-4'} gap-6 w-full`}>
                     {projectsFound && !projectsFound.message && projectsFound.length > 0 ? projectsFound.map((project, index) => {
                         const delay = index * 0.05;
                         return (

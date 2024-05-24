@@ -491,7 +491,7 @@ function NewProject() {
                                 <div className="lg:w-4/5 flex flex-col gap-5 fade-in">
                                     <div className="flex flex-col gap-3 w-fit">
                                         <p className="text-black font-normal font-dmsans opacity-70 w-fit">Do you want to upload a cover image? You can always do this later.</p>
-                                        <label htmlFor="cover" className="bg-gradient-to-r from-primary to-secondary w-full text-center font-dmsans font-semibold py-3 transition-all duration-200 hover:shadow-none hover:opacity-75 shadow-md text-white rounded-lg">Upload Image</label>
+                                        <label htmlFor="cover" className="bg-gradient-to-r from-primary to-secondary w-full text-center font-dmsans font-semibold py-3 transition-all duration-200 hover:shadow-none hover:opacity-75 shadow-md text-white rounded-lg cursor-pointer">Upload Image</label>
                                         <input
                                             id="cover"
                                             name="cover"
