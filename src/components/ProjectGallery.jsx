@@ -60,13 +60,13 @@ function ProjectGallery({ project, editMode, setProject }) {
             <h3 className="font-dmsans font-bold text-3xl text-black text-opacity-70">Gallery</h3>
             <div className="w-full flex flex-col gap-3 md:flex-row col-span-3" style={{ height: `${window.innerWidth < 680 ? 'auto' : '50vh'}` }}>
                 <div className="flex-1 relative overflow-hidden rounded-md h-full">
-                    <div className="h-72 sm:h-auto sm:absolute inset-0">
+                    <div className="h-72 lg:h-auto lg:absolute inset-0">
                         {project?.imgs?.length === 0 || !hoveredImage.src ? (
                             <div className="w-full h-full bg-gray-300 flex items-center justify-center rounded-md">
                                 <p className="text-black font-dmsans font-semibold text-2xl text-opacity-75">{editMode ? 'upload some images' : 'no images available'}</p>
                             </div>
                         ) : (
-                            <img src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}`} alt="" className="w-full rounded-md sm:h-full object-cover" />
+                            <img src={`${import.meta.env.VITE_API_URL}projects/${project.id}/image/${hoveredImage.src}`} alt="" className="w-full rounded-md h-full object-cover" />
                         )}
                     </div>
                 </div>
