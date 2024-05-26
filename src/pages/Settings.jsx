@@ -7,6 +7,7 @@ import { getLoggedUser, changeUserPassword } from "../services";
 import passAlert from "../assets/icons/passAlert.svg";
 import { verifyEmail, recoverPassword, changeUserData, putProfilePicture, putProfileBanner } from "../services";
 import { resizeImage } from "../helpers/resize";
+import alertIcon from "../assets/icons/alert.svg";
 
 function Settings() {
     const userData = JSON.parse(localStorage.getItem('userData'));
@@ -389,6 +390,10 @@ function Settings() {
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-4">
+                                    <div className='flex flex-row items-center gap-2 p-3 border rounded-lg bg-yellow-300 bg-opacity-40'>
+                                        <img className='w-8 opacity-70' src={alertIcon} alt="" />
+                                        <p className='text-sm font-dmsans text-black text-opacity-70'>If you change your email, it will need to be verified again.</p>
+                                    </div>
                                     <div className="flex items-end gap-5">
                                         <button type="submit" className="py-3.5 w-6/12 md:w-4/12 bg-gradient-to-r opacity-70 from-primary to-secondary rounded-md text-white font-semibold font-dmsans shadow hover:opacity-100 transition-all duration-200">Save changes</button>
                                         <p className="font-dmsans text-lg text-red-600">* required values</p>
