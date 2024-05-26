@@ -39,10 +39,10 @@ function Home() {
             <Header />
             <Slider />
             <div className="w-10/12 sm:w-11/12 mx-auto flex flex-col gap-16">
-                <GridProjectSection search={4} sectionTitle={"New this month"} projectsFound={latestsProjects} seeMore={true} />
-                <GridProjectSection search={4} sectionTitle={userData ? "Based on your interests" : "Discover"} projectsFound={byInterestProjects} seeMore={true} />
-                <CategorySlider />
                 <GridProjectSection search={4} sectionTitle={"Popular"} projectsFound={popularProjects} seeMore={true} />
+                <GridProjectSection search={4} sectionTitle={"New this month"} projectsFound={latestsProjects} seeMore={true} />
+                <CategorySlider />
+                <GridProjectSection search={4} sectionTitle={userData ? "Based on your interests" : "Discover"} projectsFound={byInterestProjects} seeMore={true} />
                 <RandomSection />
             </div>
             <Footer />
