@@ -141,8 +141,8 @@ function Header({ categoriesDisabled }) {
                         <Link to={userData ? `/profile/${userData.userUrl}` : "/login"} className={`${userData ? 'bg-gradient-to-r from-primary to-secondary p-0.5' : 'bg-black overflow-hidden w-auto h-auto lg:w-11 lg:h-11 px-0.5'} h-11 w-11 shadow-md group flex justify-center items-center rounded-full`}>
                             {userData ? <div className="relative">
                                 {userData.verifiedEmail ? null : <div className="bg-white absolute z-30 -top-2 -right-2 rounded-full"><img src={alert} alt="" className="w-9" /></div>}
-                                <div className="w-12 overflow-hidden rounded-full">
-                                    <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="Your avatar" className="w-full group-hover:scale-125 scale-110 transition-all duration-300" />
+                                <div className="w-12 h-12 overflow-hidden rounded-full">
+                                    <img src={`${import.meta.env.VITE_API_URL}users/${userData.userUrl}/profilePicture`} alt="Your avatar" className="w-full h-full group-hover:scale-125 scale-110 transition-all duration-300" />
                                 </div>
                             </div>
                                 : <img src={account} alt="Login" className="group-hover:grayscale-0 grayscale w-12 transition-all duration-300" />

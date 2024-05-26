@@ -114,7 +114,10 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                 </div>
             }
             <div className="w-full">
-                <h2 className="font-dmsans font-bold text-2xl opacity-60">reviews</h2>
+                <div className="flex flex-col gap-1">
+                    <h2 className="font-dmsans font-bold text-2xl opacity-60">reviews</h2>
+                    <p className="font-dmsans text-black opacity-75">reviews are written by people who have collaborated on this project</p>
+                </div>
                 <div className="w-full flex flex-col justify-around items-center gap-6 pt-8">
                     {reviews.length > 0 ? reviews.map((review, index) => (
                         <div key={review._id} className={`flex gap-2.5 items-end w-full ${reviews.length - 1 === index ? 'border-none' : 'border-b-2'} border-555/55 pb-6 font-dmsans`}>
