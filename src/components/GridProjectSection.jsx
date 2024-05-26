@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import noDataFound from "../assets/icons/no_data_found.svg";
 import ProjectThumb from "./ProjectThumb";
-//TODO: load more liked and disliked
 function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, loggedUserId, onEmptyMessage, imageEmptyVisible, getMoreProjects, setProjectsFound, userProfile }) {
     const [limitProjects, setLimitProjects] = useState({ limit: 8, offset: 0 });
     const numberOfColumns = search;
