@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import noDataFound from "../assets/icons/no_data_found.svg";
 import ProjectThumb from "./ProjectThumb";
 //TODO: load more liked and disliked
-function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, loggedUserId, onEmptyMessage, imageEmptyVisible }) {
+function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, loggedUserId, onEmptyMessage, imageEmptyVisible, getMoreProjects, setProjectsFound, userProfile }) {
+    const [limitProjects, setLimitProjects] = useState({ limit: 8, offset: 0 });
     const numberOfColumns = search;
     const placeholdersCount = projectsFound ? projectsFound.length % numberOfColumns : 0;
     const placeholdersNeeded = placeholdersCount > 0 ? numberOfColumns - placeholdersCount : 0;
+
+    const handleLoadMore = async () => {
+        const newOffset = limitProjects.offset + limitProjects.limit;
+        setLimitProjects({ limit: limitProjects.limit, offset: newOffset });
+        await getMoreProjects(newOffset, limitProjects.limit);
+    }
     return (
         <section className="flex justify-center items-center fade-in w-full">
             <div className="w-full">
@@ -55,6 +62,13 @@ function GridProjectSection({ sectionTitle, projectsFound, seeMore, search, logg
                         );
                     })}
                 </div>
+                {userProfile && projectsFound.length % limitProjects.limit === 0 && (
+                    <div className="flex justify-center items-center mt-6 gap-3">
+                        <hr className="w-6/12 border-black border-opacity-25" />
+                        <button onClick={() => handleLoadMore()} className="font-dmsans w-6/12 md:w-2/12 lg:w-1/12 text-black text-opacity-75 font-semibold text-lg text-center bg-gradient-to-r from-primary to-secondary inline-block text-transparent bg-clip-text">see more</button>
+                        <hr className="w-6/12 border-black border-opacity-25" />
+                    </div>
+                )}
                 {seeMore && (
                     <div className="flex justify-center items-center mt-6 gap-3">
                         <hr className="w-6/12 border-black border-opacity-25" />

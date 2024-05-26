@@ -2,27 +2,73 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import GridProjectSection from "./GridProjectSection";
 import ProfileFeedback from "./ProfileFeedback";
+import { getProjectByCreator, getProjectsByUserStatus } from "../services/index";
 
-function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects, user }) {
+function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, likedProjects, dislikedProjects, user, setOwnerProjects, setCollaboratingProjects, setLikedProjects, setDislikedProjects }) {
     const [activeTab, setActiveTab] = useState("projects");
+    const [noMoreProjects, setNoMoreProjects] = useState({ owned: true, collaborating: true, liked: true, disliked: true });
     const location = useLocation();
 
     useEffect(() => {
         setActiveTab("projects");
     }, [location.pathname]);
 
+    async function getCreatedProjects(skip, limit, setProjects, projects) {
+        await getProjectByCreator(user.id, skip, limit)
+            .then(data => {
+                if (data.length > 0) {
+                    setProjects([...projects, ...data]);
+                } else {
+                    setNoMoreProjects({ ...noMoreProjects, owned: false });
+                }
+            });
+    };
+
+    async function getCollaboratingProjects(skip, limit) {
+        await getProjectsByUserStatus(localStorage.getItem('token'), 'both', skip, limit, user.id)
+            .then(data => {
+                if (data.length > 0) {
+                    setCollaboratingProjects([...collaboratingProjects, ...data]);
+                } else {
+                    setNoMoreProjects({ ...noMoreProjects, collaborating: false });
+                }
+            });
+    };
+
+    async function getLikedProjects(skip, limit) {
+        await getProjectsByUserStatus(localStorage.getItem('token'), 'like', skip, limit)
+            .then(data => {
+                if (data.length > 0) {
+                    setLikedProjects([...likedProjects, ...data]);
+                } else {
+                    setNoMoreProjects({ ...noMoreProjects, liked: false });
+                }
+            });
+    };
+
+    async function getDislikedProjects(skip, limit) {
+        await getProjectsByUserStatus(localStorage.getItem('token'), 'dislike', skip, limit)
+            .then(data => {
+                if (data.length > 0) {
+                    setDislikedProjects([...dislikedProjects, ...data]);
+                } else {
+                    setNoMoreProjects({ ...noMoreProjects, disliked: false });
+                }
+            });
+    };
+
     const renderSection = () => {
         switch (activeTab) {
             case "collaborating":
-                return (<GridProjectSection search={4} key="collab" projectsFound={collaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} />);
+                return (<GridProjectSection search={4} key="collab" projectsFound={collaboratingProjects} setProjectsFound={setCollaboratingProjects} belongingUser={belongingUser} onEmptyMessage={'This user isn\'t involved in any projects.'} imageEmptyVisible={true} getMoreProjects={(skip, limit) => getCollaboratingProjects(skip, limit)} userProfile={noMoreProjects.collaborating} />);
             case "feedback":
                 return (<ProfileFeedback key={'feedback'} user={user} />);
             case "liked":
-                return (<GridProjectSection search={4} key="liked" projectsFound={likedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} />);
+                return (<GridProjectSection search={4} key="liked" projectsFound={likedProjects} setProjectsFound={setLikedProjects} belongingUser={belongingUser} onEmptyMessage={'You are so dull.'} getMoreProjects={(skip, limit) => getLikedProjects(skip, limit)} userProfile={noMoreProjects.liked} />);
             case "disliked":
-                return (<GridProjectSection search={4} key="disliked" projectsFound={dislikedProjects} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} />);
+                return (<GridProjectSection search={4} key="disliked" projectsFound={dislikedProjects} setProjectsFound={setDislikedProjects} belongingUser={belongingUser} onEmptyMessage={'So wholesome!'} getMoreProjects={(skip, limit) => getDislikedProjects(skip, limit)} userProfile={noMoreProjects.disliked} />);
             default:
-                return (<GridProjectSection search={4} key="projects" projectsFound={ownerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} imageEmptyVisible={true} />);
+                return (<GridProjectSection search={4} key="projects" projectsFound={ownerProjects} setProjectsFound={setOwnerProjects} belongingUser={belongingUser} onEmptyMessage={'This user has no projects.'} imageEmptyVisible={true} getMoreProjects={(skip, limit) => getCreatedProjects(skip, limit, setOwnerProjects, ownerProjects)} userProfile={noMoreProjects.owned} />);
         }
     };
 

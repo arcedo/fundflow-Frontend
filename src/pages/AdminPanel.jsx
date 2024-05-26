@@ -65,21 +65,21 @@ function AdminPanel() {
     }
 
     const handleLoadMoreProjects = async () => {
-        setLimitProjects({ start: limitProjects.start, end: limitProjects.end + 8 })
-        await getProjectsAdmin(localStorage.getItem("token"), limitProjects.start, limitProjects.end + 8)
+        setLimitProjects({ start: limitProjects.start + 8, end: limitProjects.end })
+        await getProjectsAdmin(localStorage.getItem("token"), limitProjects.start + 8, limitProjects.end)
             .then((data) => {
                 if (data.length > 0) {
-                    setProjects({ ...projects, data });
+                    setProjects([...projects, ...data]);
                 }
             });
     }
 
     const handleLoadMoreUsers = async () => {
-        setLimitUsers({ start: limitUsers.start, end: limitUsers.end + 8 })
-        await getUsersAdmin(localStorage.getItem("token"), limitUsers.start, limitUsers.end + 8)
+        setLimitUsers({ start: limitUsers.start + 8, end: limitUsers.end })
+        await getUsersAdmin(localStorage.getItem("token"), limitUsers.start + 8, limitUsers.end)
             .then((data) => {
                 if (data.length > 0) {
-                    setUsers({ ...users, data });
+                    setUsers([...users, ...data]);
                 }
             });
     }
@@ -88,20 +88,20 @@ function AdminPanel() {
             <Header categoriesDisabled={true} />
             <div className="flex flex-col items-center justify-center gap-10 pt-28 fade-in">
                 <div className="w-full flex flex-col items-center justify-center mt-10 gap-5">
-                    <div className="w-2/3 flex gap-2 items-center justify-start">
+                    <div className="w-10/12 flex gap-2 items-center justify-start">
                         <img src={wordpress} alt="WordPress logo" className="w-16 h-16 lg:w-20 lg:h-20" />
                         <img src={cross} alt="Cross icon" className="w-8 h-8 grayscale" />
                         <img src={logoLight} alt="Fundflow logo" className="rounded-lg ml-3 w-16 h-16 lg:w-18 lg:h-18" />
                     </div>
-                    <div className="w-2/3 flex flex-col items-start justify-center gap-3">
+                    <div className="w-10/12 flex flex-col items-start justify-center gap-3">
                         <h2 className="font-dmsans font-bold text-2xl lg:text-3xl">Admin Panel</h2>
                     </div>
-                    <div className="xl:w-2/3 w-10/12 flex flex-col lg:flex-row items-center justify-center gap-6">
+                    <div className="xl:w-10/12 w-10/12 flex flex-col lg:grid lg:grid-cols-2 items-start justify-center gap-6">
                         <div className="w-full flex flex-col items-start justify-center gap-3">
                             <h3 className="font-dmsans font-bold text-xl lg:text-2xl text-center">Manage Users</h3>
                             <p className="font-dmsans text-sm lg:text-base text-center text-gray-500">View and delete user accounts.</p>
                             <div className="w-full h-96 max-h-96 overflow-y-auto bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none">
-                                <table className="w-full h-full relative">
+                                <table className="w-full h-full relative overflow-y-auto">
                                     <thead className="sticky top-0 left-0 right-0">
                                         <tr className="text-left">
                                             <th className="py-2 px-4 bg-gray-200 rounded-tl-lg">username</th>
@@ -110,7 +110,7 @@ function AdminPanel() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {users.map((user) => {
+                                        {users && users.map((user) => {
                                             if (user.url !== userData.userUrl) {
                                                 return (
                                                     <tr key={user.url}>
@@ -127,7 +127,7 @@ function AdminPanel() {
                                 </table>
                             </div>
                             {users && users.length % startIndex === 0 && (<div className="w-full flex justify-end">
-                                <button className="bg-gray-200 hover:bg-gray-300 font-dmsans transition-all duration-300 text-black rounded-lg px-2 py-1" onClick={() => handleLoadMoreUsers}>Load more</button>
+                                <button className="bg-gray-200 hover:bg-gray-300 font-dmsans transition-all duration-300 text-black rounded-lg px-2 py-1" onClick={() => handleLoadMoreUsers()}>Load more</button>
                             </div>)}
                         </div>
                         <div className="w-full flex flex-col items-start justify-center gap-3">
@@ -143,7 +143,7 @@ function AdminPanel() {
                                         </tr>
                                     </thead>
                                     <tbody className="">
-                                        {projects.map((project) => {
+                                        {projects && projects.map((project) => {
                                             return (
                                                 <tr key={project.url}>
                                                     <td className="py-2 px-4"><Link className="underline" target="_blank" to={'/projects/' + project.url}>{project.title}</Link></td>

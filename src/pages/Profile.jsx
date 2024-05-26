@@ -74,7 +74,7 @@ function Profile() {
 
     useEffect(() => {
         document.title = (user ? user.username : '') + "'s profile · fundflow";
-    }, [user]);    
+    }, [user]);
 
     const logoutUser = () => {
         localStorage.removeItem('token');
@@ -213,7 +213,7 @@ function Profile() {
                     </div>
                 </div>
             </div>
-            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} likedProjects={likedProjects} dislikedProjects={dislikedProjects} collaboratingProjects={collaboratingProjects} user={user} />
+            <ProfileSection belongingUser={userData && userData.userUrl === userUrl ? true : false} ownerProjects={projects} setOwnerProjects={setProjects} likedProjects={likedProjects} setLikedProjects={setLikedProjects} dislikedProjects={dislikedProjects} setDislikedProjects={setDislikedProjects} collaboratingProjects={collaboratingProjects} setCollaboratingProjects={setCollaboratingProjects} user={user} />
             <Footer />
         </div >
     );

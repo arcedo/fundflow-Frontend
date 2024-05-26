@@ -10,6 +10,7 @@ import { resizeImage } from "../helpers/resize";
 import alertIcon from "../assets/icons/alert.svg";
 
 function Settings() {
+    //TODO: on email change set user as not verified email and send email
     const userData = JSON.parse(localStorage.getItem('userData'));
     let navigate = useNavigate();
     if (!localStorage.getItem('token')) {
@@ -141,7 +142,7 @@ function Settings() {
         if (!seemsOk) {
             return;
         } else {
-            if (newUser.username !== currentUser.username || newUser.email !== currentUser.email || newUser.biography !== currentUser.biography || newUser.name !== currentUser.name || newUser.lastName !== currentUser.lastName ) {
+            if (newUser.username !== currentUser.username || newUser.email !== currentUser.email || newUser.biography !== currentUser.biography || newUser.name !== currentUser.name || newUser.lastName !== currentUser.lastName) {
                 await changeUserData(localStorage.getItem('token'), newUser)
                     .then((data) => {
                         if (data.id) {
