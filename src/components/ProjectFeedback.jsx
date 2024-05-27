@@ -95,11 +95,11 @@ function ProjectFeedback({ project, userStats, userData, setProject }) {
                                     <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-8">
                                         <p className="font-medium">How would you rate this project?</p>
                                         <div className="flex gap-3">
-                                            <button onClick={() => setNewReview({ ...newReview, evaluation: true })} className={`flex justify-center border-2 ${newReview.evaluation === true ? ' border-green-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3`}>
+                                            <button onClick={() => setNewReview({ ...newReview, evaluation: true })} className={`flex justify-center border-2 ${newReview.evaluation === true ? ' border-green-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3 bg-transparent `}>
                                                 <img src={positiveReview} alt="" className="w-10 h-10" />
                                                 Positive
                                             </button>
-                                            <button onClick={() => setNewReview({ ...newReview, evaluation: false })} className={`flex justify-center border-2 ${newReview.evaluation === false ? ' border-red-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3`}>
+                                            <button onClick={() => setNewReview({ ...newReview, evaluation: false })} className={`flex justify-center border-2 ${newReview.evaluation === false ? ' border-red-600 shadow-md' : 'border-transparent'} items-center px-1 rounded-md pr-3 bg-transparent `}>
                                                 <img src={negativeReview} alt="" className="w-10 h-10 rotate-180" />
                                                 Negative
                                             </button>

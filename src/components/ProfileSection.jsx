@@ -77,19 +77,19 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
             <div className="flex justify-start items-end gap-8 w-10/12 overflow-auto pb-1.5">
                 <button
                     onClick={() => setActiveTab("projects")}
-                    className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "projects" ? "border-black" : "border-transparent"}`}
+                    className={`bg-transparent text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "projects" ? "border-black" : "border-transparent"}`}
                 >
                     projects
                 </button>
                 <button
                     onClick={() => setActiveTab("collaborating")}
-                    className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "collaborating" ? "border-black" : "border-transparent"}`}
+                    className={`bg-transparent text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "collaborating" ? "border-black" : "border-transparent"}`}
                 >
                     collaborating
                 </button>
                 <button
                     onClick={() => setActiveTab("feedback")}
-                    className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "feedback" ? "border-black" : "border-transparent"}`}
+                    className={`bg-transparent text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "feedback" ? "border-black" : "border-transparent"}`}
                 >
                     feedback
                 </button>
@@ -97,13 +97,13 @@ function ProfileSection({ belongingUser, ownerProjects, collaboratingProjects, l
                     <>
                         <button
                             onClick={() => setActiveTab("liked")}
-                            className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "liked" ? "border-black" : "border-transparent"}`}
+                            className={`bg-transparent text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "liked" ? "border-black" : "border-transparent"}`}
                         >
                             liked
                         </button>
                         <button
                             onClick={() => setActiveTab("disliked")}
-                            className={`text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "disliked" ? "border-black" : "border-transparent"}`}
+                            className={`bg-transparent text-black font-dmsans font-semibold border-b-2 hover:border-black transition-all duration-200 ${activeTab === "disliked" ? "border-black" : "border-transparent"}`}
                         >
                             disliked
                         </button>

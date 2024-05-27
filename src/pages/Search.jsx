@@ -186,10 +186,10 @@ function Search() {
                                 value={searchInput}
                                 onChange={handleSearchInputChange}
                             />
-                            <button type="submit" className=""><img className="w-8" src={search} alt="Search Icon" /></button>
+                            <button type="submit" className="bg-transparent "><img className="w-8" src={search} alt="Search Icon" /></button>
                         </form>
                         <button
-                            className="flex gap-2 items-center lg:hidden mt-4 font-dmsans text-black font-semibold text-lg text-opacity-75 cursor-pointer "
+                            className="bg-transparent flex gap-2 items-center lg:hidden mt-4 font-dmsans text-black font-semibold text-lg text-opacity-75 cursor-pointer "
                             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                         >
                             {isDropdownOpen ? "hide filters" : "show filters"}

@@ -128,13 +128,13 @@ function Header({ categoriesDisabled }) {
                                 className="hidden lg:block p-2 px-4 h-11 w-full bg-white rounded-lg font-dmsans border border-gray-500 border-opacity-30 text-black outline-none focus:border-opacity-80 transition-all duration-200"
                                 placeholder="what are you looking for?"
                             />
-                            <button onClick={searchButton} className="hidden items-center lg:flex h-11 w-11 rounded-full bg-white"><img src={search} className="w-8" alt="search" /></button>
+                            <button onClick={searchButton} className="bg-transparent hidden items-center lg:flex h-11 w-11 rounded-full bg-white"><img src={search} className="w-8" alt="search" /></button>
                         </div>
                         <button onClick={openCreateProjectModal} className="hidden lg:flex justify-center items-center gap-2.5 h-11 w-28 xl:w-32 font-dmsans font-semibold text-xl text-white rounded-lg bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
                             <img src={plus} alt="" />
                             new
                         </button>
-                        <button onClick={searchButton} className="flex items-center lg:hidden h-11 w-11 rounded-full bg-white"><img src={search} className="w-full" alt="search" /></button>
+                        <button onClick={searchButton} className="bg-transparent flex items-center lg:hidden h-11 w-11 rounded-full bg-white"><img src={search} className="w-full" alt="search" /></button>
                         <button onClick={openCreateProjectModal} className="flex lg:hidden justify-center items-center rounded-full p-1 font-dmsans font-semibold text-xl text-white bg-gradient-to-r from-primary to-secondary hover:opacity-75 transition-all duration-200 border-none">
                             <img className="w-9 lg:w-12" src={plus} alt="" />
                         </button>
