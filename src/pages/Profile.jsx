@@ -162,7 +162,7 @@ function Profile() {
                     <img className="object-cover object-center w-full h-full" src={user ? `${import.meta.env.VITE_API_URL}users/${user.url}/profileBanner` : ''} alt="" />
                     {user && !user.verifiedEmail && userData.userUrl === userUrl ? (
                         <div className="absolute flex justify-center items-center py-1 w-full top-20 lg:top-auto lg:bottom-0 bg-red-500">
-                            <button onClick={openVerifyUserModal} className="font-dmsans text-white font-bold underline">Your account isn't verified yet.</button>
+                            <button onClick={openVerifyUserModal} className="font-dmsans text-white font-bold underline bg-transparent">Your account isn't verified yet.</button>
                         </div>) : null}
                 </div>
             </div>
@@ -181,8 +181,8 @@ function Profile() {
                             </div>
                             <div className="flex justify-center items-center lg:justify-normal lg:items-start gap-5">
                                 {/* <p className="text-black font-normal font-dmsans text-opacity-70"><span className="text-black font-bold text-opacity-100">{user && user.stats ? user.stats.rating : '-'}</span> positive rating</p> */}
-                                <button onClick={() => openFollowsModal('followers')} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</button>
-                                <button onClick={() => openFollowsModal('following')} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</button>
+                                <button onClick={() => openFollowsModal('followers')} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200 bg-transparent"><span className="text-black font-bold text-opacity-100">{user && user.followers ? user.followers : 0}</span> followers</button>
+                                <button onClick={() => openFollowsModal('following')} className="text-black font-normal font-dmsans text-opacity-70 border-b-2 border-transparent hover:border-black transition-all duration-200 bg-transparent"><span className="text-black font-bold text-opacity-100">{user && user.following ? user.following : 0}</span> following</button>
                             </div>
                             <p className="font-dmsans text-black">{user && user.biography ? user.biography : ''}</p>
                         </div>
