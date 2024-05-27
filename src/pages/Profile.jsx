@@ -45,6 +45,8 @@ function Profile() {
                                 .then((res) => {
                                     if (res.code === 200) {
                                         setIsFollowing(true);
+                                    } else {
+                                        setIsFollowing(false);
                                     }
                                 });
                         }
