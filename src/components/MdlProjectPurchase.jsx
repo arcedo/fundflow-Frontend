@@ -46,8 +46,16 @@ function MdlProjectPurchase({ onClose, tier, project, setProject, userStats, set
     }
 
     const handleAmountChange = (event) => {
-        setAmount(event.target.value);
-        setSelectedTier(null);
+        if (event.target.value.length > 9) {
+            setError('');
+            // setTimeout(() => {
+            //     setError('');
+            // }, 2000);
+            return;
+        } else {
+            setAmount(event.target.value);
+            setSelectedTier(null);
+        }
     }
 
     const handleCollaboratorApplication = async () => {
@@ -91,20 +99,24 @@ function MdlProjectPurchase({ onClose, tier, project, setProject, userStats, set
                         )}
                     </div>
                     {!tier && (
-                        <div className="flex flex-col lg:flex-row gap-3 lg:gap-0 lg:justify-between lg:items-center">
-                            <div className="flex items-center gap-2">
-                                <input
-                                    type="number"
-                                    min={0}
-                                    step={0.01}
-                                    className={`lg:w-64 font-dmsans rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200 ${error && 'border-red-600 text-red-600 animate-shake'}`}
-                                    placeholder="0.00"
-                                    onChange={handleAmountChange}
-                                    disabled={selectedTier !== null}
-                                />
-                                <p className="text-black text-2xl font-md font-dmsans opacity-70">{project.currency}</p>
+                        <div className="flex flex-col lg:flex-row gap-3 lg:gap-0 lg:justify-between lg:items-start">
+                            <div className="flex flex-col items-end">
+                                <div className="flex items-center gap-2">
+                                    <input
+                                        type="number"
+                                        min={0}
+                                        step={0.01}
+                                        className={`lg:w-64 font-dmsans rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200 ${error && 'border-red-600 text-red-600 animate-shake'}`}
+                                        placeholder="0.00"
+                                        onChange={handleAmountChange}
+                                        value={amount}
+                                        disabled={selectedTier !== null}
+                                    />
+                                    <p className="text-black text-2xl font-md font-dmsans opacity-70">{project.currency}</p>
+                                </div>
+                                <p className={`text-right font-dmsans text-md mr-7 ${amount.length > 9 ? 'text-red-500' : 'text-black text-opacity-70'}`}>{amount.length}/9</p>
                             </div>
-                            <p className="text-black font-bold font-dmsans opacity-70">or</p>
+                            <p className="text-black font-bold font-dmsans opacity-70 text-center lg:text-left lg:mt-2">or</p>
                             <select
                                 className={`font-dmsans w-64 rounded-lg focus:outline-none bg-white px-2.5 py-2 border border-gray-500 border-opacity-30 outline-none focus:border-opacity-80 transition-all duration-200 ${error && 'border-red-600 text-red-600 animate-shake'}`}
                                 onChange={handleTierChange}
