@@ -58,9 +58,7 @@ function MdlProjectPurchase({ onClose, tier, project, setProject, userStats, set
                         .then((stats) => {
                             setProject({ ...project, stats, percentageDone: (stats.collaborators / project.collGoal) * 100 });
                             setUserStats({ ...userStats, collaborator: true });
-                            setTimeout(() => {
-                                onClose();
-                            }, 2000);
+                            onClose();
                         });
                 }
             });
