@@ -111,8 +111,8 @@ function ProjectSection({ project, editMode, setProject, userStats, setUserStats
                     </div>
                     <div className="w-4/12 hidden sm:flex justify-end gap-8">
                         {remainingHours > 0 ?
-                            <button onClick={openProjectPurchaseModal} className="py-1 px-4 h-8 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Contribute</button>
-                        :
+                            (userStats && userStats.collaborator ? <p className="text-black font-dmsans font-semibold text-lg text-opacity-70">Already in</p> : <button onClick={openProjectPurchaseModal} className="py-1 px-4 h-8 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Contribute</button>)
+                            :
                             <p className="text-black font-dmsans font-semibold text-lg text-opacity-70">This project has ended</p>}
                         <div className="flex gap-6">
                             <button onClick={() => evaluateProject('likes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="bg-transparent h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
