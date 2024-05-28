@@ -7,7 +7,7 @@ import MdlCreateTier from "./MdlCreateProjectTier";
 import cross from '../assets/icons/cross.svg'
 import { deleteProjectTier } from "../services";
 
-function ProjectTiers({ project, editMode, setProject }) {
+function ProjectTiers({ project, editMode, setProject, remainingHours }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
     const [selectedTier, setSelectedTier] = useState(null);
@@ -88,7 +88,7 @@ function ProjectTiers({ project, editMode, setProject }) {
                                             <h4 className="text-black font-dmsans font-semibold text-opacity-70">{tier && tier.title}</h4>
                                             <p className="text-black font-dmsans font-bold text-3xl">{tier && tier.price}{project.currency}</p>
                                         </div>
-                                        <button onClick={() => openProjectPurchaseModal(tier, project)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> {/* Pass tier object when button is clicked */}
+                                        {remainingHours > 0 ? <button onClick={() => openProjectPurchaseModal(tier, project)} className="py-2 text-white font-dmsans font-semibold bg-gradient-to-r from-primary to-secondary opacity-80 rounded-lg hover:opacity-100 transition-all duration-200">Select</button> : <p className="text-black font-dmsans font-semibold text-md text-center text-opacity-70 py-2 bg-gray-300 rounded-lg">This project has ended</p>}
                                         <div className="h-36 overflow-y-auto">
                                             <p className="text-black font-dmsans font-normal text-opacity-75">{tier && tier.description}</p>
                                         </div>

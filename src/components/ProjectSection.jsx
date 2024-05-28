@@ -11,7 +11,7 @@ import ProjectBlogs from "./ProjectBlogs";
 import evaluateProject from "../helpers/evaluateProject";
 import ProjectFeedback from "./ProjectFeedback";
 
-function ProjectSection({ project, editMode, setProject, userStats, setUserStats }) {
+function ProjectSection({ project, editMode, setProject, userStats, setUserStats, remainingHours }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const [showProjectPurchaseModal, setShowProjectPurchaseModal] = useState(false);
 
@@ -56,7 +56,7 @@ function ProjectSection({ project, editMode, setProject, userStats, setUserStats
                 return <ProjectAbout project={project} editMode={editMode} />;
             case "tiers":
                 if (project.collGoal === null) {
-                    return <ProjectTiers project={project} editMode={editMode} setProject={setProject} />;
+                    return <ProjectTiers project={project} editMode={editMode} setProject={setProject} remainingHours={remainingHours} />;
                 }
             case "blog":
                 return <ProjectBlogs project={project} editMode={editMode} setProject={setProject} />;
@@ -110,7 +110,10 @@ function ProjectSection({ project, editMode, setProject, userStats, setUserStats
                         </button> */}
                     </div>
                     <div className="w-4/12 hidden sm:flex justify-end gap-8">
-                        <button onClick={openProjectPurchaseModal} className="py-1 px-4 h-8 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Contribute</button>
+                        {remainingHours > 0 ?
+                            <button onClick={openProjectPurchaseModal} className="py-1 px-4 h-8 bg-gradient-to-r from-primary to-secondary border-none bg-opacity-50 rounded-lg text-white font-dmsans font-bold">Contribute</button>
+                        :
+                            <p className="text-black font-dmsans font-semibold text-lg text-opacity-70">This project has ended</p>}
                         <div className="flex gap-6">
                             <button onClick={() => evaluateProject('likes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="bg-transparent h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.like ? '' : 'grayscale group-hover:grayscale-0'}`} src={likeInteract} alt="likes" />{project && project.stats && project.stats.likes ? project.stats.likes : 0}</button>
                             <button onClick={() => evaluateProject('dislikes', openLoginNeededModal, openVerifyUserModal, setProject, project, setUserStats, userData, userStats)} className="bg-transparent h-8 text-black text-opacity-60 text-lg font-dmsans font-bold flex gap-2 items-center group"><img className={`h-7 transition-all duration-300 ${userStats && userStats.dislike ? '' : 'opacity-40 group-hover:opacity-100'} -rotate-180`} src={dislike} alt="dislikes" />{project && project.stats && project.stats.dislikes ? project.stats.dislikes : 0}</button>

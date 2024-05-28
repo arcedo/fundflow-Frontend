@@ -17,6 +17,12 @@ function Project() {
     const [userStats, setUserStats] = useState({});
     const userData = JSON.parse(localStorage.getItem('userData'));
 
+    let today = new Date();
+    let deadline = new Date(project.deadlineDate);
+    const timeDiff = deadline.getTime() - today.getTime();
+    const hoursDiff = Math.ceil(timeDiff / (1000 * 60 * 60));
+    const remainingHours = hoursDiff > 0 ? hoursDiff : 0;
+
     const fetchData = async () => {
         try {
             await getFullProject(projectUrl)
@@ -67,7 +73,7 @@ function Project() {
         <div className="w-full bg-gray-200 min-h-screen overflow-hidden h-fit flex flex-col gap-10">
             <Header categoriesDisabled={true} />
             <div className="relative flex flex-col items-center justify-center gap-10 mt-20">
-                <ProjectDetails project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} />
+                <ProjectDetails project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} remainingHours={remainingHours}/>
                 {!editMode && project && userData && project.userUrl === userData.userUrl ? <Link to={`/projects/${project.projectUrl}/edit`} className="fixed top-20 right-0 m-8 z-20 bg-gradient-to-r from-primary to-secondary rounded-full group">
                     <div className="flex justify-center items-center p-3 bg-white shadow-xl border-none rounded-full group-hover:scale-90 transition-all duration-200">
                         <img className="h-8" src={edit} alt="edit button" />
@@ -79,7 +85,7 @@ function Project() {
                     </div>
                 </Link> : null}
                 <ProjectGallery project={project} editMode={editMode} setProject={setProject} />
-                <ProjectSection project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} />
+                <ProjectSection project={project} editMode={editMode} setProject={setProject} userStats={userStats} setUserStats={setUserStats} remainingHours={remainingHours}/>
             </div>
             <Footer />
         </div>

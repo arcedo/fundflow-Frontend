@@ -13,15 +13,9 @@ import { statsInteraction, getProjectStats, getProjectStatsFromUser } from "../s
 import image from "../assets/icons/image.svg";
 import evaluateProject from "../helpers/evaluateProject";
 
-function ProjectDetails({ project, editMode, setProject, userStats, setUserStats }) {
+function ProjectDetails({ project, editMode, setProject, userStats, setUserStats, remainingHours }) {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const projectType = (project.priceGoal ? 'funds' : 'collab');
-
-    let today = new Date();
-    let deadline = new Date(project.deadlineDate);
-    const timeDiff = deadline.getTime() - today.getTime();
-    const hoursDiff = Math.ceil(timeDiff / (1000 * 60 * 60));
-    const remainingHours = hoursDiff > 0 ? hoursDiff : 0;
 
     const [showEditProjectDetailsModal, setShowEditProjectDetailsModal] = useState(false);
 
